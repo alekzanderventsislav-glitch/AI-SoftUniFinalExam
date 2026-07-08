@@ -219,4 +219,4 @@ async function initRecepti() {
   await loadData();
 }
 
-initPage(initRecepti);
+initPage(initRecepti, { requireAuth: true });

@@ -9,76 +9,142 @@
 <body>
   <div id="navbar"></div>
   <main class="container py-4">
-    <section class="hero-section p-4 p-md-5 mb-4">
-      <h1 class="display-5 fw-bold">Добре дошли в Здравословен Живот</h1>
-      <p class="lead mb-4">Вашият портал за балансирано хранене, активен начин на живот и здравословни навици.</p>
-      <a href="/recepti.html" class="btn btn-light me-2"><i class="bi bi-journal-richtext"></i> Разгледай рецепти</a>
-      <a href="/trenirovki.html" class="btn btn-outline-light"><i class="bi bi-lightning"></i> Започни тренировка</a>
+
+    <section id="guestHome">
+      <section class="hero-section p-4 p-md-5 mb-4">
+        <h1 class="display-5 fw-bold">Добре дошли в Здравословен Живот</h1>
+        <p class="lead mb-4">Вашият портал за балансирано хранене, активен начин на живот и устойчиви здравословни навици.</p>
+        <p class="mb-4 opacity-75">
+          Тук ще откриете инструменти за проследяване на храненето, идеи за тренировки, споделени рецепти и личен профил с цели за калории и вода.
+          Създайте акаунт, за да отключите пълния достъп до всички секции.
+        </p>
+        <a href="/login.html" class="btn btn-light me-2"><i class="bi bi-box-arrow-in-right"></i> Вход</a>
+        <a href="/register.html" class="btn btn-outline-light"><i class="bi bi-person-plus"></i> Регистрация</a>
+      </section>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+          <div class="card h-100">
+            <div class="card-body d-flex gap-3">
+              <i class="bi bi-lightbulb fs-3 text-warning"></i>
+              <div>
+                <h5 class="card-title">Съвет за деня</h5>
+                <p class="card-text text-muted mb-0" id="dailyTip">Зареждане...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 border-success border-opacity-25">
+            <div class="card-body text-center">
+              <i class="bi bi-heart-pulse text-success fs-3"></i>
+              <h5 class="mt-2">Защо здравословният живот?</h5>
+              <p class="text-muted small mb-0">По-добра енергия, по-силен имунитет и устойчиви навици всеки ден.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title text-success"><i class="bi bi-egg-fried"></i> Защо е важно здравословното хранене?</h5>
+              <p class="card-text text-muted small mb-0">
+                Балансираното хранене осигурява на тялото нужните витамини, минерали и енергия.
+                Когато избираме качествени храни и следим приема си, подобряваме концентрацията, настроението и възстановяването след натоварване.
+                Порталът ви помага да разбирате хранителните стойности и да вземате по-осъзнати решения всеки ден.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title text-success"><i class="bi bi-lightning"></i> Защо са важни тренировките?</h5>
+              <p class="card-text text-muted small mb-0">
+                Редовната физическа активност укрепва мускулите, подобрява издръжливостта и подпомага контрола на теглото.
+                Дори кратки тренировки няколко пъти седмично намаляват стреса и повишават увереността.
+                След вход ще можете да избирате програми според нивото и целта си – отслабване, сила или издръжливост.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <div class="row g-4 mb-4">
-      <div class="col-lg-8">
-        <div class="card h-100">
-          <div class="card-body d-flex gap-3">
-            <i class="bi bi-lightbulb fs-3 text-warning"></i>
-            <div>
-              <h5 class="card-title">Съвет за деня</h5>
-              <p class="card-text text-muted mb-0" id="dailyTip">Зареждане...</p>
+    <div id="memberHome" class="d-none">
+      <section class="hero-section p-4 p-md-5 mb-4">
+        <h1 class="display-5 fw-bold">Добре дошли в Здравословен Живот</h1>
+        <p class="lead mb-4">Вашият портал за балансирано хранене, активен начин на живот и здравословни навици.</p>
+        <a href="/recepti.html" class="btn btn-light me-2"><i class="bi bi-journal-richtext"></i> Разгледай рецепти</a>
+        <a href="/trenirovki.html" class="btn btn-outline-light"><i class="bi bi-lightning"></i> Започни тренировка</a>
+      </section>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+          <div class="card h-100">
+            <div class="card-body d-flex gap-3">
+              <i class="bi bi-lightbulb fs-3 text-warning"></i>
+              <div>
+                <h5 class="card-title">Съвет за деня</h5>
+                <p class="card-text text-muted mb-0" id="memberDailyTip">Зареждане...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <i class="bi bi-graph-up text-success fs-3"></i>
+              <h5 class="mt-2">Бърза статистика</h5>
+              <p class="text-muted small mb-0">30 храни · 8 тренировки</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="card h-100 text-center">
-          <div class="card-body">
-            <i class="bi bi-graph-up text-success fs-3"></i>
-            <h5 class="mt-2">Бърза статистика</h5>
-            <p class="text-muted small mb-0">30 храни · 8 тренировки</p>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <span><i class="bi bi-fire text-warning"></i> Калории днес</span>
+                <small class="text-muted" id="caloriesText">0 / 2000 kcal</small>
+              </div>
+              <div class="progress progress-calories" style="height:10px">
+                <div class="progress-bar" id="caloriesBar" style="width:0%"></div>
+              </div>
+              <div class="mt-3 d-flex gap-2 flex-wrap">
+                <button class="btn btn-sm btn-outline-warning" data-add-cal="100">+100</button>
+                <button class="btn btn-sm btn-outline-warning" data-add-cal="250">+250</button>
+                <button class="btn btn-sm btn-outline-warning" data-add-cal="500">+500</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <span><i class="bi bi-droplet text-primary"></i> Вода днес</span>
+                <small class="text-muted" id="waterText">0 / 8 чаши</small>
+              </div>
+              <div class="progress progress-water" style="height:10px">
+                <div class="progress-bar" id="waterBar" style="width:0%"></div>
+              </div>
+              <button class="btn btn-sm btn-outline-primary mt-3" id="addWaterBtn"><i class="bi bi-plus"></i> Добави чаша</button>
+            </div>
           </div>
         </div>
       </div>
+
+      <h3 class="mb-3">Препоръчани рецепти</h3>
+      <div class="row g-4 mb-5" id="featuredRecipes"></div>
+
+      <h3 class="mb-3">Популярни тренировки</h3>
+      <div class="row g-4" id="featuredWorkouts"></div>
     </div>
-
-    <div class="row g-4 mb-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <span><i class="bi bi-fire text-warning"></i> Калории днес</span>
-              <small class="text-muted" id="caloriesText">0 / 2000 kcal</small>
-            </div>
-            <div class="progress progress-calories" style="height:10px">
-              <div class="progress-bar" id="caloriesBar" style="width:0%"></div>
-            </div>
-            <div class="mt-3 d-flex gap-2 flex-wrap">
-              <button class="btn btn-sm btn-outline-warning" data-add-cal="100">+100</button>
-              <button class="btn btn-sm btn-outline-warning" data-add-cal="250">+250</button>
-              <button class="btn btn-sm btn-outline-warning" data-add-cal="500">+500</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <span><i class="bi bi-droplet text-primary"></i> Вода днес</span>
-              <small class="text-muted" id="waterText">0 / 8 чаши</small>
-            </div>
-            <div class="progress progress-water" style="height:10px">
-              <div class="progress-bar" id="waterBar" style="width:0%"></div>
-            </div>
-            <button class="btn btn-sm btn-outline-primary mt-3" id="addWaterBtn"><i class="bi bi-plus"></i> Добави чаша</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h3 class="mb-3">Препоръчани рецепти</h3>
-    <div class="row g-4 mb-5" id="featuredRecipes"></div>
-
-    <h3 class="mb-3">Популярни тренировки</h3>
-    <div class="row g-4" id="featuredWorkouts"></div>
   </main>
   <div id="footer"></div>
   <script type="module" src="/src/js/pages/home.js"></script>

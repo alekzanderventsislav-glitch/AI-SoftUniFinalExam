@@ -19,17 +19,7 @@ async function initProfil() {
   }
 
   const user = await getCurrentUser();
-  if (!user) {
-    content.innerHTML = `
-      <div class="text-center py-5">
-        <i class="bi bi-person-circle display-1 text-success"></i>
-        <h2 class="mt-3">Профил</h2>
-        <p class="text-muted">Влезте, за да управлявате целите и любимите си.</p>
-        <a href="/login.html" class="btn btn-success me-2">Вход</a>
-        <a href="/register.html" class="btn btn-outline-success">Регистрация</a>
-      </div>`;
-    return;
-  }
+  if (!user) return;
 
   const profile = await fetchProfile(user.id);
   const favorites = await fetchFavorites(user.id);
@@ -106,4 +96,4 @@ async function initProfil() {
   });
 }
 
-initPage(initProfil);
+initPage(initProfil, { requireAuth: true });
