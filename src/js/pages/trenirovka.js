@@ -72,4 +72,4 @@ async function initTrenirovka() {
   }
 }
 
-initPage(initTrenirovka);
+initPage(initTrenirovka, { requireAuth: true });

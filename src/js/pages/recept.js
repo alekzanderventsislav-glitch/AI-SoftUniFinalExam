@@ -71,4 +71,4 @@ async function initRecept() {
   }
 }
 
-initPage(initRecept);
+initPage(initRecept, { requireAuth: true });

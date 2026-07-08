@@ -99,4 +99,4 @@ async function initTrenirovki() {
   renderWorkouts();
 }
 
-initPage(initTrenirovki);
+initPage(initTrenirovki, { requireAuth: true });

@@ -1,15 +1,11 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
-import { requireAdmin } from '../auth.js';
 import { fetchAllRecipesAdmin, deleteRecipe } from '../services/recipes.js';
 import { fetchAllProfilesAdmin, setUserRole } from '../services/profiles.js';
 import { showToast } from '../components/toast.js';
 
 async function initAdmin() {
-  const session = await requireAdmin();
-  if (!session) return;
-
   const [recipes, profiles] = await Promise.all([
     fetchAllRecipesAdmin(),
     fetchAllProfilesAdmin(),
@@ -61,4 +57,4 @@ async function initAdmin() {
   });
 }
 
-initPage(initAdmin);
+initPage(initAdmin, { requireAdmin: true });

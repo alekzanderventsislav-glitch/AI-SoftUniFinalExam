@@ -69,4 +69,4 @@ async function initHrani() {
   renderFoods();
 }
 
-initPage(initHrani);
+initPage(initHrani, { requireAuth: true });
