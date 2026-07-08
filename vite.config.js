@@ -1,10 +1,25 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()],
   server: {
     port: 5173,
     open: true,
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        login: resolve(__dirname, 'login.html'),
+        register: resolve(__dirname, 'register.html'),
+        hrani: resolve(__dirname, 'hrani.html'),
+        trenirovki: resolve(__dirname, 'trenirovki.html'),
+        trenirovka: resolve(__dirname, 'trenirovka.html'),
+        recepti: resolve(__dirname, 'recepti.html'),
+        recept: resolve(__dirname, 'recept.html'),
+        profil: resolve(__dirname, 'profil.html'),
+        admin: resolve(__dirname, 'admin.html'),
+      },
+    },
   },
 });

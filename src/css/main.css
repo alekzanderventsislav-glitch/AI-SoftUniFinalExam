@@ -1,0 +1,90 @@
+:root {
+  --zl-primary: #198754;
+  --zl-primary-dark: #146c43;
+  --zl-bg: #f8fdf9;
+}
+
+body {
+  background-color: var(--zl-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.navbar-brand .bi-leaf {
+  font-size: 1.4rem;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+  border-radius: 1rem;
+  color: #fff;
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1.5rem rgba(25, 135, 84, 0.15);
+}
+
+.recipe-card img,
+.workout-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.badge-filter {
+  cursor: pointer;
+}
+
+.badge-filter.active {
+  background-color: var(--zl-primary) !important;
+  color: #fff !important;
+}
+
+.toast-container-zl {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1080;
+}
+
+.progress-calories .progress-bar {
+  background: linear-gradient(90deg, #fd7e14, #ffc107);
+}
+
+.progress-water .progress-bar {
+  background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+}
+
+.table-foods th {
+  background-color: #d1e7dd;
+}
+
+.admin-badge {
+  font-size: 0.7rem;
+  vertical-align: middle;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.favorite-btn.active {
+  color: #dc3545;
+}
+
+.favorite-btn.active .bi-heart {
+  fill: currentColor;
+}
+
+.supabase-warning {
+  border-left: 4px solid #ffc107;
+}

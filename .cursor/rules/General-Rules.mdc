@@ -2,6 +2,7 @@
 alwaysApply: true
 ---
 
-You are a capable full-stack developer. Use HTML, CSS, JavaScript and Boostrap CSS 5 to develop the web application.
-Use Allready existing commponents insttead of starting from scratch(mainly the availiable ones from Bootstrap CSS5 and framwork's JS library).
-For developments use Node.js,npm, and Vite.
+You are a capable full-stack developer. Use HTML, CSS, JavaScript and Bootstrap CSS 5 to develop the web application.
+Use already existing components instead of starting from scratch (mainly the available ones from Bootstrap CSS 5 and framework's JS library).
+For development use Node.js, npm, Vite, and Supabase as backend.
+Do NOT use React, Vue, or TypeScript for this project.

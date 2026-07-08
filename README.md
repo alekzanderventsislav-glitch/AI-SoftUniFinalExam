@@ -1,49 +1,143 @@
-# Здравословен Живот
+# Здравословен Живот – Capstone Project
 
-Многостранично React приложение за здравословен начин на живот, хранене и фитнес.
+Портал за здравословен начин на живот, хранене и фитнес на български език.
 
-## Технологии
+## Описание
 
-- **React 19** + **Vite 6**
-- **Tailwind CSS 3**
-- **React Router 7**
-- **Lucide React** (икони)
-- **localStorage** за персистентност на данни
+**Здравословен Живот** позволява на потребителите да:
+- Разглеждат каталог с хранителни стойности
+- Избират тренировъчни програми по ниво и цел
+- Качват и споделят рецепти с изображения
+- Запазват любими рецепти и тренировки
+- Настройват дневни калорийни и макро цели
+- **Админи** управляват всички рецепти и потребителски роли
 
-## Инсталация и стартиране
+## Архитектура
 
-```bash
-# 1. Инсталирайте зависимостите
-npm install
+| Слой | Технология |
+|------|------------|
+| Frontend | HTML5, CSS3, JavaScript (ES modules), Bootstrap 5 |
+| Build | Node.js, npm, Vite (multi-page app) |
+| Backend | Supabase (PostgreSQL, Auth, Storage, REST API) |
+| Auth | Supabase Auth (JWT), роли: `user` / `admin` |
+| Security | Row-Level Security (RLS) policies |
 
-# 2. Стартирайте development сървъра
-npm run dev
-
-# 3. Production build
-npm run build
-npm run preview
+```
+Browser (HTML pages)
+    ↓ Supabase JS Client
+Supabase REST API
+    ├── Auth (JWT)
+    ├── PostgreSQL (profiles, user_roles, recipes, favorites)
+    └── Storage (recipe-images bucket)
 ```
 
-Приложението ще се отвори на `http://localhost:5173`.
+## База данни (4 таблици)
+
+```
+auth.users ──┬── profiles (1:1)
+             ├── user_roles (1:N) – RBAC
+             ├── recipes (1:N) – author_id
+             └── favorites (1:N) – user_id
+```
+
+| Таблица | Описание |
+|---------|----------|
+| `profiles` | Потребителски профил, макро цели, аватар |
+| `user_roles` | Роли: `user` или `admin` |
+| `recipes` | Рецепти със съставки, стъпки, макроси, снимка |
+| `favorites` | Любими рецепти и тренировки |
+
+Миграциите са в `supabase/migrations/`.
+
+## Локална инсталация
+
+### 1. Клониране и зависимости
+
+```bash
+git clone <your-repo-url>
+cd AI-SoftUniFinalExam
+npm install
+```
+
+### 2. Supabase проект
+
+1. Създайте проект на [supabase.com](https://supabase.com)
+2. В SQL Editor изпълнете `supabase/migrations/20260708120000_initial_schema.sql`
+3. Копирайте `.env.example` → `.env` и попълнете:
+   ```
+   VITE_SUPABASE_URL=https://xxx.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   ```
+
+### 3. Admin акаунт
+
+1. Създайте потребител в Supabase **Authentication → Users** (с **Auto Confirm User**)
+   или регистрирайте се на `/register.html`
+2. Направете го админ (заменете имейла):
+
+```sql
+UPDATE public.user_roles
+SET role = 'admin'
+WHERE user_id = (
+  SELECT id FROM auth.users WHERE email = 'admin@zdravosloven.bg'
+);
+```
+
+3. За изпитния жури – добавете тестови данни в README (имейл/парола на admin акаунта).
+
+### 4. Стартиране
+
+```bash
+npm run dev      # http://localhost:5173
+npm run build    # production build
+npm run preview  # preview build
+```
 
 ## Страници
 
-| Път | Описание |
-|-----|----------|
-| `/` | Начало – dashboard със съвети, калории/вода, препоръки |
-| `/hrani` | Каталог на храните с търсене и филтри |
-| `/trenirovki` | Библиотека с тренировки |
-| `/recepti` | Споделени рецепти с CRUD и качване на изображения |
-| `/profil` | Потребителски профил, цели и любими |
-| `/login` | Вход |
-| `/register` | Регистрация |
+| Файл | Описание |
+|------|----------|
+| `index.html` | Начало / dashboard |
+| `login.html` | Вход |
+| `register.html` | Регистрация |
+| `hrani.html` | Каталог на храните |
+| `trenirovki.html` | Списък тренировки |
+| `trenirovka.html` | Детайл на тренировка |
+| `recepti.html` | Рецепти + качване |
+| `recept.html` | Детайл на рецепта |
+| `profil.html` | Профил и любими |
+| `admin.html` | Админ панел |
 
-## Функционалности
+## Ключови папки
 
-- Mock автентикация (регистрация/вход с localStorage)
-- Пълен CRUD за потребителски рецепти
-- Любими рецепти и тренировки
-- Търсене и филтриране на всички каталози
-- Качване на изображения (base64) или URL
-- Toast известия при действия
-- Responsive дизайн с мобилно меню
+```
+├── *.html                  # Отделни HTML страници (MPA)
+├── src/
+│   ├── css/                # Bootstrap + custom стилове
+│   └── js/
+│       ├── supabaseClient.js
+│       ├── auth.js
+│       ├── components/     # Navbar, footer, toast
+│       ├── services/       # Recipes, profiles, favorites, storage
+│       ├── data/           # Статични данни (храни, тренировки)
+│       └── pages/          # JS логика за всяка страница
+├── supabase/migrations/    # SQL миграции (commit-нати в Git)
+└── .github/copilot-instructions.md
+```
+
+## Deployment
+
+Deploy на Netlify или Vercel:
+1. Свържете GitHub repo
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Добавете env variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+
+## Тестови данни (за жури)
+
+Попълнете с вашия работещ admin акаунт:
+
+| Поле | Стойност |
+|------|----------|
+| Имейл | `admin@zdravosloven.bg` |
+| Парола | `Admin123` |
