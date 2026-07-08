@@ -1,7 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+function readRuntimeEnv() {
+  if (typeof window === 'undefined') return {};
+  return window.__SUPABASE_ENV__ || {};
+}
+
+const runtimeEnv = readRuntimeEnv();
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || runtimeEnv.url || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || runtimeEnv.anonKey || '';
 
 function isSecretKey(key) {
   if (!key || typeof key !== 'string') return false;
@@ -34,7 +40,9 @@ export function getSupabaseOrThrow() {
   }
   if (!supabase) {
     throw new Error(
-      'Supabase не е конфигуриран. Копирайте .env.example в .env и попълнете ключовете.'
+      import.meta.env.PROD
+        ? 'Supabase не е конфигуриран. В Netlify/Telify задайте VITE_SUPABASE_URL и VITE_SUPABASE_ANON_KEY и направете нов deploy.'
+        : 'Supabase не е конфигуриран. Копирайте .env.example в .env и попълнете ключовете.'
     );
   }
   return supabase;
