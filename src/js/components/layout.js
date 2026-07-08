@@ -72,7 +72,10 @@ export async function renderLayout() {
       <div class="container mt-3">
         <div class="alert alert-warning supabase-warning mb-0">
           <i class="bi bi-exclamation-triangle"></i>
-          Supabase не е конфигуриран. Копирайте <code>.env.example</code> в <code>.env</code> и попълнете ключовете.
+          Supabase не е конфигуриран.
+          ${import.meta.env.PROD
+            ? 'В Netlify/Telify добавете <code>VITE_SUPABASE_URL</code> и <code>VITE_SUPABASE_ANON_KEY</code> в Environment variables и направете нов deploy.'
+            : 'Копирайте <code>.env.example</code> в <code>.env</code> и попълнете ключовете.'}
         </div>
       </div>` : ''}
   `;

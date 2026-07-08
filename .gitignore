@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+public/supabase-env.js
 
 # Editor directories and files
 .vscode/*
