@@ -4,20 +4,21 @@ import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { workouts as staticWorkouts, DIFFICULTY_LEVELS, WORKOUT_GOALS, getDifficultyLabel, getGoalLabel } from '../data/workouts.js';
 import { fetchUserWorkouts, createUserWorkout, updateUserWorkout, deleteUserWorkout } from '../services/workouts.js';
-import { getCurrentUser } from '../auth.js';
+import { getCurrentUser, isAdmin } from '../auth.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { uploadWorkoutImage, validateImageFile } from '../services/storage.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveWorkoutImage, workoutImgOnError, escapeHtml, getQueryParam } from '../utils/helpers.js';
+import { resolveWorkoutImage, workoutImgOnError, escapeHtml, getQueryParam, canManageContent } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
-let allWorkouts = [...staticWorkouts];
+let allWorkouts = [];
 let difficulty = 'all';
 let goal = 'all';
 let searchTerm = '';
 let showFavoritesOnly = false;
 let favorites = [];
 let user = null;
+let userIsAdmin = false;
 let editingId = null;
 let pendingDeleteId = null;
 let workoutModal = null;
@@ -110,7 +111,7 @@ function renderWorkouts() {
 
   document.getElementById('workoutGrid').innerHTML = filtered.map((w) => {
     const fav = user && isFavorited(favorites, 'workout', w.id);
-    const isOwner = user && w.isUserCreated && w.author_id === user.id;
+    const canManage = w.isUserCreated && canManageContent(user, w.author_id, userIsAdmin);
     const visibilityBadge = w.isUserCreated && !w.is_public
       ? '<span class="badge bg-secondary-subtle text-secondary">Лична</span>'
       : w.isUserCreated
@@ -136,7 +137,7 @@ function renderWorkouts() {
           <div class="text-muted small"><i class="bi bi-clock"></i> ${w.duration} мин · <i class="bi bi-fire text-warning"></i> ${w.calories} kcal · <i class="bi bi-list-ol"></i> ${(w.exercises || []).length} упр.</div>
           ${w.authorName ? `<div class="text-muted small mt-1">от ${w.authorName}</div>` : ''}
         </div>
-        ${isOwner ? `
+        ${canManage ? `
         <div class="card-footer bg-white d-flex gap-2">
           <button type="button" class="btn btn-sm btn-outline-success flex-fill" data-edit="${w.id}"><i class="bi bi-pencil"></i> Редактирай</button>
           <button type="button" class="btn btn-sm btn-outline-danger flex-fill" data-delete="${w.id}"><i class="bi bi-trash"></i> Изтрий</button>
@@ -190,8 +191,13 @@ function openForm(id = null) {
 
   if (id) {
     const workout = findWorkout(id);
-    if (!workout?.isUserCreated) {
-      showToast('Само вашите тренировки могат да се редактират.', 'error');
+    if (!workout) {
+      showToast('Тренировката не беше намерена.', 'error');
+      editingId = null;
+      return;
+    }
+    if (!canManageContent(user, workout.author_id, userIsAdmin)) {
+      showToast('Нямате права за редакция на тази тренировка.', 'error');
       editingId = null;
       return;
     }
@@ -218,12 +224,16 @@ function openForm(id = null) {
 }
 
 async function loadData() {
-  allWorkouts = [...staticWorkouts];
+  allWorkouts = [];
   if (isSupabaseConfigured) {
     try {
       const userWorkouts = await fetchUserWorkouts();
-      allWorkouts = [...staticWorkouts, ...userWorkouts];
-    } catch { /* keep static only */ }
+      allWorkouts = userWorkouts.length ? userWorkouts : [...staticWorkouts];
+    } catch {
+      allWorkouts = [...staticWorkouts];
+    }
+  } else {
+    allWorkouts = [...staticWorkouts];
   }
   if (user) favorites = await fetchFavorites(user.id);
   renderWorkouts();
@@ -232,6 +242,7 @@ async function loadData() {
 async function initTrenirovki() {
   if (isSupabaseConfigured) {
     user = await getCurrentUser();
+    userIsAdmin = user ? await isAdmin() : false;
   }
 
   const uploadBtn = document.getElementById('showFormBtn');

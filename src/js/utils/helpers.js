@@ -8,6 +8,19 @@ export function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+export function getAuthorDisplayName(fullName, role) {
+  const trimmed = typeof fullName === 'string' ? fullName.trim() : '';
+  if (trimmed) return trimmed;
+  if (role === 'admin') return 'Админ';
+  return 'Потребител';
+}
+
+export function canManageContent(user, authorId, isAdmin) {
+  if (!user) return false;
+  if (isAdmin) return true;
+  return Boolean(authorId && user.id === authorId);
+}
+
 export const IMAGE_FALLBACKS = {
   recipe: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop',
   workout: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop',
@@ -19,14 +32,36 @@ export function resolveImage(url, fallback) {
   return trimmed || fallback || IMAGE_FALLBACKS.recipe;
 }
 
-const BROKEN_RECIPE_IMAGE_IDS = ['photo-1517673400267'];
-const OATMEAL_RECIPE_IMAGE = 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=800&h=500&fit=crop';
+const RECIPE_IMAGE_REPLACEMENTS = {
+  'photo-1517673400267': 'https://images.unsplash.com/photo-1550461716-dbf266b2a8a7?w=800&h=500&fit=crop',
+  'photo-1528207776546': 'https://images.unsplash.com/photo-1550461716-dbf266b2a8a7?w=800&h=500&fit=crop',
+  'photo-1512621776951': 'https://images.unsplash.com/photo-1763000215238-38350d3e41ac?w=800&h=500&fit=crop',
+  'photo-1604908176997': 'https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=800&h=500&fit=crop',
+  'photo-1540189549336': 'https://images.unsplash.com/photo-1745126010010-da1c6f5300a9?w=800&h=500&fit=crop',
+  'photo-1606313564200': 'https://images.unsplash.com/photo-1678554500191-3885a6fbf8c2?w=800&h=500&fit=crop',
+};
 
-export function resolveRecipeImage(url) {
+const OMELET_RECIPE_TITLE = 'Омлет със спанак и извара';
+const OMELET_RECIPE_IMAGE = 'https://images.unsplash.com/photo-1754894992043-d51f1d75ea3b?w=800&h=500&fit=crop';
+const BROKEN_OMELET_IMAGE_IDS = ['photo-1525351484163', 'photo-1612929633738'];
+
+export function resolveRecipeImage(url, title = '') {
   const trimmed = typeof url === 'string' ? url.trim() : '';
-  if (BROKEN_RECIPE_IMAGE_IDS.some((id) => trimmed.includes(id))) {
-    return OATMEAL_RECIPE_IMAGE;
+  const recipeTitle = typeof title === 'string' ? title.trim() : '';
+
+  if (
+    recipeTitle === OMELET_RECIPE_TITLE
+    && (!trimmed || BROKEN_OMELET_IMAGE_IDS.some((id) => trimmed.includes(id)))
+  ) {
+    return OMELET_RECIPE_IMAGE;
   }
+
+  for (const [photoId, replacement] of Object.entries(RECIPE_IMAGE_REPLACEMENTS)) {
+    if (trimmed.includes(photoId)) {
+      return replacement;
+    }
+  }
+
   return resolveImage(url, IMAGE_FALLBACKS.recipe);
 }
 

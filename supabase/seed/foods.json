@@ -1,0 +1,2392 @@
+[
+  {
+    "slug": "fruits-1",
+    "name": "Ябълка",
+    "category": "fruits",
+    "calories": 52,
+    "protein": 0.3,
+    "carbs": 14,
+    "fat": 0.2,
+    "image_url": "/images/foods/yabalka.jpg"
+  },
+  {
+    "slug": "fruits-2",
+    "name": "Банан",
+    "category": "fruits",
+    "calories": 89,
+    "protein": 1.1,
+    "carbs": 23,
+    "fat": 0.3,
+    "image_url": "/images/foods/banan.jpg"
+  },
+  {
+    "slug": "fruits-3",
+    "name": "Портокал",
+    "category": "fruits",
+    "calories": 47,
+    "protein": 0.9,
+    "carbs": 12,
+    "fat": 0.1,
+    "image_url": "/images/foods/portokal.jpg"
+  },
+  {
+    "slug": "fruits-4",
+    "name": "Ягода",
+    "category": "fruits",
+    "calories": 32,
+    "protein": 0.7,
+    "carbs": 7.7,
+    "fat": 0.3,
+    "image_url": "/images/foods/yagoda.jpg"
+  },
+  {
+    "slug": "fruits-5",
+    "name": "Авокадо",
+    "category": "fruits",
+    "calories": 160,
+    "protein": 2,
+    "carbs": 9,
+    "fat": 15,
+    "image_url": "/images/foods/avokado.jpg"
+  },
+  {
+    "slug": "fruits-6",
+    "name": "Грозде",
+    "category": "fruits",
+    "calories": 69,
+    "protein": 0.7,
+    "carbs": 18,
+    "fat": 0.2,
+    "image_url": "/images/foods/grozde.jpg"
+  },
+  {
+    "slug": "fruits-7",
+    "name": "Круша",
+    "category": "fruits",
+    "calories": 57,
+    "protein": 0.4,
+    "carbs": 15,
+    "fat": 0.1,
+    "image_url": "/images/foods/krusha.jpg"
+  },
+  {
+    "slug": "fruits-8",
+    "name": "Праскова",
+    "category": "fruits",
+    "calories": 39,
+    "protein": 0.9,
+    "carbs": 10,
+    "fat": 0.3,
+    "image_url": "/images/foods/praskova.jpg"
+  },
+  {
+    "slug": "fruits-9",
+    "name": "Слива",
+    "category": "fruits",
+    "calories": 46,
+    "protein": 0.7,
+    "carbs": 11,
+    "fat": 0.3,
+    "image_url": "/images/foods/sliva.jpg"
+  },
+  {
+    "slug": "fruits-10",
+    "name": "Череша",
+    "category": "fruits",
+    "calories": 63,
+    "protein": 1.1,
+    "carbs": 16,
+    "fat": 0.2,
+    "image_url": "/images/foods/cheresha.jpg"
+  },
+  {
+    "slug": "fruits-11",
+    "name": "Диня",
+    "category": "fruits",
+    "calories": 30,
+    "protein": 0.6,
+    "carbs": 8,
+    "fat": 0.2,
+    "image_url": "/images/foods/dinya.jpg"
+  },
+  {
+    "slug": "fruits-12",
+    "name": "Пъпеш",
+    "category": "fruits",
+    "calories": 34,
+    "protein": 0.8,
+    "carbs": 8,
+    "fat": 0.2,
+    "image_url": "/images/foods/papesh.jpg"
+  },
+  {
+    "slug": "fruits-13",
+    "name": "Ананас",
+    "category": "fruits",
+    "calories": 50,
+    "protein": 0.5,
+    "carbs": 13,
+    "fat": 0.1,
+    "image_url": "/images/foods/ananas.jpg"
+  },
+  {
+    "slug": "fruits-14",
+    "name": "Манго",
+    "category": "fruits",
+    "calories": 60,
+    "protein": 0.8,
+    "carbs": 15,
+    "fat": 0.4,
+    "image_url": "/images/foods/mango.jpg"
+  },
+  {
+    "slug": "fruits-15",
+    "name": "Киви",
+    "category": "fruits",
+    "calories": 61,
+    "protein": 1.1,
+    "carbs": 15,
+    "fat": 0.5,
+    "image_url": "/images/foods/kivi.jpg"
+  },
+  {
+    "slug": "fruits-16",
+    "name": "Боровинка",
+    "category": "fruits",
+    "calories": 57,
+    "protein": 0.7,
+    "carbs": 14,
+    "fat": 0.3,
+    "image_url": "/images/foods/borovinka.jpg"
+  },
+  {
+    "slug": "fruits-17",
+    "name": "Малина",
+    "category": "fruits",
+    "calories": 52,
+    "protein": 1.2,
+    "carbs": 12,
+    "fat": 0.7,
+    "image_url": "/images/foods/malina.jpg"
+  },
+  {
+    "slug": "fruits-18",
+    "name": "Касис",
+    "category": "fruits",
+    "calories": 63,
+    "protein": 1.4,
+    "carbs": 15,
+    "fat": 0.4,
+    "image_url": "/images/foods/kasis.jpg"
+  },
+  {
+    "slug": "fruits-19",
+    "name": "Лимон",
+    "category": "fruits",
+    "calories": 29,
+    "protein": 1.1,
+    "carbs": 9,
+    "fat": 0.3,
+    "image_url": "/images/foods/limon.jpg"
+  },
+  {
+    "slug": "fruits-20",
+    "name": "Лайм",
+    "category": "fruits",
+    "calories": 30,
+    "protein": 0.7,
+    "carbs": 11,
+    "fat": 0.2,
+    "image_url": "/images/foods/laym.jpg"
+  },
+  {
+    "slug": "fruits-21",
+    "name": "Грейпфрут",
+    "category": "fruits",
+    "calories": 42,
+    "protein": 0.8,
+    "carbs": 11,
+    "fat": 0.1,
+    "image_url": "/images/foods/greypfrut.jpg"
+  },
+  {
+    "slug": "fruits-22",
+    "name": "Нар",
+    "category": "fruits",
+    "calories": 83,
+    "protein": 1.7,
+    "carbs": 19,
+    "fat": 1.2,
+    "image_url": "/images/foods/nar.jpg"
+  },
+  {
+    "slug": "fruits-23",
+    "name": "Смокиня",
+    "category": "fruits",
+    "calories": 74,
+    "protein": 0.8,
+    "carbs": 19,
+    "fat": 0.3,
+    "image_url": "/images/foods/smokinya.jpg"
+  },
+  {
+    "slug": "fruits-24",
+    "name": "Фурми",
+    "category": "fruits",
+    "calories": 282,
+    "protein": 2.5,
+    "carbs": 75,
+    "fat": 0.4,
+    "image_url": "/images/foods/furmi.jpg"
+  },
+  {
+    "slug": "fruits-25",
+    "name": "Кайсия",
+    "category": "fruits",
+    "calories": 48,
+    "protein": 1.4,
+    "carbs": 11,
+    "fat": 0.4,
+    "image_url": "/images/foods/kaysiya.jpg"
+  },
+  {
+    "slug": "fruits-26",
+    "name": "Боровинки сушени",
+    "category": "fruits",
+    "calories": 308,
+    "protein": 2.2,
+    "carbs": 82,
+    "fat": 1.4,
+    "image_url": "/images/foods/borovinki-susheni.jpg"
+  },
+  {
+    "slug": "fruits-27",
+    "name": "Папая",
+    "category": "fruits",
+    "calories": 43,
+    "protein": 0.5,
+    "carbs": 11,
+    "fat": 0.3,
+    "image_url": "/images/foods/papaya.jpg"
+  },
+  {
+    "slug": "fruits-28",
+    "name": "Кокос",
+    "category": "fruits",
+    "calories": 354,
+    "protein": 3.3,
+    "carbs": 15,
+    "fat": 33,
+    "image_url": "/images/foods/kokos.jpg"
+  },
+  {
+    "slug": "fruits-29",
+    "name": "Нектарина",
+    "category": "fruits",
+    "calories": 44,
+    "protein": 1.1,
+    "carbs": 11,
+    "fat": 0.3,
+    "image_url": "/images/foods/nektarina.jpg"
+  },
+  {
+    "slug": "fruits-30",
+    "name": "Мандарина",
+    "category": "fruits",
+    "calories": 53,
+    "protein": 0.8,
+    "carbs": 13,
+    "fat": 0.3,
+    "image_url": "/images/foods/mandarina.jpg"
+  },
+  {
+    "slug": "vegetables-1",
+    "name": "Броколи",
+    "category": "vegetables",
+    "calories": 34,
+    "protein": 2.8,
+    "carbs": 7,
+    "fat": 0.4,
+    "image_url": "/images/foods/brokoli.jpg"
+  },
+  {
+    "slug": "vegetables-2",
+    "name": "Морков",
+    "category": "vegetables",
+    "calories": 41,
+    "protein": 0.9,
+    "carbs": 10,
+    "fat": 0.2,
+    "image_url": "/images/foods/morkov.jpg"
+  },
+  {
+    "slug": "vegetables-3",
+    "name": "Спанак",
+    "category": "vegetables",
+    "calories": 23,
+    "protein": 2.9,
+    "carbs": 3.6,
+    "fat": 0.4,
+    "image_url": "/images/foods/spanak.jpg"
+  },
+  {
+    "slug": "vegetables-4",
+    "name": "Домати",
+    "category": "vegetables",
+    "calories": 18,
+    "protein": 0.9,
+    "carbs": 3.9,
+    "fat": 0.2,
+    "image_url": "/images/foods/domati.jpg"
+  },
+  {
+    "slug": "vegetables-5",
+    "name": "Краставица",
+    "category": "vegetables",
+    "calories": 16,
+    "protein": 0.7,
+    "carbs": 3.6,
+    "fat": 0.1,
+    "image_url": "/images/foods/krastavitsa.jpg"
+  },
+  {
+    "slug": "vegetables-6",
+    "name": "Чушка",
+    "category": "vegetables",
+    "calories": 31,
+    "protein": 1,
+    "carbs": 6,
+    "fat": 0.3,
+    "image_url": "/images/foods/chushka.jpg"
+  },
+  {
+    "slug": "vegetables-7",
+    "name": "Лук",
+    "category": "vegetables",
+    "calories": 40,
+    "protein": 1.1,
+    "carbs": 9.3,
+    "fat": 0.1,
+    "image_url": "/images/foods/luk.jpg"
+  },
+  {
+    "slug": "vegetables-8",
+    "name": "Чесън",
+    "category": "vegetables",
+    "calories": 149,
+    "protein": 6.4,
+    "carbs": 33,
+    "fat": 0.5,
+    "image_url": "/images/foods/chesan.jpg"
+  },
+  {
+    "slug": "vegetables-9",
+    "name": "Тиквичка",
+    "category": "vegetables",
+    "calories": 17,
+    "protein": 1.2,
+    "carbs": 3.1,
+    "fat": 0.3,
+    "image_url": "/images/foods/tikvichka.jpg"
+  },
+  {
+    "slug": "vegetables-10",
+    "name": "Патладжан",
+    "category": "vegetables",
+    "calories": 25,
+    "protein": 1,
+    "carbs": 6,
+    "fat": 0.2,
+    "image_url": "/images/foods/patladzhan.jpg"
+  },
+  {
+    "slug": "vegetables-11",
+    "name": "Карфиол",
+    "category": "vegetables",
+    "calories": 25,
+    "protein": 1.9,
+    "carbs": 5,
+    "fat": 0.3,
+    "image_url": "/images/foods/karfiol.jpg"
+  },
+  {
+    "slug": "vegetables-12",
+    "name": "Зеле",
+    "category": "vegetables",
+    "calories": 25,
+    "protein": 1.3,
+    "carbs": 6,
+    "fat": 0.1,
+    "image_url": "/images/foods/zele.jpg"
+  },
+  {
+    "slug": "vegetables-13",
+    "name": "Маруля",
+    "category": "vegetables",
+    "calories": 15,
+    "protein": 1.4,
+    "carbs": 2.9,
+    "fat": 0.2,
+    "image_url": "/images/foods/marulya.jpg"
+  },
+  {
+    "slug": "vegetables-14",
+    "name": "Кейл",
+    "category": "vegetables",
+    "calories": 49,
+    "protein": 4.3,
+    "carbs": 9,
+    "fat": 0.9,
+    "image_url": "/images/foods/keyl.jpg"
+  },
+  {
+    "slug": "vegetables-15",
+    "name": "Цвекло",
+    "category": "vegetables",
+    "calories": 43,
+    "protein": 1.6,
+    "carbs": 10,
+    "fat": 0.2,
+    "image_url": "/images/foods/tsveklo.jpg"
+  },
+  {
+    "slug": "vegetables-16",
+    "name": "Целина",
+    "category": "vegetables",
+    "calories": 16,
+    "protein": 0.7,
+    "carbs": 3,
+    "fat": 0.2,
+    "image_url": "/images/foods/tselina.jpg"
+  },
+  {
+    "slug": "vegetables-17",
+    "name": "Аспержи",
+    "category": "vegetables",
+    "calories": 20,
+    "protein": 2.2,
+    "carbs": 3.9,
+    "fat": 0.1,
+    "image_url": "/images/foods/asperzhi.jpg"
+  },
+  {
+    "slug": "vegetables-18",
+    "name": "Гъби",
+    "category": "vegetables",
+    "calories": 22,
+    "protein": 3.1,
+    "carbs": 3.3,
+    "fat": 0.3,
+    "image_url": "/images/foods/gabi.jpg"
+  },
+  {
+    "slug": "vegetables-19",
+    "name": "Картоф",
+    "category": "vegetables",
+    "calories": 77,
+    "protein": 2,
+    "carbs": 17,
+    "fat": 0.1,
+    "image_url": "/images/foods/kartof.jpg"
+  },
+  {
+    "slug": "vegetables-20",
+    "name": "Сладък картоф",
+    "category": "vegetables",
+    "calories": 86,
+    "protein": 1.6,
+    "carbs": 20,
+    "fat": 0.1,
+    "image_url": "/images/foods/sladak-kartof.jpg"
+  },
+  {
+    "slug": "vegetables-21",
+    "name": "Тиква",
+    "category": "vegetables",
+    "calories": 26,
+    "protein": 1,
+    "carbs": 6.5,
+    "fat": 0.1,
+    "image_url": "/images/foods/tikva.jpg"
+  },
+  {
+    "slug": "vegetables-22",
+    "name": "Царевица",
+    "category": "vegetables",
+    "calories": 86,
+    "protein": 3.3,
+    "carbs": 19,
+    "fat": 1.2,
+    "image_url": "/images/foods/tsarevitsa.jpg"
+  },
+  {
+    "slug": "vegetables-23",
+    "name": "Грах",
+    "category": "vegetables",
+    "calories": 81,
+    "protein": 5.4,
+    "carbs": 14,
+    "fat": 0.4,
+    "image_url": "/images/foods/grah.jpg"
+  },
+  {
+    "slug": "vegetables-24",
+    "name": "Фасул зелен",
+    "category": "vegetables",
+    "calories": 31,
+    "protein": 1.8,
+    "carbs": 7,
+    "fat": 0.1,
+    "image_url": "/images/foods/fasul-zelen.jpg"
+  },
+  {
+    "slug": "vegetables-25",
+    "name": "Репичка",
+    "category": "vegetables",
+    "calories": 16,
+    "protein": 0.7,
+    "carbs": 3.4,
+    "fat": 0.1,
+    "image_url": "/images/foods/repichka.jpg"
+  },
+  {
+    "slug": "vegetables-26",
+    "name": "Праз",
+    "category": "vegetables",
+    "calories": 61,
+    "protein": 1.5,
+    "carbs": 14,
+    "fat": 0.3,
+    "image_url": "/images/foods/praz.jpg"
+  },
+  {
+    "slug": "vegetables-27",
+    "name": "Рукола",
+    "category": "vegetables",
+    "calories": 25,
+    "protein": 2.6,
+    "carbs": 3.7,
+    "fat": 0.7,
+    "image_url": "/images/foods/rukola.jpg"
+  },
+  {
+    "slug": "vegetables-28",
+    "name": "Артишок",
+    "category": "vegetables",
+    "calories": 47,
+    "protein": 3.3,
+    "carbs": 11,
+    "fat": 0.2,
+    "image_url": "/images/foods/artishok.jpg"
+  },
+  {
+    "slug": "vegetables-29",
+    "name": "Резене",
+    "category": "vegetables",
+    "calories": 16,
+    "protein": 0.7,
+    "carbs": 3,
+    "fat": 0.2,
+    "image_url": "/images/foods/rezene.jpg"
+  },
+  {
+    "slug": "vegetables-30",
+    "name": "Бамя",
+    "category": "vegetables",
+    "calories": 33,
+    "protein": 1.9,
+    "carbs": 7,
+    "fat": 0.2,
+    "image_url": "/images/foods/bamya.jpg"
+  },
+  {
+    "slug": "meats-1",
+    "name": "Пилешко филе",
+    "category": "meats",
+    "calories": 165,
+    "protein": 31,
+    "carbs": 0,
+    "fat": 3.6,
+    "image_url": "/images/foods/pileshko-file.jpg"
+  },
+  {
+    "slug": "meats-2",
+    "name": "Говеждо месо",
+    "category": "meats",
+    "calories": 250,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 15,
+    "image_url": "/images/foods/govezhdo-meso.jpg"
+  },
+  {
+    "slug": "meats-3",
+    "name": "Свинско филе",
+    "category": "meats",
+    "calories": 143,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 3.5,
+    "image_url": "/images/foods/svinsko-file.jpg"
+  },
+  {
+    "slug": "meats-4",
+    "name": "Пуешко месо",
+    "category": "meats",
+    "calories": 135,
+    "protein": 30,
+    "carbs": 0,
+    "fat": 1,
+    "image_url": "/images/foods/pueshko-meso.jpg"
+  },
+  {
+    "slug": "meats-5",
+    "name": "Агнешко",
+    "category": "meats",
+    "calories": 294,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 21,
+    "image_url": "/images/foods/agneshko.jpg"
+  },
+  {
+    "slug": "meats-6",
+    "name": "Патешко месо",
+    "category": "meats",
+    "calories": 337,
+    "protein": 19,
+    "carbs": 0,
+    "fat": 28,
+    "image_url": "/images/foods/pateshko-meso.jpg"
+  },
+  {
+    "slug": "meats-7",
+    "name": "Заек",
+    "category": "meats",
+    "calories": 173,
+    "protein": 33,
+    "carbs": 0,
+    "fat": 3.5,
+    "image_url": "/images/foods/zaek.jpg"
+  },
+  {
+    "slug": "meats-8",
+    "name": "Телешко",
+    "category": "meats",
+    "calories": 215,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 12,
+    "image_url": "/images/foods/teleshko.jpg"
+  },
+  {
+    "slug": "meats-9",
+    "name": "Пилешко бедро",
+    "category": "meats",
+    "calories": 209,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 11,
+    "image_url": "/images/foods/pileshko-bedro.jpg"
+  },
+  {
+    "slug": "meats-10",
+    "name": "Кайма говежда",
+    "category": "meats",
+    "calories": 250,
+    "protein": 17,
+    "carbs": 0,
+    "fat": 20,
+    "image_url": "/images/foods/kayma-govezhda.jpg"
+  },
+  {
+    "slug": "meats-11",
+    "name": "Бекон",
+    "category": "meats",
+    "calories": 541,
+    "protein": 37,
+    "carbs": 1.4,
+    "fat": 42,
+    "image_url": "/images/foods/bekon.jpg"
+  },
+  {
+    "slug": "meats-12",
+    "name": "Шунка",
+    "category": "meats",
+    "calories": 145,
+    "protein": 21,
+    "carbs": 1.5,
+    "fat": 6,
+    "image_url": "/images/foods/shunka.jpg"
+  },
+  {
+    "slug": "meats-13",
+    "name": "Наденица",
+    "category": "meats",
+    "calories": 301,
+    "protein": 12,
+    "carbs": 2,
+    "fat": 27,
+    "image_url": "/images/foods/nadenitsa.jpg"
+  },
+  {
+    "slug": "meats-14",
+    "name": "Прошуто",
+    "category": "meats",
+    "calories": 195,
+    "protein": 26,
+    "carbs": 0.5,
+    "fat": 10,
+    "image_url": "/images/foods/proshuto.jpg"
+  },
+  {
+    "slug": "meats-15",
+    "name": "Пилешки крилца",
+    "category": "meats",
+    "calories": 203,
+    "protein": 30,
+    "carbs": 0,
+    "fat": 8,
+    "image_url": "/images/foods/pileshki-kriltsa.jpg"
+  },
+  {
+    "slug": "meats-16",
+    "name": "Телешки стек",
+    "category": "meats",
+    "calories": 271,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 18,
+    "image_url": "/images/foods/teleshki-stek.jpg"
+  },
+  {
+    "slug": "meats-17",
+    "name": "Свинска пържола",
+    "category": "meats",
+    "calories": 210,
+    "protein": 27,
+    "carbs": 0,
+    "fat": 11,
+    "image_url": "/images/foods/svinska-parzhola.jpg"
+  },
+  {
+    "slug": "meats-18",
+    "name": "Пуешки гърди",
+    "category": "meats",
+    "calories": 135,
+    "protein": 30,
+    "carbs": 0,
+    "fat": 1,
+    "image_url": "/images/foods/pueshki-gardi.jpg"
+  },
+  {
+    "slug": "meats-19",
+    "name": "Телешки черен дроб",
+    "category": "meats",
+    "calories": 135,
+    "protein": 20,
+    "carbs": 4,
+    "fat": 4,
+    "image_url": "/images/foods/teleshki-cheren-drob.jpg"
+  },
+  {
+    "slug": "meats-20",
+    "name": "Сърце пилешко",
+    "category": "meats",
+    "calories": 153,
+    "protein": 26,
+    "carbs": 0.7,
+    "fat": 5,
+    "image_url": "/images/foods/sartse-pileshko.jpg"
+  },
+  {
+    "slug": "meats-21",
+    "name": "Кайма свинска",
+    "category": "meats",
+    "calories": 263,
+    "protein": 17,
+    "carbs": 0,
+    "fat": 21,
+    "image_url": "/images/foods/kayma-svinska.jpg"
+  },
+  {
+    "slug": "meats-22",
+    "name": "Салам",
+    "category": "meats",
+    "calories": 336,
+    "protein": 13,
+    "carbs": 2,
+    "fat": 30,
+    "image_url": "/images/foods/salam.jpg"
+  },
+  {
+    "slug": "meats-23",
+    "name": "Чоризо",
+    "category": "meats",
+    "calories": 455,
+    "protein": 24,
+    "carbs": 2,
+    "fat": 38,
+    "image_url": "/images/foods/chorizo.jpg"
+  },
+  {
+    "slug": "meats-24",
+    "name": "Ребра свински",
+    "category": "meats",
+    "calories": 277,
+    "protein": 22,
+    "carbs": 0,
+    "fat": 20,
+    "image_url": "/images/foods/rebra-svinski.jpg"
+  },
+  {
+    "slug": "meats-25",
+    "name": "Кебапче",
+    "category": "meats",
+    "calories": 280,
+    "protein": 18,
+    "carbs": 2,
+    "fat": 22,
+    "image_url": "/images/foods/kebapche.jpg"
+  },
+  {
+    "slug": "meats-26",
+    "name": "Кюфте",
+    "category": "meats",
+    "calories": 250,
+    "protein": 17,
+    "carbs": 3,
+    "fat": 19,
+    "image_url": "/images/foods/kyufte.jpg"
+  },
+  {
+    "slug": "meats-27",
+    "name": "Шницел пилешки",
+    "category": "meats",
+    "calories": 220,
+    "protein": 24,
+    "carbs": 8,
+    "fat": 11,
+    "image_url": "/images/foods/shnitsel-pileshki.jpg"
+  },
+  {
+    "slug": "meats-28",
+    "name": "Пилешки наденички",
+    "category": "meats",
+    "calories": 260,
+    "protein": 16,
+    "carbs": 4,
+    "fat": 20,
+    "image_url": "/images/foods/pileshki-nadenichki.jpg"
+  },
+  {
+    "slug": "meats-29",
+    "name": "Гъска",
+    "category": "meats",
+    "calories": 305,
+    "protein": 22,
+    "carbs": 0,
+    "fat": 24,
+    "image_url": "/images/foods/gaska.jpg"
+  },
+  {
+    "slug": "meats-30",
+    "name": "Телешки език",
+    "category": "meats",
+    "calories": 224,
+    "protein": 16,
+    "carbs": 4,
+    "fat": 16,
+    "image_url": "/images/foods/teleshki-ezik.jpg"
+  },
+  {
+    "slug": "dairy-1",
+    "name": "Яйце",
+    "category": "dairy",
+    "calories": 155,
+    "protein": 13,
+    "carbs": 1.1,
+    "fat": 11,
+    "image_url": "/images/foods/yaytse.jpg"
+  },
+  {
+    "slug": "dairy-2",
+    "name": "Гръцко кисело мляко",
+    "category": "dairy",
+    "calories": 59,
+    "protein": 10,
+    "carbs": 3.6,
+    "fat": 0.4,
+    "image_url": "/images/foods/gratsko-kiselo-mlyako.jpg"
+  },
+  {
+    "slug": "dairy-3",
+    "name": "Сирене",
+    "category": "dairy",
+    "calories": 402,
+    "protein": 25,
+    "carbs": 1.3,
+    "fat": 33,
+    "image_url": "/images/foods/sirene.jpg"
+  },
+  {
+    "slug": "dairy-4",
+    "name": "Извара",
+    "category": "dairy",
+    "calories": 98,
+    "protein": 11,
+    "carbs": 3.4,
+    "fat": 4.3,
+    "image_url": "/images/foods/izvara.jpg"
+  },
+  {
+    "slug": "dairy-5",
+    "name": "Мляко 2%",
+    "category": "dairy",
+    "calories": 50,
+    "protein": 3.4,
+    "carbs": 5,
+    "fat": 2,
+    "image_url": "/images/foods/mlyako-2procent.jpg"
+  },
+  {
+    "slug": "dairy-6",
+    "name": "Мляко 3.6%",
+    "category": "dairy",
+    "calories": 61,
+    "protein": 3.2,
+    "carbs": 4.7,
+    "fat": 3.6,
+    "image_url": "/images/foods/mlyako-3-6procent.jpg"
+  },
+  {
+    "slug": "dairy-7",
+    "name": "Кисело мляко",
+    "category": "dairy",
+    "calories": 61,
+    "protein": 3.5,
+    "carbs": 4.7,
+    "fat": 3.3,
+    "image_url": "/images/foods/kiselo-mlyako.jpg"
+  },
+  {
+    "slug": "dairy-8",
+    "name": "Сметана",
+    "category": "dairy",
+    "calories": 292,
+    "protein": 2.5,
+    "carbs": 3,
+    "fat": 30,
+    "image_url": "/images/foods/smetana.jpg"
+  },
+  {
+    "slug": "dairy-9",
+    "name": "Масло",
+    "category": "dairy",
+    "calories": 717,
+    "protein": 0.9,
+    "carbs": 0.1,
+    "fat": 81,
+    "image_url": "/images/foods/maslo.jpg"
+  },
+  {
+    "slug": "dairy-10",
+    "name": "Моцарела",
+    "category": "dairy",
+    "calories": 280,
+    "protein": 22,
+    "carbs": 2.2,
+    "fat": 20,
+    "image_url": "/images/foods/motsarela.jpg"
+  },
+  {
+    "slug": "dairy-11",
+    "name": "Фета",
+    "category": "dairy",
+    "calories": 264,
+    "protein": 14,
+    "carbs": 4,
+    "fat": 21,
+    "image_url": "/images/foods/feta.jpg"
+  },
+  {
+    "slug": "dairy-12",
+    "name": "Пармезан",
+    "category": "dairy",
+    "calories": 431,
+    "protein": 38,
+    "carbs": 4,
+    "fat": 29,
+    "image_url": "/images/foods/parmezan.jpg"
+  },
+  {
+    "slug": "dairy-13",
+    "name": "Рикота",
+    "category": "dairy",
+    "calories": 174,
+    "protein": 11,
+    "carbs": 3,
+    "fat": 13,
+    "image_url": "/images/foods/rikota.jpg"
+  },
+  {
+    "slug": "dairy-14",
+    "name": "Кашкавал",
+    "category": "dairy",
+    "calories": 350,
+    "protein": 25,
+    "carbs": 2,
+    "fat": 27,
+    "image_url": "/images/foods/kashkaval.jpg"
+  },
+  {
+    "slug": "dairy-15",
+    "name": "Бри",
+    "category": "dairy",
+    "calories": 334,
+    "protein": 21,
+    "carbs": 0.5,
+    "fat": 28,
+    "image_url": "/images/foods/bri.jpg"
+  },
+  {
+    "slug": "dairy-16",
+    "name": "Крем сирене",
+    "category": "dairy",
+    "calories": 342,
+    "protein": 6,
+    "carbs": 4,
+    "fat": 34,
+    "image_url": "/images/foods/krem-sirene.jpg"
+  },
+  {
+    "slug": "dairy-17",
+    "name": "Кефир",
+    "category": "dairy",
+    "calories": 41,
+    "protein": 3.3,
+    "carbs": 4.5,
+    "fat": 1,
+    "image_url": "/images/foods/kefir.jpg"
+  },
+  {
+    "slug": "dairy-18",
+    "name": "Айран",
+    "category": "dairy",
+    "calories": 35,
+    "protein": 2,
+    "carbs": 3,
+    "fat": 1.5,
+    "image_url": "/images/foods/ayran.jpg"
+  },
+  {
+    "slug": "dairy-19",
+    "name": "Протеиново мляко",
+    "category": "dairy",
+    "calories": 45,
+    "protein": 8,
+    "carbs": 3,
+    "fat": 0.5,
+    "image_url": "/images/foods/proteinovo-mlyako.jpg"
+  },
+  {
+    "slug": "dairy-20",
+    "name": "Яйчен белтък",
+    "category": "dairy",
+    "calories": 52,
+    "protein": 11,
+    "carbs": 0.7,
+    "fat": 0.2,
+    "image_url": "/images/foods/yaychen-beltak.jpg"
+  },
+  {
+    "slug": "dairy-21",
+    "name": "Яйчен жълтък",
+    "category": "dairy",
+    "calories": 322,
+    "protein": 16,
+    "carbs": 3.6,
+    "fat": 27,
+    "image_url": "/images/foods/yaychen-zhaltak.jpg"
+  },
+  {
+    "slug": "dairy-22",
+    "name": "Сирене лайт",
+    "category": "dairy",
+    "calories": 280,
+    "protein": 28,
+    "carbs": 2,
+    "fat": 17,
+    "image_url": "/images/foods/sirene-layt.jpg"
+  },
+  {
+    "slug": "dairy-23",
+    "name": "Кисело мляко 0%",
+    "category": "dairy",
+    "calories": 56,
+    "protein": 10,
+    "carbs": 4,
+    "fat": 0.2,
+    "image_url": "/images/foods/kiselo-mlyako-0procent.jpg"
+  },
+  {
+    "slug": "dairy-24",
+    "name": "Сирене козе",
+    "category": "dairy",
+    "calories": 364,
+    "protein": 22,
+    "carbs": 2.5,
+    "fat": 30,
+    "image_url": "/images/foods/sirene-koze.jpg"
+  },
+  {
+    "slug": "dairy-25",
+    "name": "Масленка",
+    "category": "dairy",
+    "calories": 250,
+    "protein": 3,
+    "carbs": 2,
+    "fat": 25,
+    "image_url": "/images/foods/maslenka.jpg"
+  },
+  {
+    "slug": "dairy-26",
+    "name": "Пудинг протеинов",
+    "category": "dairy",
+    "calories": 90,
+    "protein": 10,
+    "carbs": 8,
+    "fat": 2,
+    "image_url": "/images/foods/puding-proteinov.jpg"
+  },
+  {
+    "slug": "dairy-27",
+    "name": "Заквасена сметана",
+    "category": "dairy",
+    "calories": 193,
+    "protein": 2.4,
+    "carbs": 4.6,
+    "fat": 19,
+    "image_url": "/images/foods/zakvasena-smetana.jpg"
+  },
+  {
+    "slug": "dairy-28",
+    "name": "Мляко бадемово",
+    "category": "dairy",
+    "calories": 17,
+    "protein": 0.6,
+    "carbs": 1.5,
+    "fat": 1.2,
+    "image_url": "/images/foods/mlyako-bademovo.jpg"
+  },
+  {
+    "slug": "dairy-29",
+    "name": "Мляко овесено",
+    "category": "dairy",
+    "calories": 43,
+    "protein": 1,
+    "carbs": 7,
+    "fat": 1.5,
+    "image_url": "/images/foods/mlyako-oveseno.jpg"
+  },
+  {
+    "slug": "dairy-30",
+    "name": "Сирене синьо",
+    "category": "dairy",
+    "calories": 353,
+    "protein": 21,
+    "carbs": 2.3,
+    "fat": 29,
+    "image_url": "/images/foods/sirene-sino.jpg"
+  },
+  {
+    "slug": "grains-1",
+    "name": "Овесени ядки",
+    "category": "grains",
+    "calories": 389,
+    "protein": 17,
+    "carbs": 66,
+    "fat": 7,
+    "image_url": "/images/foods/oveseni-yadki.jpg"
+  },
+  {
+    "slug": "grains-2",
+    "name": "Киноа",
+    "category": "grains",
+    "calories": 120,
+    "protein": 4.4,
+    "carbs": 21,
+    "fat": 1.9,
+    "image_url": "/images/foods/kinoa.jpg"
+  },
+  {
+    "slug": "grains-3",
+    "name": "Ориз",
+    "category": "grains",
+    "calories": 130,
+    "protein": 2.7,
+    "carbs": 28,
+    "fat": 0.3,
+    "image_url": "/images/foods/oriz.jpg"
+  },
+  {
+    "slug": "grains-4",
+    "name": "Пълнозърнест хляб",
+    "category": "grains",
+    "calories": 247,
+    "protein": 13,
+    "carbs": 41,
+    "fat": 3.4,
+    "image_url": "/images/foods/palnozarnest-hlyab.jpg"
+  },
+  {
+    "slug": "grains-5",
+    "name": "Бял хляб",
+    "category": "grains",
+    "calories": 265,
+    "protein": 9,
+    "carbs": 49,
+    "fat": 3.2,
+    "image_url": "/images/foods/byal-hlyab.jpg"
+  },
+  {
+    "slug": "grains-6",
+    "name": "Паста",
+    "category": "grains",
+    "calories": 131,
+    "protein": 5,
+    "carbs": 25,
+    "fat": 1.1,
+    "image_url": "/images/foods/pasta.jpg"
+  },
+  {
+    "slug": "grains-7",
+    "name": "Пълнозърнеста паста",
+    "category": "grains",
+    "calories": 124,
+    "protein": 5.5,
+    "carbs": 25,
+    "fat": 1.4,
+    "image_url": "/images/foods/palnozarnesta-pasta.jpg"
+  },
+  {
+    "slug": "grains-8",
+    "name": "Булгур",
+    "category": "grains",
+    "calories": 83,
+    "protein": 3.1,
+    "carbs": 19,
+    "fat": 0.2,
+    "image_url": "/images/foods/bulgur.jpg"
+  },
+  {
+    "slug": "grains-9",
+    "name": "Ечемик",
+    "category": "grains",
+    "calories": 354,
+    "protein": 12,
+    "carbs": 73,
+    "fat": 2.3,
+    "image_url": "/images/foods/echemik.jpg"
+  },
+  {
+    "slug": "grains-10",
+    "name": "Ръж",
+    "category": "grains",
+    "calories": 338,
+    "protein": 10,
+    "carbs": 76,
+    "fat": 1.6,
+    "image_url": "/images/foods/razh.jpg"
+  },
+  {
+    "slug": "grains-11",
+    "name": "Полента",
+    "category": "grains",
+    "calories": 70,
+    "protein": 2,
+    "carbs": 15,
+    "fat": 0.4,
+    "image_url": "/images/foods/polenta.jpg"
+  },
+  {
+    "slug": "grains-12",
+    "name": "Кус-кус",
+    "category": "grains",
+    "calories": 112,
+    "protein": 3.8,
+    "carbs": 23,
+    "fat": 0.2,
+    "image_url": "/images/foods/kus-kus.jpg"
+  },
+  {
+    "slug": "grains-13",
+    "name": "Спагети",
+    "category": "grains",
+    "calories": 158,
+    "protein": 5.8,
+    "carbs": 31,
+    "fat": 0.9,
+    "image_url": "/images/foods/spageti.jpg"
+  },
+  {
+    "slug": "grains-14",
+    "name": "Ориз кафяв",
+    "category": "grains",
+    "calories": 111,
+    "protein": 2.6,
+    "carbs": 23,
+    "fat": 0.9,
+    "image_url": "/images/foods/oriz-kafyav.jpg"
+  },
+  {
+    "slug": "grains-15",
+    "name": "Пълнозърнести мюсли",
+    "category": "grains",
+    "calories": 352,
+    "protein": 11,
+    "carbs": 66,
+    "fat": 6,
+    "image_url": "/images/foods/palnozarnesti-myusli.jpg"
+  },
+  {
+    "slug": "grains-16",
+    "name": "Тортила",
+    "category": "grains",
+    "calories": 218,
+    "protein": 5.7,
+    "carbs": 45,
+    "fat": 2.9,
+    "image_url": "/images/foods/tortila.jpg"
+  },
+  {
+    "slug": "grains-17",
+    "name": "Гриз",
+    "category": "grains",
+    "calories": 360,
+    "protein": 12,
+    "carbs": 77,
+    "fat": 1.5,
+    "image_url": "/images/foods/griz.jpg"
+  },
+  {
+    "slug": "grains-18",
+    "name": "Амарант",
+    "category": "grains",
+    "calories": 103,
+    "protein": 4,
+    "carbs": 19,
+    "fat": 1.6,
+    "image_url": "/images/foods/amarant.jpg"
+  },
+  {
+    "slug": "grains-19",
+    "name": "Теф",
+    "category": "grains",
+    "calories": 101,
+    "protein": 3.9,
+    "carbs": 20,
+    "fat": 1.1,
+    "image_url": "/images/foods/tef.jpg"
+  },
+  {
+    "slug": "grains-20",
+    "name": "Хляб ръжен",
+    "category": "grains",
+    "calories": 259,
+    "protein": 8.5,
+    "carbs": 48,
+    "fat": 3.3,
+    "image_url": "/images/foods/hlyab-razhen.jpg"
+  },
+  {
+    "slug": "grains-21",
+    "name": "Пита",
+    "category": "grains",
+    "calories": 275,
+    "protein": 9,
+    "carbs": 56,
+    "fat": 1.2,
+    "image_url": "/images/foods/pita.jpg"
+  },
+  {
+    "slug": "grains-22",
+    "name": "Оризови вафли",
+    "category": "grains",
+    "calories": 387,
+    "protein": 8,
+    "carbs": 81,
+    "fat": 3,
+    "image_url": "/images/foods/orizovi-vafli.jpg"
+  },
+  {
+    "slug": "grains-23",
+    "name": "Нахутено брашно",
+    "category": "grains",
+    "calories": 387,
+    "protein": 22,
+    "carbs": 58,
+    "fat": 7,
+    "image_url": "/images/foods/nahuteno-brashno.jpg"
+  },
+  {
+    "slug": "grains-24",
+    "name": "Царевичен гриз",
+    "category": "grains",
+    "calories": 370,
+    "protein": 7,
+    "carbs": 79,
+    "fat": 1.5,
+    "image_url": "/images/foods/tsarevichen-griz.jpg"
+  },
+  {
+    "slug": "grains-25",
+    "name": "Сушени фиде",
+    "category": "grains",
+    "calories": 348,
+    "protein": 12,
+    "carbs": 72,
+    "fat": 2,
+    "image_url": "/images/foods/susheni-fide.jpg"
+  },
+  {
+    "slug": "grains-26",
+    "name": "Овесени ядки мюсли",
+    "category": "grains",
+    "calories": 380,
+    "protein": 13,
+    "carbs": 67,
+    "fat": 7,
+    "image_url": "/images/foods/oveseni-yadki-myusli.jpg"
+  },
+  {
+    "slug": "grains-27",
+    "name": "Крутон",
+    "category": "grains",
+    "calories": 407,
+    "protein": 12,
+    "carbs": 72,
+    "fat": 9,
+    "image_url": "/images/foods/kruton.jpg"
+  },
+  {
+    "slug": "grains-28",
+    "name": "Пълнозърнести крекери",
+    "category": "grains",
+    "calories": 427,
+    "protein": 10,
+    "carbs": 68,
+    "fat": 12,
+    "image_url": "/images/foods/palnozarnesti-krekeri.jpg"
+  },
+  {
+    "slug": "grains-29",
+    "name": "Ориз басмати",
+    "category": "grains",
+    "calories": 121,
+    "protein": 3,
+    "carbs": 25,
+    "fat": 0.4,
+    "image_url": "/images/foods/oriz-basmati.jpg"
+  },
+  {
+    "slug": "grains-30",
+    "name": "Пълнозърнест ориз",
+    "category": "grains",
+    "calories": 111,
+    "protein": 2.6,
+    "carbs": 23,
+    "fat": 0.9,
+    "image_url": "/images/foods/palnozarnest-oriz.jpg"
+  },
+  {
+    "slug": "nuts-1",
+    "name": "Бадеми",
+    "category": "nuts",
+    "calories": 579,
+    "protein": 21,
+    "carbs": 22,
+    "fat": 50,
+    "image_url": "/images/foods/bademi.jpg"
+  },
+  {
+    "slug": "nuts-2",
+    "name": "Орехи",
+    "category": "nuts",
+    "calories": 654,
+    "protein": 15,
+    "carbs": 14,
+    "fat": 65,
+    "image_url": "/images/foods/orehi.jpg"
+  },
+  {
+    "slug": "nuts-3",
+    "name": "Чиа",
+    "category": "nuts",
+    "calories": 486,
+    "protein": 17,
+    "carbs": 42,
+    "fat": 31,
+    "image_url": "/images/foods/chia.jpg"
+  },
+  {
+    "slug": "nuts-4",
+    "name": "Кашу",
+    "category": "nuts",
+    "calories": 553,
+    "protein": 18,
+    "carbs": 30,
+    "fat": 44,
+    "image_url": "/images/foods/kashu.jpg"
+  },
+  {
+    "slug": "nuts-5",
+    "name": "Пистачи",
+    "category": "nuts",
+    "calories": 560,
+    "protein": 20,
+    "carbs": 28,
+    "fat": 45,
+    "image_url": "/images/foods/pistachi.jpg"
+  },
+  {
+    "slug": "nuts-6",
+    "name": "Лешник",
+    "category": "nuts",
+    "calories": 628,
+    "protein": 15,
+    "carbs": 17,
+    "fat": 61,
+    "image_url": "/images/foods/leshnik.jpg"
+  },
+  {
+    "slug": "nuts-7",
+    "name": "Макадамия",
+    "category": "nuts",
+    "calories": 718,
+    "protein": 8,
+    "carbs": 14,
+    "fat": 76,
+    "image_url": "/images/foods/makadamiya.jpg"
+  },
+  {
+    "slug": "nuts-8",
+    "name": "Бразилски орех",
+    "category": "nuts",
+    "calories": 659,
+    "protein": 14,
+    "carbs": 12,
+    "fat": 67,
+    "image_url": "/images/foods/brazilski-oreh.jpg"
+  },
+  {
+    "slug": "nuts-9",
+    "name": "Сусам",
+    "category": "nuts",
+    "calories": 573,
+    "protein": 18,
+    "carbs": 23,
+    "fat": 50,
+    "image_url": "/images/foods/susam.jpg"
+  },
+  {
+    "slug": "nuts-10",
+    "name": "Слънчогледови семки",
+    "category": "nuts",
+    "calories": 584,
+    "protein": 21,
+    "carbs": 20,
+    "fat": 51,
+    "image_url": "/images/foods/slanchogledovi-semki.jpg"
+  },
+  {
+    "slug": "nuts-11",
+    "name": "Тиквено семе",
+    "category": "nuts",
+    "calories": 559,
+    "protein": 30,
+    "carbs": 11,
+    "fat": 49,
+    "image_url": "/images/foods/tikveno-seme.jpg"
+  },
+  {
+    "slug": "nuts-12",
+    "name": "Червен лен",
+    "category": "nuts",
+    "calories": 534,
+    "protein": 18,
+    "carbs": 29,
+    "fat": 42,
+    "image_url": "/images/foods/cherven-len.jpg"
+  },
+  {
+    "slug": "nuts-13",
+    "name": "Кедрови ядки",
+    "category": "nuts",
+    "calories": 673,
+    "protein": 14,
+    "carbs": 13,
+    "fat": 68,
+    "image_url": "/images/foods/kedrovi-yadki.jpg"
+  },
+  {
+    "slug": "nuts-14",
+    "name": "Пекан",
+    "category": "nuts",
+    "calories": 691,
+    "protein": 9,
+    "carbs": 14,
+    "fat": 72,
+    "image_url": "/images/foods/pekan.jpg"
+  },
+  {
+    "slug": "nuts-15",
+    "name": "Кокосови стърготини",
+    "category": "nuts",
+    "calories": 660,
+    "protein": 7,
+    "carbs": 24,
+    "fat": 65,
+    "image_url": "/images/foods/kokosovi-stargotini.jpg"
+  },
+  {
+    "slug": "nuts-16",
+    "name": "Фъстъци",
+    "category": "nuts",
+    "calories": 567,
+    "protein": 26,
+    "carbs": 16,
+    "fat": 49,
+    "image_url": "/images/foods/fastatsi.jpg"
+  },
+  {
+    "slug": "nuts-17",
+    "name": "Амарант семе",
+    "category": "nuts",
+    "calories": 103,
+    "protein": 4,
+    "carbs": 19,
+    "fat": 1.6,
+    "image_url": "/images/foods/amarant-seme.jpg"
+  },
+  {
+    "slug": "nuts-18",
+    "name": "Конопени семки",
+    "category": "nuts",
+    "calories": 553,
+    "protein": 32,
+    "carbs": 9,
+    "fat": 49,
+    "image_url": "/images/foods/konopeni-semki.jpg"
+  },
+  {
+    "slug": "nuts-19",
+    "name": "Маково семе",
+    "category": "nuts",
+    "calories": 525,
+    "protein": 18,
+    "carbs": 28,
+    "fat": 42,
+    "image_url": "/images/foods/makovo-seme.jpg"
+  },
+  {
+    "slug": "nuts-20",
+    "name": "Кестени",
+    "category": "nuts",
+    "calories": 213,
+    "protein": 2.4,
+    "carbs": 46,
+    "fat": 2.3,
+    "image_url": "/images/foods/kesteni.jpg"
+  },
+  {
+    "slug": "nuts-21",
+    "name": "Кедрови ядки сурови",
+    "category": "nuts",
+    "calories": 673,
+    "protein": 14,
+    "carbs": 13,
+    "fat": 68,
+    "image_url": "/images/foods/kedrovi-yadki-surovi.jpg"
+  },
+  {
+    "slug": "nuts-22",
+    "name": "Миндали бланширани",
+    "category": "nuts",
+    "calories": 590,
+    "protein": 21,
+    "carbs": 21,
+    "fat": 52,
+    "image_url": "/images/foods/mindali-blanshirani.jpg"
+  },
+  {
+    "slug": "nuts-23",
+    "name": "Орехи микс",
+    "category": "nuts",
+    "calories": 620,
+    "protein": 16,
+    "carbs": 18,
+    "fat": 58,
+    "image_url": "/images/foods/orehi-miks.jpg"
+  },
+  {
+    "slug": "nuts-24",
+    "name": "Шамфъстък",
+    "category": "nuts",
+    "calories": 567,
+    "protein": 26,
+    "carbs": 16,
+    "fat": 49,
+    "image_url": "/images/foods/shamfastak.jpg"
+  },
+  {
+    "slug": "nuts-25",
+    "name": "Сусамов тахан",
+    "category": "nuts",
+    "calories": 595,
+    "protein": 17,
+    "carbs": 21,
+    "fat": 54,
+    "image_url": "/images/foods/susamov-tahan.jpg"
+  },
+  {
+    "slug": "nuts-26",
+    "name": "Лешници печени",
+    "category": "nuts",
+    "calories": 628,
+    "protein": 15,
+    "carbs": 17,
+    "fat": 61,
+    "image_url": "/images/foods/leshnitsi-pecheni.jpg"
+  },
+  {
+    "slug": "nuts-27",
+    "name": "Бадемово масло",
+    "category": "nuts",
+    "calories": 614,
+    "protein": 21,
+    "carbs": 19,
+    "fat": 56,
+    "image_url": "/images/foods/bademovo-maslo.jpg"
+  },
+  {
+    "slug": "nuts-28",
+    "name": "Фъстъчено масло",
+    "category": "nuts",
+    "calories": 588,
+    "protein": 25,
+    "carbs": 20,
+    "fat": 50,
+    "image_url": "/images/foods/fastacheno-maslo.jpg"
+  },
+  {
+    "slug": "nuts-29",
+    "name": "Слънчогледово семе",
+    "category": "nuts",
+    "calories": 584,
+    "protein": 21,
+    "carbs": 20,
+    "fat": 51,
+    "image_url": "/images/foods/slanchogledovo-seme.jpg"
+  },
+  {
+    "slug": "nuts-30",
+    "name": "Конопено протеиново",
+    "category": "nuts",
+    "calories": 400,
+    "protein": 50,
+    "carbs": 10,
+    "fat": 12,
+    "image_url": "/images/foods/konopeno-proteinovo.jpg"
+  },
+  {
+    "slug": "legumes-1",
+    "name": "Леща",
+    "category": "legumes",
+    "calories": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "image_url": "/images/foods/leshta.jpg"
+  },
+  {
+    "slug": "legumes-2",
+    "name": "Нахут",
+    "category": "legumes",
+    "calories": 164,
+    "protein": 8.9,
+    "carbs": 27,
+    "fat": 2.6,
+    "image_url": "/images/foods/nahut.jpg"
+  },
+  {
+    "slug": "legumes-3",
+    "name": "Боб бял",
+    "category": "legumes",
+    "calories": 127,
+    "protein": 8.7,
+    "carbs": 23,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-byal.jpg"
+  },
+  {
+    "slug": "legumes-4",
+    "name": "Боб червен",
+    "category": "legumes",
+    "calories": 127,
+    "protein": 8.7,
+    "carbs": 23,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-cherven.jpg"
+  },
+  {
+    "slug": "legumes-5",
+    "name": "Боб черен",
+    "category": "legumes",
+    "calories": 132,
+    "protein": 8.9,
+    "carbs": 24,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-cheren.jpg"
+  },
+  {
+    "slug": "legumes-6",
+    "name": "Грах сушен",
+    "category": "legumes",
+    "calories": 81,
+    "protein": 5.4,
+    "carbs": 14,
+    "fat": 0.4,
+    "image_url": "/images/foods/grah-sushen.jpg"
+  },
+  {
+    "slug": "legumes-7",
+    "name": "Соя",
+    "category": "legumes",
+    "calories": 173,
+    "protein": 17,
+    "carbs": 9.9,
+    "fat": 9,
+    "image_url": "/images/foods/soya.jpg"
+  },
+  {
+    "slug": "legumes-8",
+    "name": "Тофу",
+    "category": "legumes",
+    "calories": 76,
+    "protein": 8,
+    "carbs": 1.9,
+    "fat": 4.8,
+    "image_url": "/images/foods/tofu.jpg"
+  },
+  {
+    "slug": "legumes-9",
+    "name": "Темпе",
+    "category": "legumes",
+    "calories": 193,
+    "protein": 19,
+    "carbs": 9,
+    "fat": 11,
+    "image_url": "/images/foods/tempe.jpg"
+  },
+  {
+    "slug": "legumes-10",
+    "name": "Фасул консерва",
+    "category": "legumes",
+    "calories": 105,
+    "protein": 6.8,
+    "carbs": 19,
+    "fat": 0.5,
+    "image_url": "/images/foods/fasul-konserva.jpg"
+  },
+  {
+    "slug": "legumes-11",
+    "name": "Грах консерва",
+    "category": "legumes",
+    "calories": 84,
+    "protein": 5.4,
+    "carbs": 15,
+    "fat": 0.4,
+    "image_url": "/images/foods/grah-konserva.jpg"
+  },
+  {
+    "slug": "legumes-12",
+    "name": "Боб адзуки",
+    "category": "legumes",
+    "calories": 128,
+    "protein": 7.5,
+    "carbs": 25,
+    "fat": 0.1,
+    "image_url": "/images/foods/bob-adzuki.jpg"
+  },
+  {
+    "slug": "legumes-13",
+    "name": "Боб мунг",
+    "category": "legumes",
+    "calories": 105,
+    "protein": 7,
+    "carbs": 19,
+    "fat": 0.4,
+    "image_url": "/images/foods/bob-mung.jpg"
+  },
+  {
+    "slug": "legumes-14",
+    "name": "Боб лима",
+    "category": "legumes",
+    "calories": 115,
+    "protein": 7.8,
+    "carbs": 21,
+    "fat": 0.4,
+    "image_url": "/images/foods/bob-lima.jpg"
+  },
+  {
+    "slug": "legumes-15",
+    "name": "Боб канелини",
+    "category": "legumes",
+    "calories": 127,
+    "protein": 8.7,
+    "carbs": 23,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-kanelini.jpg"
+  },
+  {
+    "slug": "legumes-16",
+    "name": "Боб пинто",
+    "category": "legumes",
+    "calories": 143,
+    "protein": 9,
+    "carbs": 26,
+    "fat": 0.7,
+    "image_url": "/images/foods/bob-pinto.jpg"
+  },
+  {
+    "slug": "legumes-17",
+    "name": "Боб борлоти",
+    "category": "legumes",
+    "calories": 127,
+    "protein": 8.7,
+    "carbs": 23,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-borloti.jpg"
+  },
+  {
+    "slug": "legumes-18",
+    "name": "Соя зърна",
+    "category": "legumes",
+    "calories": 173,
+    "protein": 17,
+    "carbs": 9.9,
+    "fat": 9,
+    "image_url": "/images/foods/soya-zarna.jpg"
+  },
+  {
+    "slug": "legumes-19",
+    "name": "Едамаме",
+    "category": "legumes",
+    "calories": 121,
+    "protein": 12,
+    "carbs": 9,
+    "fat": 5,
+    "image_url": "/images/foods/edamame.jpg"
+  },
+  {
+    "slug": "legumes-20",
+    "name": "Хумус",
+    "category": "legumes",
+    "calories": 166,
+    "protein": 8,
+    "carbs": 14,
+    "fat": 10,
+    "image_url": "/images/foods/humus.jpg"
+  },
+  {
+    "slug": "legumes-21",
+    "name": "Фалафел",
+    "category": "legumes",
+    "calories": 333,
+    "protein": 13,
+    "carbs": 32,
+    "fat": 18,
+    "image_url": "/images/foods/falafel.jpg"
+  },
+  {
+    "slug": "legumes-22",
+    "name": "Бобови кълнове",
+    "category": "legumes",
+    "calories": 30,
+    "protein": 3,
+    "carbs": 6,
+    "fat": 0.2,
+    "image_url": "/images/foods/bobovi-kalnove.jpg"
+  },
+  {
+    "slug": "legumes-23",
+    "name": "Леща червена",
+    "category": "legumes",
+    "calories": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "image_url": "/images/foods/leshta-chervena.jpg"
+  },
+  {
+    "slug": "legumes-24",
+    "name": "Нахут печен",
+    "category": "legumes",
+    "calories": 400,
+    "protein": 20,
+    "carbs": 55,
+    "fat": 12,
+    "image_url": "/images/foods/nahut-pechen.jpg"
+  },
+  {
+    "slug": "legumes-25",
+    "name": "Боб в буркан",
+    "category": "legumes",
+    "calories": 105,
+    "protein": 6.8,
+    "carbs": 19,
+    "fat": 0.5,
+    "image_url": "/images/foods/bob-v-burkan.jpg"
+  },
+  {
+    "slug": "legumes-26",
+    "name": "Грах замразен",
+    "category": "legumes",
+    "calories": 81,
+    "protein": 5.4,
+    "carbs": 14,
+    "fat": 0.4,
+    "image_url": "/images/foods/grah-zamrazen.jpg"
+  },
+  {
+    "slug": "legumes-27",
+    "name": "Соя текстурирана",
+    "category": "legumes",
+    "calories": 327,
+    "protein": 50,
+    "carbs": 30,
+    "fat": 1,
+    "image_url": "/images/foods/soya-teksturirana.jpg"
+  },
+  {
+    "slug": "legumes-28",
+    "name": "Леща кафява",
+    "category": "legumes",
+    "calories": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "image_url": "/images/foods/leshta-kafyava.jpg"
+  },
+  {
+    "slug": "legumes-29",
+    "name": "Нахут брашно",
+    "category": "legumes",
+    "calories": 387,
+    "protein": 22,
+    "carbs": 58,
+    "fat": 7,
+    "image_url": "/images/foods/nahut-brashno.jpg"
+  },
+  {
+    "slug": "fish-1",
+    "name": "Сьомга",
+    "category": "fish",
+    "calories": 208,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 13,
+    "image_url": "/images/foods/somga.jpg"
+  },
+  {
+    "slug": "fish-2",
+    "name": "Тон",
+    "category": "fish",
+    "calories": 132,
+    "protein": 28,
+    "carbs": 0,
+    "fat": 1.3,
+    "image_url": "/images/foods/ton.jpg"
+  },
+  {
+    "slug": "fish-3",
+    "name": "Скариди",
+    "category": "fish",
+    "calories": 99,
+    "protein": 24,
+    "carbs": 0.2,
+    "fat": 0.3,
+    "image_url": "/images/foods/skaridi.jpg"
+  },
+  {
+    "slug": "fish-4",
+    "name": "Пъстърва",
+    "category": "fish",
+    "calories": 119,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 3.5,
+    "image_url": "/images/foods/pastarva.jpg"
+  },
+  {
+    "slug": "fish-5",
+    "name": "Скумрия",
+    "category": "fish",
+    "calories": 205,
+    "protein": 19,
+    "carbs": 0,
+    "fat": 14,
+    "image_url": "/images/foods/skumriya.jpg"
+  },
+  {
+    "slug": "fish-6",
+    "name": "Херинга",
+    "category": "fish",
+    "calories": 158,
+    "protein": 18,
+    "carbs": 0,
+    "fat": 9,
+    "image_url": "/images/foods/heringa.jpg"
+  },
+  {
+    "slug": "fish-7",
+    "name": "Сардини",
+    "category": "fish",
+    "calories": 208,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 11,
+    "image_url": "/images/foods/sardini.jpg"
+  },
+  {
+    "slug": "fish-8",
+    "name": "Калмар",
+    "category": "fish",
+    "calories": 92,
+    "protein": 15,
+    "carbs": 3,
+    "fat": 1.4,
+    "image_url": "/images/foods/kalmar.jpg"
+  },
+  {
+    "slug": "fish-9",
+    "name": "Октопод",
+    "category": "fish",
+    "calories": 82,
+    "protein": 15,
+    "carbs": 2.2,
+    "fat": 1,
+    "image_url": "/images/foods/oktopod.jpg"
+  },
+  {
+    "slug": "fish-10",
+    "name": "Миди",
+    "category": "fish",
+    "calories": 86,
+    "protein": 12,
+    "carbs": 3.7,
+    "fat": 2.2,
+    "image_url": "/images/foods/midi.jpg"
+  },
+  {
+    "slug": "fish-11",
+    "name": "Стриди",
+    "category": "fish",
+    "calories": 68,
+    "protein": 7,
+    "carbs": 4,
+    "fat": 2.5,
+    "image_url": "/images/foods/stridi.jpg"
+  },
+  {
+    "slug": "fish-12",
+    "name": "Рачешко месо",
+    "category": "fish",
+    "calories": 97,
+    "protein": 19,
+    "carbs": 0,
+    "fat": 1.5,
+    "image_url": "/images/foods/racheshko-meso.jpg"
+  },
+  {
+    "slug": "fish-13",
+    "name": "Треска",
+    "category": "fish",
+    "calories": 82,
+    "protein": 18,
+    "carbs": 0,
+    "fat": 0.7,
+    "image_url": "/images/foods/treska.jpg"
+  },
+  {
+    "slug": "fish-14",
+    "name": "Пангасиус",
+    "category": "fish",
+    "calories": 92,
+    "protein": 15,
+    "carbs": 0,
+    "fat": 3,
+    "image_url": "/images/foods/pangasius.jpg"
+  },
+  {
+    "slug": "fish-15",
+    "name": "Сом",
+    "category": "fish",
+    "calories": 144,
+    "protein": 18,
+    "carbs": 0,
+    "fat": 7,
+    "image_url": "/images/foods/som.jpg"
+  },
+  {
+    "slug": "fish-16",
+    "name": "Пъстърва морска",
+    "category": "fish",
+    "calories": 96,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 1.7,
+    "image_url": "/images/foods/pastarva-morska.jpg"
+  },
+  {
+    "slug": "fish-17",
+    "name": "Аншоа",
+    "category": "fish",
+    "calories": 131,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 5,
+    "image_url": "/images/foods/anshoa.jpg"
+  },
+  {
+    "slug": "fish-18",
+    "name": "Кефал",
+    "category": "fish",
+    "calories": 117,
+    "protein": 19,
+    "carbs": 0,
+    "fat": 4,
+    "image_url": "/images/foods/kefal.jpg"
+  },
+  {
+    "slug": "fish-19",
+    "name": "Риба тон консерва",
+    "category": "fish",
+    "calories": 116,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 1,
+    "image_url": "/images/foods/riba-ton-konserva.jpg"
+  },
+  {
+    "slug": "fish-20",
+    "name": "Сьомга пушена",
+    "category": "fish",
+    "calories": 117,
+    "protein": 18,
+    "carbs": 0,
+    "fat": 4.3,
+    "image_url": "/images/foods/somga-pushena.jpg"
+  },
+  {
+    "slug": "fish-21",
+    "name": "Скумрия пушена",
+    "category": "fish",
+    "calories": 221,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 13,
+    "image_url": "/images/foods/skumriya-pushena.jpg"
+  },
+  {
+    "slug": "fish-22",
+    "name": "Рибни кюфтета",
+    "category": "fish",
+    "calories": 180,
+    "protein": 15,
+    "carbs": 10,
+    "fat": 9,
+    "image_url": "/images/foods/ribni-kyufteta.jpg"
+  },
+  {
+    "slug": "fish-23",
+    "name": "Суши сьомга",
+    "category": "fish",
+    "calories": 130,
+    "protein": 8,
+    "carbs": 18,
+    "fat": 3,
+    "image_url": "/images/foods/sushi-somga.jpg"
+  },
+  {
+    "slug": "fish-24",
+    "name": "Треска панирана",
+    "category": "fish",
+    "calories": 200,
+    "protein": 16,
+    "carbs": 15,
+    "fat": 9,
+    "image_url": "/images/foods/treska-panirana.jpg"
+  },
+  {
+    "slug": "fish-25",
+    "name": "Сьомга на фурна",
+    "category": "fish",
+    "calories": 208,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 13,
+    "image_url": "/images/foods/somga-na-furna.jpg"
+  },
+  {
+    "slug": "fish-26",
+    "name": "Тон стек",
+    "category": "fish",
+    "calories": 144,
+    "protein": 23,
+    "carbs": 0,
+    "fat": 5,
+    "image_url": "/images/foods/ton-stek.jpg"
+  },
+  {
+    "slug": "fish-27",
+    "name": "Скариди с чесън",
+    "category": "fish",
+    "calories": 99,
+    "protein": 24,
+    "carbs": 2,
+    "fat": 0.5,
+    "image_url": "/images/foods/skaridi-s-chesan.jpg"
+  },
+  {
+    "slug": "fish-28",
+    "name": "Риба на скара",
+    "category": "fish",
+    "calories": 150,
+    "protein": 22,
+    "carbs": 0,
+    "fat": 6,
+    "image_url": "/images/foods/riba-na-skara.jpg"
+  },
+  {
+    "slug": "fish-29",
+    "name": "Пъстърва на пара",
+    "category": "fish",
+    "calories": 119,
+    "protein": 20,
+    "carbs": 0,
+    "fat": 3.5,
+    "image_url": "/images/foods/pastarva-na-para.jpg"
+  },
+  {
+    "slug": "fish-30",
+    "name": "Морски дарове микс",
+    "category": "fish",
+    "calories": 95,
+    "protein": 18,
+    "carbs": 2,
+    "fat": 1.5,
+    "image_url": "/images/foods/morski-darove-miks.jpg"
+  }
+]

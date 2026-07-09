@@ -1,17 +1,21 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Modal } from 'bootstrap';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import {
-  foods,
+  foods as staticFoods,
   FOOD_CATEGORIES,
   getCategoryLabel,
   getFoodImage,
   foodImgOnError,
   macroPercent,
 } from '../data/foods.js';
+import { fetchFoods } from '../services/foods.js';
 import { getFoodFavorites, isFoodFavorite, toggleFoodFavorite } from '../services/foodFavorites.js';
+import { isSupabaseConfigured } from '../supabaseClient.js';
 import { escapeHtml } from '../utils/helpers.js';
 
+let foods = [];
 let currentCategory = null;
 let searchTerm = '';
 
@@ -107,6 +111,21 @@ function renderFoods() {
     : '<div class="col-12 text-center text-muted py-5">Няма намерени храни.</div>';
 }
 
+async function loadFoods() {
+  foods = [];
+  if (isSupabaseConfigured) {
+    try {
+      const dbFoods = await fetchFoods();
+      foods = dbFoods.length ? dbFoods : [...staticFoods];
+    } catch {
+      foods = [...staticFoods];
+    }
+  } else {
+    foods = [...staticFoods];
+  }
+  renderFoods();
+}
+
 async function initHrani() {
   const filtersEl = document.getElementById('categoryFilters');
   filtersEl.innerHTML = FOOD_CATEGORIES.map((cat) => `
@@ -137,7 +156,7 @@ async function initHrani() {
     renderFoods();
   });
 
-  renderFoods();
+  await loadFoods();
 }
 
 initPage(initHrani, { requireAuth: true });

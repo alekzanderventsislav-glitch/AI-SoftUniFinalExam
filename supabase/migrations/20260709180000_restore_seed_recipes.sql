@@ -1,11 +1,14 @@
--- Seed sample recipes for the community recipes page
--- Requires an existing auth user (default: admin@zdravosloven.bg)
+-- Restore sample recipes when the table was cleared
 
 DO $$
 DECLARE
   seed_author_id UUID;
-  author_email TEXT := 'admin@zdravosloven.bg';
 BEGIN
+  IF (SELECT COUNT(*) FROM public.recipes) > 0 THEN
+    RAISE NOTICE 'Restore skipped: recipes already exist.';
+    RETURN;
+  END IF;
+
   SELECT id INTO seed_author_id
   FROM auth.users
   WHERE email IN ('superadmin@zdravosloven.bg', 'admin@zdravosloven.bg')
@@ -13,19 +16,14 @@ BEGIN
   LIMIT 1;
 
   IF seed_author_id IS NULL THEN
-    RAISE NOTICE 'Seed skipped: no user with email superadmin@zdravosloven.bg or admin@zdravosloven.bg. Register first, then re-run this script.';
-    RETURN;
+    SELECT id INTO seed_author_id
+    FROM auth.users
+    ORDER BY created_at ASC
+    LIMIT 1;
   END IF;
 
-  UPDATE public.user_roles
-  SET role = 'admin'
-  WHERE user_id = seed_author_id AND role <> 'admin';
-
-  IF EXISTS (
-    SELECT 1 FROM public.recipes
-    WHERE title = 'Протеинова овесена каша с банан'
-  ) THEN
-    RAISE NOTICE 'Seed skipped: sample recipes already exist.';
+  IF seed_author_id IS NULL THEN
+    RAISE NOTICE 'Restore skipped: no auth users found.';
     RETURN;
   END IF;
 
@@ -106,5 +104,5 @@ BEGIN
     'https://images.unsplash.com/photo-1754894992043-d51f1d75ea3b?w=800&h=500&fit=crop'
   );
 
-  RAISE NOTICE 'Seed complete: 8 sample recipes inserted for %.', author_email;
+  RAISE NOTICE 'Restore complete: 8 sample recipes inserted.';
 END $$;

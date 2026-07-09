@@ -13,6 +13,7 @@
     "db:seed": "node scripts/run-seed.mjs",
     "db:fix-images": "node scripts/run-fix-images.mjs",
     "generate:foods": "node scripts/generate-foods-catalog.mjs",
+    "generate:foods-seed": "node scripts/generate-foods-seed.mjs",
     "download:food-images": "node scripts/download-food-images.mjs",
     "download:food-images:force": "node scripts/download-food-images.mjs --force",
     "upload:food-images": "node --env-file=.env scripts/upload-food-images-to-supabase.mjs",

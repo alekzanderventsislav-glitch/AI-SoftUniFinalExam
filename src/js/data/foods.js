@@ -52,18 +52,21 @@ export function getCategoryLabel(categoryId) {
 export function getFoodImage(food) {
   if (!food) return FOOD_FALLBACK;
 
-  if (food.image?.startsWith('/images/foods/')) {
-    const fileName = food.image.split('/').pop();
+  const imagePath = food.image || food.image_url;
+  if (imagePath?.startsWith('http')) return imagePath;
+
+  if (imagePath?.startsWith('/images/foods/')) {
+    const fileName = imagePath.split('/').pop();
     const supabaseUrl = getSupabaseUrl();
     const cacheBust = `?v=${FOOD_IMAGE_CACHE_VERSION}`;
 
     if (supabaseUrl) {
       return `${supabaseUrl}/storage/v1/object/public/foods/${fileName}${cacheBust}`;
     }
-    return `${food.image}${cacheBust}`;
+    return `${imagePath}${cacheBust}`;
   }
 
-  return food.image || CATEGORY_IMAGES[food.category] || FOOD_FALLBACK;
+  return imagePath || CATEGORY_IMAGES[food.category] || FOOD_FALLBACK;
 }
 
 export function foodImgOnError() {

@@ -4,9 +4,10 @@ import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { getDailyTip, getDailyMotivation } from '../data/tips.js';
 import { workouts as staticWorkouts } from '../data/workouts.js';
-import { foods } from '../data/foods.js';
+import { foods as staticFoods } from '../data/foods.js';
 import { fetchRecipes } from '../services/recipes.js';
 import { fetchUserWorkouts } from '../services/workouts.js';
+import { fetchFoods } from '../services/foods.js';
 import { fetchProfile } from '../services/profiles.js';
 import { fetchFavorites } from '../services/favorites.js';
 import { getFoodFavorites } from '../services/foodFavorites.js';
@@ -41,6 +42,7 @@ let trackerCalendarApi = null;
 let dashboardData = {
   recipes: [],
   userWorkouts: [],
+  foods: [],
   favorites: [],
 };
 let statsModal = null;
@@ -97,7 +99,9 @@ function renderAvailabilityCard() {
   const listEl = document.getElementById('availabilityList');
   if (!listEl) return;
 
-  const totalWorkouts = staticWorkouts.length + dashboardData.userWorkouts.length;
+  const catalogFoods = dashboardData.foods.length ? dashboardData.foods : staticFoods;
+  const allWorkouts = dashboardData.userWorkouts.length ? dashboardData.userWorkouts : staticWorkouts;
+  const totalWorkouts = allWorkouts.length;
   const myRecipes = memberUser
     ? dashboardData.recipes.filter((r) => r.author_id === memberUser.id).length
     : 0;
@@ -106,7 +110,7 @@ function renderAvailabilityCard() {
     : 0;
 
   const items = [
-    { icon: 'bi-egg-fried', label: 'Храни в каталога', count: foods.length, href: '/hrani.html' },
+    { icon: 'bi-egg-fried', label: 'Храни в каталога', count: catalogFoods.length, href: '/hrani.html' },
     { icon: 'bi-journal-richtext', label: 'Споделени рецепти', count: dashboardData.recipes.length, href: '/recepti.html' },
     { icon: 'bi-lightning', label: 'Тренировки', count: totalWorkouts, href: '/trenirovki.html' },
     { icon: 'bi-upload', label: 'Ваши рецепти', count: myRecipes, href: '/recepti.html' },
@@ -329,7 +333,9 @@ function updateStatsModalContent() {
   const myWorkouts = memberUser
     ? dashboardData.userWorkouts.filter((w) => w.author_id === memberUser.id).length
     : 0;
-  const totalWorkouts = staticWorkouts.length + dashboardData.userWorkouts.length;
+  const allWorkouts = dashboardData.userWorkouts.length ? dashboardData.userWorkouts : staticWorkouts;
+  const totalWorkouts = allWorkouts.length;
+  const catalogFoods = dashboardData.foods.length ? dashboardData.foods : staticFoods;
 
   const activityEl = document.getElementById('statsActivityTiles');
   if (activityEl) {
@@ -345,7 +351,7 @@ function updateStatsModalContent() {
   const portalEl = document.getElementById('statsPortalTiles');
   if (portalEl) {
     portalEl.innerHTML = [
-      statTile('Храни в каталога', foods.length, 'bi-egg-fried'),
+      statTile('Храни в каталога', catalogFoods.length, 'bi-egg-fried'),
       statTile('Общо рецепти', dashboardData.recipes.length, 'bi-journal-richtext'),
       statTile('Общо тренировки', totalWorkouts, 'bi-lightning'),
     ].join('');
@@ -377,7 +383,7 @@ function statTile(label, value, icon) {
 }
 
 async function loadDashboardData(user) {
-  dashboardData = { recipes: [], userWorkouts: [], favorites: [] };
+  dashboardData = { recipes: [], userWorkouts: [], foods: [], favorites: [] };
 
   if (!isSupabaseConfigured) return;
 
@@ -387,6 +393,10 @@ async function loadDashboardData(user) {
 
   try {
     dashboardData.userWorkouts = await fetchUserWorkouts();
+  } catch { /* empty */ }
+
+  try {
+    dashboardData.foods = await fetchFoods();
   } catch { /* empty */ }
 
   try {
@@ -452,13 +462,13 @@ async function renderFeaturedContent() {
   const workoutsGrid = document.getElementById('featuredWorkouts');
 
   const recipes = dashboardData.recipes.slice(0, 3);
-  const featuredWorkouts = [...staticWorkouts, ...dashboardData.userWorkouts].slice(0, 3);
+  const featuredWorkouts = (dashboardData.userWorkouts.length ? dashboardData.userWorkouts : staticWorkouts).slice(0, 3);
 
   recipesGrid.innerHTML = recipes.length
     ? recipes.map((r) => `
       <div class="col-md-4">
         <a href="/recept.html?id=${r.id}" class="card card-hover recipe-card text-decoration-none text-dark h-100">
-          <img src="${resolveRecipeImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}">
+          <img src="${resolveRecipeImage(r.image_url, r.title)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}">
           <div class="card-body">
             <h5 class="card-title">${r.title}</h5>
             <p class="card-text text-muted small">${r.description}</p>

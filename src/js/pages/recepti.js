@@ -5,10 +5,10 @@ import { initPage } from '../components/layout.js';
 import { fetchRecipes, createRecipe, updateRecipe, deleteRecipe } from '../services/recipes.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { uploadRecipeImage, validateImageFile } from '../services/storage.js';
-import { getCurrentUser } from '../auth.js';
+import { getCurrentUser, isAdmin } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { RECIPE_CATEGORIES, DIETARY_TAGS, getCategoryLabel, getDietaryLabel } from '../data/tips.js';
-import { linesToArray, resolveRecipeImage, recipeImgOnError, getQueryParam } from '../utils/helpers.js';
+import { linesToArray, resolveRecipeImage, recipeImgOnError, getQueryParam, canManageContent } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let recipes = [];
@@ -18,6 +18,7 @@ let category = 'all';
 let dietary = 'all';
 let searchTerm = '';
 let showFavoritesOnly = false;
+let userIsAdmin = false;
 let editingId = null;
 let pendingDeleteId = null;
 let recipeModal = null;
@@ -87,12 +88,12 @@ function renderRecipes() {
 
   document.getElementById('recipeGrid').innerHTML = filtered.map((r) => {
     const fav = user && isFavorited(favorites, 'recipe', r.id);
-    const isOwner = user && r.author_id === user.id;
+    const canManage = canManageContent(user, r.author_id, userIsAdmin);
     return `
     <div class="col-md-6 col-lg-4">
       <div class="card card-hover recipe-card h-100">
         <div class="position-relative">
-          <a href="/recept.html?id=${r.id}"><img src="${resolveRecipeImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}"></a>
+          <a href="/recept.html?id=${r.id}"><img src="${resolveRecipeImage(r.image_url, r.title)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}"></a>
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 favorite-btn ${fav ? 'active' : ''}" data-fav="${r.id}" ${!user ? 'disabled' : ''}>
             <i class="bi bi-heart${fav ? '-fill' : ''}"></i>
           </button>
@@ -107,7 +108,7 @@ function renderRecipes() {
             <span class="text-muted">от ${r.authorName || 'Потребител'}</span>
           </div>
         </div>
-        ${isOwner ? `
+        ${canManage ? `
         <div class="card-footer bg-white d-flex gap-2">
           <button type="button" class="btn btn-sm btn-outline-success flex-fill" data-edit="${r.id}"><i class="bi bi-pencil"></i> Редактирай</button>
           <button type="button" class="btn btn-sm btn-outline-danger flex-fill" data-delete="${r.id}"><i class="bi bi-trash"></i> Изтрий</button>
@@ -179,8 +180,13 @@ function openForm(id = null) {
 
 async function loadData() {
   if (!isSupabaseConfigured) return;
-  recipes = await fetchRecipes();
-  if (user) favorites = await fetchFavorites(user.id);
+  try {
+    recipes = await fetchRecipes();
+    if (user) favorites = await fetchFavorites(user.id);
+  } catch (err) {
+    recipes = [];
+    showToast(err.message || 'Грешка при зареждане на рецептите.', 'error');
+  }
   renderRecipes();
 }
 
@@ -191,6 +197,7 @@ async function initRecepti() {
   }
 
   user = await getCurrentUser();
+  userIsAdmin = user ? await isAdmin() : false;
   const uploadBtn = document.getElementById('showFormBtn');
   if (!user) {
     uploadBtn.outerHTML = '<a href="/login.html" class="btn btn-success">Влезте за да качите рецепта</a>';

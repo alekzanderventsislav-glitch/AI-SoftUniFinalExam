@@ -2,10 +2,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { fetchRecipeById } from '../services/recipes.js';
-import { getCurrentUser } from '../auth.js';
+import { getCurrentUser, isAdmin } from '../auth.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { getQueryParam, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
+import { getQueryParam, resolveRecipeImage, recipeImgOnError, canManageContent } from '../utils/helpers.js';
 import { getCategoryLabel, getDietaryLabel } from '../data/tips.js';
 import { showToast } from '../components/toast.js';
 
@@ -20,7 +20,7 @@ async function initRecept() {
     document.getElementById('recipeContent').innerHTML = `
       <div class="row g-4">
         <div class="col-lg-6">
-          <img src="${resolveRecipeImage(recipe.image_url)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}" loading="lazy" onerror="${recipeImgOnError()}">
+          <img src="${resolveRecipeImage(recipe.image_url, recipe.title)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}" loading="lazy" onerror="${recipeImgOnError()}">
         </div>
         <div class="col-lg-6">
           <div class="d-flex justify-content-between">
@@ -52,7 +52,8 @@ async function initRecept() {
       </div>`;
 
     const user = await getCurrentUser();
-    if (user && recipe.author_id === user.id) {
+    const userIsAdmin = user ? await isAdmin() : false;
+    if (canManageContent(user, recipe.author_id, userIsAdmin)) {
       document.getElementById('ownerActions').innerHTML = `
         <a href="/recepti.html?edit=${recipe.id}" class="btn btn-outline-success">
           <i class="bi bi-pencil"></i> Редактирай

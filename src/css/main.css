@@ -124,6 +124,8 @@ main {
 .admin-badge {
   font-size: 0.7rem;
   vertical-align: middle;
+  background-color: #dc3545;
+  color: #fff;
 }
 
 .page-header {

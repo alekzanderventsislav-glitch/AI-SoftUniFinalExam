@@ -1,4 +1,5 @@
 import { getSupabaseOrThrow } from '../supabaseClient.js';
+import { getAuthorDisplayName } from '../utils/helpers.js';
 
 export async function fetchUserWorkouts() {
   const { data, error } = await getSupabaseOrThrow()
@@ -72,11 +73,59 @@ export async function deleteUserWorkout(id) {
   if (error) throw error;
 }
 
+export async function fetchAllUserWorkoutsAdmin() {
+  const client = getSupabaseOrThrow();
+  const { data: workouts, error } = await client
+    .from('user_workouts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  if (!workouts.length) return [];
+
+  const authorIds = [...new Set(workouts.map((w) => w.author_id))];
+  const { data: profiles, error: profilesError } = await client
+    .from('profiles')
+    .select('id, full_name')
+    .in('id', authorIds);
+
+  if (profilesError) throw profilesError;
+
+  const { data: roles, error: rolesError } = await client
+    .from('user_roles')
+    .select('user_id, role')
+    .in('user_id', authorIds);
+
+  if (rolesError) throw rolesError;
+
+  const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
+  const roleMap = {};
+  (roles || []).forEach((row) => {
+    if (row.role === 'admin') roleMap[row.user_id] = 'admin';
+    else if (!roleMap[row.user_id]) roleMap[row.user_id] = row.role;
+  });
+
+  return workouts.map((row) => ({
+    ...row,
+    profiles: profileMap[row.author_id]
+      ? { full_name: profileMap[row.author_id].full_name, id: row.author_id }
+      : null,
+    authorRole: roleMap[row.author_id] || 'user',
+    authorName: getAuthorDisplayName(profileMap[row.author_id]?.full_name, roleMap[row.author_id]),
+    image: row.image_url,
+    isUserCreated: true,
+  }));
+}
+
 async function attachAuthorNames(rows) {
   if (!rows.length) return [];
 
   const client = getSupabaseOrThrow();
   const authorIds = [...new Set(rows.map((r) => r.author_id))];
+  if (!authorIds.length) {
+    return rows.map((row) => mapUserWorkout({ ...row, profiles: null, authorRole: 'user' }));
+  }
+
   const { data: profiles, error } = await client
     .from('profiles')
     .select('id, full_name')
@@ -84,18 +133,31 @@ async function attachAuthorNames(rows) {
 
   if (error) throw error;
 
+  const { data: roles, error: rolesError } = await client
+    .from('user_roles')
+    .select('user_id, role')
+    .in('user_id', authorIds);
+
+  if (rolesError) throw rolesError;
+
   const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
+  const roleMap = {};
+  (roles || []).forEach((row) => {
+    if (row.role === 'admin') roleMap[row.user_id] = 'admin';
+    else if (!roleMap[row.user_id]) roleMap[row.user_id] = row.role;
+  });
 
   return rows.map((row) => mapUserWorkout({
     ...row,
     profiles: profileMap[row.author_id] || null,
+    authorRole: roleMap[row.author_id] || 'user',
   }));
 }
 
 function mapUserWorkout(row) {
   return {
     ...row,
-    authorName: row.profiles?.full_name || 'Потребител',
+    authorName: getAuthorDisplayName(row.profiles?.full_name, row.authorRole),
     image: row.image_url,
     isUserCreated: true,
   };

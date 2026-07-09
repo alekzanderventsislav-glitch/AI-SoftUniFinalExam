@@ -32,7 +32,7 @@ const env = loadEnv();
 const supabaseUrl = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
 const password = env.SUPABASE_DB_PASSWORD;
 const projectRef = env.SUPABASE_PROJECT_REF || getProjectRef(supabaseUrl);
-const authorEmail = env.SEED_AUTHOR_EMAIL || 'admin@zdravosloven.bg';
+const authorEmail = env.SEED_AUTHOR_EMAIL || 'superadmin@zdravosloven.bg';
 const promoteAdmin = env.SEED_PROMOTE_ADMIN !== 'false';
 
 if (!projectRef) {
@@ -129,7 +129,42 @@ try {
   }
 
   console.log(`Seed complete: ${inserted} recipes added, ${skipped} skipped (already exist).`);
-  console.log('Workouts and foods are already bundled in src/js/data/ for the frontend.');
+
+  const foodsPath = resolve(root, 'supabase/seed/foods.json');
+  if (existsSync(foodsPath)) {
+    const foods = JSON.parse(readFileSync(foodsPath, 'utf8'));
+    const { rows: existingFoods } = await client.query('SELECT slug FROM public.foods');
+    const existingSlugs = new Set(existingFoods.map((row) => row.slug));
+
+    let foodInserted = 0;
+    let foodSkipped = 0;
+
+    for (const food of foods) {
+      if (existingSlugs.has(food.slug)) {
+        foodSkipped += 1;
+        continue;
+      }
+
+      await client.query(
+        `INSERT INTO public.foods (
+          slug, name, category, calories, protein, carbs, fat, image_url
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+        [
+          food.slug,
+          food.name,
+          food.category,
+          food.calories,
+          food.protein,
+          food.carbs,
+          food.fat,
+          food.image_url,
+        ]
+      );
+      foodInserted += 1;
+    }
+
+    console.log(`Foods seed: ${foodInserted} added, ${foodSkipped} skipped (already exist).`);
+  }
 } catch (err) {
   console.error('Seed failed:', err.message);
   process.exit(1);

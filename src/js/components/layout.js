@@ -1,6 +1,7 @@
 import { getCurrentUser, getUserRole, logoutUser, requireAuth, requireAdmin } from '../auth.js';
+import { fetchProfile } from '../services/profiles.js';
 import { isSupabaseConfigured, supabaseKeyError } from '../supabaseClient.js';
-import { escapeHtml } from '../utils/helpers.js';
+import { escapeHtml, getAuthorDisplayName } from '../utils/helpers.js';
 
 const NAV_LINKS = [
   { href: '/index.html', label: 'Начало' },
@@ -23,16 +24,22 @@ export async function renderLayout() {
 
   let user = null;
   let role = null;
+  let profile = null;
   if (isSupabaseConfigured) {
     try {
       user = await getCurrentUser();
-      if (user) role = await getUserRole(user.id);
+      if (user) {
+        role = await getUserRole(user.id);
+        profile = await fetchProfile(user.id).catch(() => null);
+      }
     } catch {
       /* ignore */
     }
   }
 
-  const userName = user?.user_metadata?.full_name || user?.email || '';
+  const userName = user
+    ? getAuthorDisplayName(profile?.full_name || user.user_metadata?.full_name, role)
+    : '';
   const visibleNavLinks = user ? NAV_LINKS : [{ href: '/index.html', label: 'Начало' }];
 
   navbarEl.innerHTML = `
@@ -51,11 +58,11 @@ export async function renderLayout() {
                 <a class="nav-link ${isActive(link.href) ? 'active fw-semibold text-success' : ''}" href="${link.href}">${link.label}</a>
               </li>
             `).join('')}
-            ${user && role === 'admin' ? '<li class="nav-item"><a class="nav-link text-danger fw-semibold" href="/admin.html"><i class="bi bi-shield-lock"></i> Админ</a></li>' : ''}
+            ${user && role === 'admin' ? '<li class="nav-item"><a class="nav-link text-danger fw-semibold" href="/admin.html"><i class="bi bi-shield-lock"></i> Админ панел</a></li>' : ''}
           </ul>
           <div class="d-flex align-items-center gap-2">
             ${user
-              ? `<span class="text-muted small d-none d-md-inline"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}</span>
+              ? `<span class="text-muted small d-none d-md-inline"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}${role === 'admin' ? ' <span class="badge admin-badge">Админ</span>' : ''}</span>
                  <button class="btn btn-outline-success btn-sm" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Изход</button>`
               : `<a href="/login.html" class="btn btn-success btn-sm"><i class="bi bi-box-arrow-in-right"></i> Вход</a>
                  <a href="/register.html" class="btn btn-outline-success btn-sm d-none d-sm-inline-block"><i class="bi bi-person-plus"></i> Регистрация</a>`

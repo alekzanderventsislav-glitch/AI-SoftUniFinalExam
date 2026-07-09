@@ -24,13 +24,31 @@ export async function updateProfile(userId, updates) {
 }
 
 export async function fetchAllProfilesAdmin() {
-  const { data, error } = await getSupabaseOrThrow()
+  const client = getSupabaseOrThrow();
+
+  const { data: profiles, error } = await client
     .from('profiles')
-    .select('*, user_roles(role)')
+    .select('*')
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return data;
+
+  const { data: roles, error: rolesError } = await client
+    .from('user_roles')
+    .select('user_id, role');
+
+  if (rolesError) throw rolesError;
+
+  const rolesByUser = {};
+  (roles || []).forEach((row) => {
+    if (row.role === 'admin') rolesByUser[row.user_id] = [{ role: 'admin' }];
+    else if (!rolesByUser[row.user_id]) rolesByUser[row.user_id] = [{ role: row.role }];
+  });
+
+  return (profiles || []).map((profile) => ({
+    ...profile,
+    user_roles: rolesByUser[profile.id] || [{ role: 'user' }],
+  }));
 }
 
 export async function setUserRole(userId, role) {

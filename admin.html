@@ -11,28 +11,114 @@
   <main class="container py-4">
     <div class="page-header">
       <h1><i class="bi bi-shield-lock text-danger"></i> Админ панел</h1>
-      <p class="text-muted">Управление на рецепти и потребителски роли</p>
+      <p class="text-muted">Управление на потребители, рецепти, тренировки и храни</p>
     </div>
+
     <div class="row g-3 mb-4" id="adminStats"></div>
-    <div class="row g-4">
-      <div class="col-lg-7">
+
+    <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#usersPanel" type="button" role="tab">Потребители</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="recipes-tab" data-bs-toggle="tab" data-bs-target="#recipesPanel" type="button" role="tab">Рецепти</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="workouts-tab" data-bs-toggle="tab" data-bs-target="#workoutsPanel" type="button" role="tab">Тренировки</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="foods-tab" data-bs-toggle="tab" data-bs-target="#foodsPanel" type="button" role="tab">Храни</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="usersPanel" role="tabpanel">
         <div class="card">
-          <div class="card-header fw-bold">Всички рецепти</div>
+          <div class="card-header fw-bold">Потребители и роли</div>
           <div class="table-responsive">
             <table class="table table-hover mb-0">
-              <thead><tr><th>Заглавие</th><th>Автор</th><th>Калории</th><th>Дата</th><th></th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Име</th>
+                  <th>Роля</th>
+                  <th>Регистрация</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="usersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="recipesPanel" role="tabpanel">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Всички рецепти</span>
+            <a href="/recepti.html" class="btn btn-sm btn-success"><i class="bi bi-plus-lg"></i> Нова рецепта</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>Заглавие</th>
+                  <th>Автор</th>
+                  <th>Калории</th>
+                  <th>Дата</th>
+                  <th></th>
+                </tr>
+              </thead>
               <tbody id="recipesTable"></tbody>
             </table>
           </div>
         </div>
       </div>
-      <div class="col-lg-5">
+
+      <div class="tab-pane fade" id="workoutsPanel" role="tabpanel">
         <div class="card">
-          <div class="card-header fw-bold">Потребители и роли</div>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Всички тренировки</span>
+            <a href="/trenirovki.html" class="btn btn-sm btn-success"><i class="bi bi-plus-lg"></i> Нова тренировка</a>
+          </div>
           <div class="table-responsive">
             <table class="table table-hover mb-0">
-              <thead><tr><th>Име</th><th>Роля</th><th>Промяна</th></tr></thead>
-              <tbody id="usersTable"></tbody>
+              <thead>
+                <tr>
+                  <th>Заглавие</th>
+                  <th>Автор</th>
+                  <th>Време</th>
+                  <th>Дата</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="workoutsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="foodsPanel" role="tabpanel">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <span class="fw-bold">Всички храни</span>
+            <button type="button" class="btn btn-sm btn-success" id="addFoodBtn"><i class="bi bi-plus-lg"></i> Нова храна</button>
+          </div>
+          <div class="card-body border-bottom py-3">
+            <input type="search" id="foodSearchInput" class="form-control form-control-sm" placeholder="Търсене по име или категория..." />
+            <p class="text-muted small mb-0 mt-2" id="foodsTableInfo"></p>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>Име</th>
+                  <th>Категория</th>
+                  <th>Калории</th>
+                  <th>Дата</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="foodsTable"></tbody>
             </table>
           </div>
         </div>
@@ -40,6 +126,96 @@
     </div>
   </main>
   <div id="footer"></div>
+
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редакция на потребител</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <form id="editUserForm">
+          <div class="modal-body">
+            <input type="hidden" name="userId" />
+            <div class="mb-3">
+              <label class="form-label">Показвано име</label>
+              <input type="text" name="full_name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Роля</label>
+              <select name="role" class="form-select">
+                <option value="user">Потребител</option>
+                <option value="admin">Админ</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+            <button type="submit" class="btn btn-success">Запази</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editFoodModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editFoodModalTitle">Редакция на храна</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <form id="editFoodForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Име</label>
+              <input type="text" name="foodName" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Категория</label>
+              <select name="category" class="form-select" required>
+                <option value="fruits">Плодове</option>
+                <option value="vegetables">Зеленчуци</option>
+                <option value="meats">Меса</option>
+                <option value="dairy">Млечни</option>
+                <option value="grains">Зърнени</option>
+                <option value="nuts">Ядки</option>
+                <option value="legumes">Бобови</option>
+                <option value="fish">Риба</option>
+              </select>
+            </div>
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="form-label">Калории (100г)</label>
+                <input type="number" name="calories" class="form-control" min="0" required />
+              </div>
+              <div class="col-6">
+                <label class="form-label">Протеин (г)</label>
+                <input type="number" name="protein" class="form-control" min="0" step="0.1" required />
+              </div>
+              <div class="col-6">
+                <label class="form-label">Въглехидрати (г)</label>
+                <input type="number" name="carbs" class="form-control" min="0" step="0.1" required />
+              </div>
+              <div class="col-6">
+                <label class="form-label">Мазнини (г)</label>
+                <input type="number" name="fat" class="form-control" min="0" step="0.1" required />
+              </div>
+            </div>
+            <div class="mb-3 mt-3">
+              <label class="form-label">Снимка (по избор)</label>
+              <input type="file" name="image" class="form-control" accept="image/*" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+            <button type="submit" class="btn btn-success">Запази</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/src/js/pages/admin.js"></script>
 </body>
 </html>

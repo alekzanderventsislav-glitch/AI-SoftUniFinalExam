@@ -1,14 +1,14 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
-import { getCurrentUser } from '../auth.js';
+import { getCurrentUser, getUserRole } from '../auth.js';
 import { fetchProfile, updateProfile } from '../services/profiles.js';
 import { fetchFavorites } from '../services/favorites.js';
 import { fetchRecipeById } from '../services/recipes.js';
 import { fetchUserWorkoutById } from '../services/workouts.js';
 import { getWorkoutById } from '../data/workouts.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveRecipeImage, recipeImgOnError, resolveWorkoutImage, workoutImgOnError } from '../utils/helpers.js';
+import { resolveRecipeImage, recipeImgOnError, resolveWorkoutImage, workoutImgOnError, getAuthorDisplayName } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function initProfil() {
@@ -23,6 +23,8 @@ async function initProfil() {
   if (!user) return;
 
   const profile = await fetchProfile(user.id);
+  const role = await getUserRole(user.id);
+  const displayName = getAuthorDisplayName(profile.full_name, role);
   const favorites = await fetchFavorites(user.id);
 
   const favRecipes = [];
@@ -31,14 +33,12 @@ async function initProfil() {
   }
   const favWorkouts = [];
   for (const f of favorites.filter((x) => x.item_type === 'workout')) {
-    const staticW = getWorkoutById(f.item_id);
-    if (staticW) {
-      favWorkouts.push(staticW);
-      continue;
-    }
     try {
       favWorkouts.push(await fetchUserWorkoutById(f.item_id));
+      continue;
     } catch { /* skip */ }
+    const staticW = getWorkoutById(f.item_id);
+    if (staticW) favWorkouts.push(staticW);
   }
 
   content.innerHTML = `
@@ -47,9 +47,9 @@ async function initProfil() {
         <div class="card">
           <div class="card-body text-center">
             <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width:64px;height:64px;font-size:1.5rem;font-weight:bold;">
-              ${(profile.full_name || user.email).charAt(0).toUpperCase()}
+              ${displayName.charAt(0).toUpperCase()}
             </div>
-            <h4 class="mt-3">${profile.full_name || 'Потребител'}</h4>
+            <h4 class="mt-3">${displayName}${role === 'admin' ? ' <span class="badge admin-badge">Админ</span>' : ''}</h4>
             <p class="text-muted small">${user.email}</p>
             <div class="d-flex justify-content-around mt-3 small">
               <div><strong>${favRecipes.length}</strong><br>рецепти</div>
@@ -79,7 +79,7 @@ async function initProfil() {
         <h5><i class="bi bi-heart text-danger"></i> Любими рецепти</h5>
         ${favRecipes.length ? favRecipes.map((r) => `
           <a href="/recept.html?id=${r.id}" class="d-flex align-items-center gap-3 text-decoration-none text-dark card mb-2 p-2">
-            <img src="${resolveRecipeImage(r.image_url)}" width="56" height="56" class="rounded object-fit-cover" alt="" onerror="${recipeImgOnError()}">
+            <img src="${resolveRecipeImage(r.image_url, r.title)}" width="56" height="56" class="rounded object-fit-cover" alt="" onerror="${recipeImgOnError()}">
             <div><div class="fw-semibold">${r.title}</div><small class="text-success">${r.calories} kcal</small></div>
           </a>`).join('') : '<p class="text-muted">Няма любими рецепти.</p>'}
       </div>
