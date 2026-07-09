@@ -11,7 +11,12 @@
     "preview": "vite preview",
     "db:migrate": "node scripts/run-migration.mjs",
     "db:seed": "node scripts/run-seed.mjs",
-    "db:fix-images": "node scripts/run-fix-images.mjs"
+    "db:fix-images": "node scripts/run-fix-images.mjs",
+    "generate:foods": "node scripts/generate-foods-catalog.mjs",
+    "download:food-images": "node scripts/download-food-images.mjs",
+    "download:food-images:force": "node scripts/download-food-images.mjs --force",
+    "upload:food-images": "node --env-file=.env scripts/upload-food-images-to-supabase.mjs",
+    "sync:food-images": "npm run generate:foods && npm run download:food-images && npm run upload:food-images"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
