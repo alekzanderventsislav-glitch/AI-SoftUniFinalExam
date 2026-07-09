@@ -16,7 +16,9 @@
     "download:food-images": "node scripts/download-food-images.mjs",
     "download:food-images:force": "node scripts/download-food-images.mjs --force",
     "upload:food-images": "node --env-file=.env scripts/upload-food-images-to-supabase.mjs",
-    "sync:food-images": "npm run generate:foods && npm run download:food-images && npm run upload:food-images"
+    "download:food-images:fixes": "node scripts/download-food-images.mjs --fixes",
+    "upload:food-images:fixes": "node --env-file=.env scripts/upload-food-images-to-supabase.mjs --fixes",
+    "sync:food-images:fixes": "npm run generate:foods && npm run download:food-images:fixes && npm run upload:food-images:fixes"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

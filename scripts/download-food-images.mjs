@@ -3,6 +3,11 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { CATALOG } from './food-catalog.mjs';
 import { getFoodImageFileName, getSearchTerm } from './food-image-meta.mjs';
+import {
+  FIX_FOOD_NAMES,
+  getDirectImageUrl,
+  getWikiPageTitle,
+} from './food-image-overrides.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
@@ -42,7 +47,21 @@ async function fetchWithRetry(url, retries = 5) {
   throw lastError || new Error('Request failed');
 }
 
-async function searchWikipediaImage(searchTerm) {
+async function searchWikipediaByTitle(title) {
+  const response = await fetchWithRetry(
+    `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replace(/ /g, '_'))}`,
+    3,
+  );
+  const data = await response.json();
+  return data.thumbnail?.source || null;
+}
+
+async function searchWikipediaImage(searchTerm, wikiTitle = null) {
+  if (wikiTitle) {
+    const direct = await searchWikipediaByTitle(wikiTitle);
+    if (direct) return direct;
+  }
+
   const words = searchTerm.split(' ').filter(Boolean);
   const titles = [
     words[0] ? words[0].charAt(0).toUpperCase() + words[0].slice(1) : null,
@@ -109,9 +128,20 @@ async function searchOpenFoodFacts(searchTerm) {
 }
 
 async function resolveImageUrl(name, category) {
+  const directUrl = getDirectImageUrl(name);
+  if (directUrl) {
+    try {
+      const head = await fetch(directUrl, { method: 'HEAD', headers: { 'User-Agent': USER_AGENT } });
+      if (head.ok) return directUrl;
+    } catch {
+      // fallback to search sources
+    }
+  }
+
+  const wikiTitle = getWikiPageTitle(name);
   const searchTerm = getSearchTerm(name, category);
   const sources = [
-    () => searchWikipediaImage(searchTerm),
+    () => searchWikipediaImage(searchTerm, wikiTitle),
     () => searchWikimediaImage(searchTerm),
     () => searchOpenFoodFacts(searchTerm),
   ];
@@ -147,6 +177,7 @@ async function main() {
   mkdirSync(outputDir, { recursive: true });
 
   const force = process.argv.includes('--force');
+  const fixesOnly = process.argv.includes('--fixes');
   if (force) {
     for (const file of readdirSync(outputDir)) {
       if (file.endsWith('.jpg')) unlinkSync(resolve(outputDir, file));
@@ -160,10 +191,12 @@ async function main() {
 
   for (const [category, items] of Object.entries(CATALOG)) {
     for (const [name] of items) {
+      if (fixesOnly && !FIX_FOOD_NAMES.has(name)) continue;
+
       const fileName = getFoodImageFileName(name);
       const filePath = resolve(outputDir, fileName);
 
-      if (!force && isValidImage(filePath)) {
+      if (!force && !fixesOnly && isValidImage(filePath)) {
         skippedCount += 1;
         manifest.push({ name, fileName, category, search: getSearchTerm(name, category), status: 'skipped' });
         console.log(`SKIP ${fileName}`);

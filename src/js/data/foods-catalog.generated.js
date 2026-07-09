@@ -545,7 +545,7 @@ export const FOOD_CATALOG = {
       11
     ],
     [
-      "Пуешка гърда",
+      "Пуешки гърди",
       135,
       30,
       0,
@@ -1461,13 +1461,6 @@ export const FOOD_CATALOG = {
       50,
       30,
       1
-    ],
-    [
-      "Боб кисело",
-      127,
-      8.7,
-      23,
-      0.5
     ],
     [
       "Леща кафява",
@@ -2471,13 +2464,13 @@ export const GENERATED_FOODS = [
   },
   {
     "id": "meats-18",
-    "name": "Пуешка гърда",
+    "name": "Пуешки гърди",
     "category": "meats",
     "calories": 135,
     "protein": 30,
     "carbs": 0,
     "fat": 1,
-    "image": "/images/foods/pueshka-garda.jpg"
+    "image": "/images/foods/pueshki-gardi.jpg"
   },
   {
     "id": "meats-19",
@@ -3771,16 +3764,6 @@ export const GENERATED_FOODS = [
   },
   {
     "id": "legumes-28",
-    "name": "Боб кисело",
-    "category": "legumes",
-    "calories": 127,
-    "protein": 8.7,
-    "carbs": 23,
-    "fat": 0.5,
-    "image": "/images/foods/bob-kiselo.jpg"
-  },
-  {
-    "id": "legumes-29",
     "name": "Леща кафява",
     "category": "legumes",
     "calories": 116,
@@ -3790,7 +3773,7 @@ export const GENERATED_FOODS = [
     "image": "/images/foods/leshta-kafyava.jpg"
   },
   {
-    "id": "legumes-30",
+    "id": "legumes-29",
     "name": "Нахут брашно",
     "category": "legumes",
     "calories": 387,

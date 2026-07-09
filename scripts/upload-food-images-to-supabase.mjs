@@ -2,6 +2,9 @@ import { readdirSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
+import { REMOVED_STORAGE_FILES, FIX_FOOD_NAMES } from './food-image-overrides.mjs';
+import { getFoodImageFileName } from './food-image-meta.mjs';
+import { CATALOG } from './food-catalog.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
@@ -42,33 +45,64 @@ async function listAllObjects(prefix = '') {
   return all;
 }
 
+function getFixFileNames() {
+  const files = [];
+  for (const items of Object.values(CATALOG)) {
+    for (const [name] of items) {
+      if (FIX_FOOD_NAMES.has(name)) files.push(getFoodImageFileName(name));
+    }
+  }
+  return files;
+}
+
 async function main() {
   const localFiles = readdirSync(imagesDir).filter((f) => f.endsWith('.jpg'));
   if (!localFiles.length) {
     throw new Error('No local .jpg files found. Run npm run download:food-images first.');
   }
 
-  const existing = await listAllObjects();
-  if (existing.length) {
-    const chunkSize = 50;
-    for (let i = 0; i < existing.length; i += chunkSize) {
-      const chunk = existing.slice(i, i + chunkSize);
-      const { error } = await supabase.storage.from('foods').remove(chunk);
-      if (error) throw error;
-      console.log(`Removed ${chunk.length} old objects`);
+  if (REMOVED_STORAGE_FILES.length) {
+    const { error } = await supabase.storage.from('foods').remove(REMOVED_STORAGE_FILES);
+    if (error && !error.message.includes('Not found')) {
+      console.warn('Remove old files warning:', error.message);
+    } else {
+      console.log(`Removed obsolete files: ${REMOVED_STORAGE_FILES.join(', ')}`);
+    }
+  }
+
+  const uploadOnlyFixes = process.argv.includes('--fixes');
+  const fixFiles = new Set(getFixFileNames());
+  const filesToUpload = uploadOnlyFixes
+    ? localFiles.filter((f) => fixFiles.has(f))
+    : localFiles;
+
+  if (!uploadOnlyFixes) {
+    const existing = await listAllObjects();
+    if (existing.length) {
+      const chunkSize = 50;
+      for (let i = 0; i < existing.length; i += chunkSize) {
+        const chunk = existing.slice(i, i + chunkSize);
+        const { error } = await supabase.storage.from('foods').remove(chunk);
+        if (error) throw error;
+        console.log(`Removed ${chunk.length} old objects`);
+      }
     }
   }
 
   let successCount = 0;
   let failCount = 0;
 
-  for (const file of localFiles) {
+  for (const file of filesToUpload) {
     const filePath = resolve(imagesDir, file);
     const bytes = readFileSync(filePath);
 
     const { error } = await supabase.storage
       .from('foods')
-      .upload(file, bytes, { contentType: 'image/jpeg', upsert: true });
+      .upload(file, bytes, {
+        contentType: 'image/jpeg',
+        upsert: true,
+        cacheControl: '3600',
+      });
 
     if (error) {
       failCount += 1;

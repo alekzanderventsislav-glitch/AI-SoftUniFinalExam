@@ -33,7 +33,15 @@ export const CATEGORY_IMAGES = {
 };
 
 const FOOD_FALLBACK = IMG('photo-1542838132-92c53300491e');
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+/** Промяна при нова партида снимки – заобикаля кеша на браузъра/CDN */
+const FOOD_IMAGE_CACHE_VERSION = '20260709-fix2';
+
+function getSupabaseUrl() {
+  if (typeof window !== 'undefined' && window.__SUPABASE_ENV__?.url) {
+    return window.__SUPABASE_ENV__.url;
+  }
+  return import.meta.env.VITE_SUPABASE_URL || '';
+}
 
 export const foods = GENERATED_FOODS;
 
@@ -43,10 +51,18 @@ export function getCategoryLabel(categoryId) {
 
 export function getFoodImage(food) {
   if (!food) return FOOD_FALLBACK;
-  if (food.image?.startsWith('/images/foods/') && SUPABASE_URL) {
+
+  if (food.image?.startsWith('/images/foods/')) {
     const fileName = food.image.split('/').pop();
-    return `${SUPABASE_URL}/storage/v1/object/public/foods/${fileName}`;
+    const supabaseUrl = getSupabaseUrl();
+    const cacheBust = `?v=${FOOD_IMAGE_CACHE_VERSION}`;
+
+    if (supabaseUrl) {
+      return `${supabaseUrl}/storage/v1/object/public/foods/${fileName}${cacheBust}`;
+    }
+    return `${food.image}${cacheBust}`;
   }
+
   return food.image || CATEGORY_IMAGES[food.category] || FOOD_FALLBACK;
 }
 

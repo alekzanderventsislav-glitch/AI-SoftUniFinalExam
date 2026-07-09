@@ -7,171 +7,10 @@
     "status": "ok"
   },
   {
-    "name": "Банан",
-    "fileName": "banan.jpg",
-    "category": "fruits",
-    "search": "banana fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Портокал",
-    "fileName": "portokal.jpg",
-    "category": "fruits",
-    "search": "orange fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Ягода",
-    "fileName": "yagoda.jpg",
-    "category": "fruits",
-    "search": "strawberry fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Авокадо",
-    "fileName": "avokado.jpg",
-    "category": "fruits",
-    "search": "avocado fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Грозде",
-    "fileName": "grozde.jpg",
-    "category": "fruits",
-    "search": "grapes fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Круша",
-    "fileName": "krusha.jpg",
-    "category": "fruits",
-    "search": "pear fruit",
-    "status": "ok"
-  },
-  {
     "name": "Праскова",
     "fileName": "praskova.jpg",
     "category": "fruits",
     "search": "peach fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Слива",
-    "fileName": "sliva.jpg",
-    "category": "fruits",
-    "search": "plum fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Череша",
-    "fileName": "cheresha.jpg",
-    "category": "fruits",
-    "search": "cherry fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Диня",
-    "fileName": "dinya.jpg",
-    "category": "fruits",
-    "search": "watermelon",
-    "status": "ok"
-  },
-  {
-    "name": "Пъпеш",
-    "fileName": "papesh.jpg",
-    "category": "fruits",
-    "search": "cantaloupe melon",
-    "status": "ok"
-  },
-  {
-    "name": "Ананас",
-    "fileName": "ananas.jpg",
-    "category": "fruits",
-    "search": "pineapple fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Манго",
-    "fileName": "mango.jpg",
-    "category": "fruits",
-    "search": "mango fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Киви",
-    "fileName": "kivi.jpg",
-    "category": "fruits",
-    "search": "kiwi fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Боровинка",
-    "fileName": "borovinka.jpg",
-    "category": "fruits",
-    "search": "blueberry fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Малина",
-    "fileName": "malina.jpg",
-    "category": "fruits",
-    "search": "raspberry fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Касис",
-    "fileName": "kasis.jpg",
-    "category": "fruits",
-    "search": "blackcurrant fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Лимон",
-    "fileName": "limon.jpg",
-    "category": "fruits",
-    "search": "lemon fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Лайм",
-    "fileName": "laym.jpg",
-    "category": "fruits",
-    "search": "lime fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Грейпфрут",
-    "fileName": "greypfrut.jpg",
-    "category": "fruits",
-    "search": "grapefruit fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Нар",
-    "fileName": "nar.jpg",
-    "category": "fruits",
-    "search": "pomegranate fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Смокиня",
-    "fileName": "smokinya.jpg",
-    "category": "fruits",
-    "search": "fig fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Фурми",
-    "fileName": "furmi.jpg",
-    "category": "fruits",
-    "search": "dates fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Кайсия",
-    "fileName": "kaysiya.jpg",
-    "category": "fruits",
-    "search": "apricot fruit",
     "status": "ok"
   },
   {
@@ -182,80 +21,10 @@
     "status": "ok"
   },
   {
-    "name": "Папая",
-    "fileName": "papaya.jpg",
-    "category": "fruits",
-    "search": "papaya fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Кокос",
-    "fileName": "kokos.jpg",
-    "category": "fruits",
-    "search": "coconut fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Нектарина",
-    "fileName": "nektarina.jpg",
-    "category": "fruits",
-    "search": "nectarine fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Мандарина",
-    "fileName": "mandarina.jpg",
-    "category": "fruits",
-    "search": "mandarin orange fruit",
-    "status": "ok"
-  },
-  {
-    "name": "Броколи",
-    "fileName": "brokoli.jpg",
-    "category": "vegetables",
-    "search": "broccoli vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Морков",
-    "fileName": "morkov.jpg",
-    "category": "vegetables",
-    "search": "carrot vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Спанак",
-    "fileName": "spanak.jpg",
-    "category": "vegetables",
-    "search": "spinach leaves",
-    "status": "ok"
-  },
-  {
-    "name": "Домати",
-    "fileName": "domati.jpg",
-    "category": "vegetables",
-    "search": "tomato vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Краставица",
-    "fileName": "krastavitsa.jpg",
-    "category": "vegetables",
-    "search": "cucumber vegetable",
-    "status": "ok"
-  },
-  {
     "name": "Чушка",
     "fileName": "chushka.jpg",
     "category": "vegetables",
     "search": "bell pepper vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Лук",
-    "fileName": "luk.jpg",
-    "category": "vegetables",
-    "search": "onion vegetable",
     "status": "ok"
   },
   {
@@ -266,101 +35,10 @@
     "status": "ok"
   },
   {
-    "name": "Тиквичка",
-    "fileName": "tikvichka.jpg",
-    "category": "vegetables",
-    "search": "zucchini vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Патладжан",
-    "fileName": "patladzhan.jpg",
-    "category": "vegetables",
-    "search": "eggplant vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Карфиол",
-    "fileName": "karfiol.jpg",
-    "category": "vegetables",
-    "search": "cauliflower vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Зеле",
-    "fileName": "zele.jpg",
-    "category": "vegetables",
-    "search": "cabbage vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Маруля",
-    "fileName": "marulya.jpg",
-    "category": "vegetables",
-    "search": "lettuce vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Кейл",
-    "fileName": "keyl.jpg",
-    "category": "vegetables",
-    "search": "kale vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Цвекло",
-    "fileName": "tsveklo.jpg",
-    "category": "vegetables",
-    "search": "beetroot vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Целина",
-    "fileName": "tselina.jpg",
-    "category": "vegetables",
-    "search": "celery vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Аспержи",
-    "fileName": "asperzhi.jpg",
-    "category": "vegetables",
-    "search": "asparagus vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Гъби",
-    "fileName": "gabi.jpg",
-    "category": "vegetables",
-    "search": "mushroom food",
-    "status": "ok"
-  },
-  {
-    "name": "Картоф",
-    "fileName": "kartof.jpg",
-    "category": "vegetables",
-    "search": "potato vegetable",
-    "status": "ok"
-  },
-  {
     "name": "Сладък картоф",
     "fileName": "sladak-kartof.jpg",
     "category": "vegetables",
     "search": "sweet potato",
-    "status": "ok"
-  },
-  {
-    "name": "Тиква",
-    "fileName": "tikva.jpg",
-    "category": "vegetables",
-    "search": "pumpkin vegetable",
-    "status": "ok"
-  },
-  {
-    "name": "Царевица",
-    "fileName": "tsarevitsa.jpg",
-    "category": "vegetables",
-    "search": "corn vegetable",
     "status": "ok"
   },
   {
@@ -378,13 +56,6 @@
     "status": "ok"
   },
   {
-    "name": "Репичка",
-    "fileName": "repichka.jpg",
-    "category": "vegetables",
-    "search": "radish vegetable",
-    "status": "ok"
-  },
-  {
     "name": "Праз",
     "fileName": "praz.jpg",
     "category": "vegetables",
@@ -396,13 +67,6 @@
     "fileName": "rukola.jpg",
     "category": "vegetables",
     "search": "arugula leaves",
-    "status": "ok"
-  },
-  {
-    "name": "Артишок",
-    "fileName": "artishok.jpg",
-    "category": "vegetables",
-    "search": "artichoke vegetable",
     "status": "ok"
   },
   {
@@ -420,87 +84,31 @@
     "status": "ok"
   },
   {
-    "name": "Пилешко филе",
-    "fileName": "pileshko-file.jpg",
-    "category": "meats",
-    "search": "chicken breast meat",
-    "status": "ok"
-  },
-  {
     "name": "Говеждо месо",
     "fileName": "govezhdo-meso.jpg",
     "category": "meats",
-    "search": "beef meat",
+    "search": "Cattle cow animal",
     "status": "ok"
   },
   {
     "name": "Свинско филе",
     "fileName": "svinsko-file.jpg",
     "category": "meats",
-    "search": "pork tenderloin meat",
+    "search": "Domestic pig animal",
     "status": "ok"
   },
   {
     "name": "Пуешко месо",
     "fileName": "pueshko-meso.jpg",
     "category": "meats",
-    "search": "turkey meat",
+    "search": "Domestic turkey bird",
     "status": "ok"
   },
   {
     "name": "Агнешко",
     "fileName": "agneshko.jpg",
     "category": "meats",
-    "search": "lamb meat",
-    "status": "ok"
-  },
-  {
-    "name": "Патешко месо",
-    "fileName": "pateshko-meso.jpg",
-    "category": "meats",
-    "search": "duck meat",
-    "status": "ok"
-  },
-  {
-    "name": "Заек",
-    "fileName": "zaek.jpg",
-    "category": "meats",
-    "search": "rabbit meat",
-    "status": "ok"
-  },
-  {
-    "name": "Телешко",
-    "fileName": "teleshko.jpg",
-    "category": "meats",
-    "search": "veal meat",
-    "status": "ok"
-  },
-  {
-    "name": "Пилешко бедро",
-    "fileName": "pileshko-bedro.jpg",
-    "category": "meats",
-    "search": "chicken thigh meat",
-    "status": "ok"
-  },
-  {
-    "name": "Кайма говежда",
-    "fileName": "kayma-govezhda.jpg",
-    "category": "meats",
-    "search": "ground beef",
-    "status": "ok"
-  },
-  {
-    "name": "Бекон",
-    "fileName": "bekon.jpg",
-    "category": "meats",
-    "search": "bacon meat",
-    "status": "ok"
-  },
-  {
-    "name": "Шунка",
-    "fileName": "shunka.jpg",
-    "category": "meats",
-    "search": "ham meat",
+    "search": "Sheep lamb animal",
     "status": "ok"
   },
   {
@@ -511,122 +119,59 @@
     "status": "ok"
   },
   {
-    "name": "Прошуто",
-    "fileName": "proshuto.jpg",
-    "category": "meats",
-    "search": "prosciutto ham",
-    "status": "ok"
-  },
-  {
-    "name": "Пилешки крилца",
-    "fileName": "pileshki-kriltsa.jpg",
-    "category": "meats",
-    "search": "chicken wings",
-    "status": "ok"
-  },
-  {
     "name": "Телешки стек",
     "fileName": "teleshki-stek.jpg",
     "category": "meats",
-    "search": "beef steak",
+    "search": "Cattle cow animal",
     "status": "ok"
   },
   {
     "name": "Свинска пържола",
     "fileName": "svinska-parzhola.jpg",
     "category": "meats",
-    "search": "pork chop",
+    "search": "Domestic pig animal",
     "status": "ok"
   },
   {
-    "name": "Пуешка гърда",
-    "fileName": "pueshka-garda.jpg",
+    "name": "Пуешки гърди",
+    "fileName": "pueshki-gardi.jpg",
     "category": "meats",
-    "search": "turkey breast",
+    "search": "Domestic turkey bird",
     "status": "ok"
   },
   {
     "name": "Телешки черен дроб",
     "fileName": "teleshki-cheren-drob.jpg",
     "category": "meats",
-    "search": "beef liver",
-    "status": "ok"
-  },
-  {
-    "name": "Сърце пилешко",
-    "fileName": "sartse-pileshko.jpg",
-    "category": "meats",
-    "search": "chicken heart",
-    "status": "ok"
-  },
-  {
-    "name": "Кайма свинска",
-    "fileName": "kayma-svinska.jpg",
-    "category": "meats",
-    "search": "ground pork",
-    "status": "ok"
-  },
-  {
-    "name": "Салам",
-    "fileName": "salam.jpg",
-    "category": "meats",
-    "search": "salami sausage",
-    "status": "ok"
-  },
-  {
-    "name": "Чоризо",
-    "fileName": "chorizo.jpg",
-    "category": "meats",
-    "search": "chorizo sausage",
+    "search": "Cattle cow animal",
     "status": "ok"
   },
   {
     "name": "Ребра свински",
     "fileName": "rebra-svinski.jpg",
     "category": "meats",
-    "search": "pork ribs",
+    "search": "Domestic pig animal",
     "status": "ok"
   },
   {
     "name": "Кебапче",
     "fileName": "kebapche.jpg",
     "category": "meats",
-    "search": "kebab meat",
+    "search": "cevapi kebab grilled",
     "status": "ok"
   },
   {
     "name": "Кюфте",
     "fileName": "kyufte.jpg",
     "category": "meats",
-    "search": "meatballs",
-    "status": "ok"
-  },
-  {
-    "name": "Шницел пилешки",
-    "fileName": "shnitsel-pileshki.jpg",
-    "category": "meats",
-    "search": "chicken schnitzel",
-    "status": "ok"
-  },
-  {
-    "name": "Пилешки наденички",
-    "fileName": "pileshki-nadenichki.jpg",
-    "category": "meats",
-    "search": "chicken sausages",
-    "status": "ok"
-  },
-  {
-    "name": "Гъска",
-    "fileName": "gaska.jpg",
-    "category": "meats",
-    "search": "goose meat",
+    "search": "meatballs food",
     "status": "ok"
   },
   {
     "name": "Телешки език",
     "fileName": "teleshki-ezik.jpg",
     "category": "meats",
-    "search": "beef tongue",
+    "search": "Cattle cow animal",
     "status": "ok"
   },
   {
@@ -658,13 +203,6 @@
     "status": "ok"
   },
   {
-    "name": "Мляко 2%",
-    "fileName": "mlyako-2procent.jpg",
-    "category": "dairy",
-    "search": "milk dairy",
-    "status": "ok"
-  },
-  {
     "name": "Мляко 3.6%",
     "fileName": "mlyako-3-6procent.jpg",
     "category": "dairy",
@@ -672,45 +210,10 @@
     "status": "ok"
   },
   {
-    "name": "Кисело мляко",
-    "fileName": "kiselo-mlyako.jpg",
-    "category": "dairy",
-    "search": "yogurt dairy",
-    "status": "ok"
-  },
-  {
     "name": "Сметана",
     "fileName": "smetana.jpg",
     "category": "dairy",
     "search": "sour cream",
-    "status": "ok"
-  },
-  {
-    "name": "Масло",
-    "fileName": "maslo.jpg",
-    "category": "dairy",
-    "search": "butter dairy",
-    "status": "ok"
-  },
-  {
-    "name": "Моцарела",
-    "fileName": "motsarela.jpg",
-    "category": "dairy",
-    "search": "mozzarella cheese",
-    "status": "ok"
-  },
-  {
-    "name": "Фета",
-    "fileName": "feta.jpg",
-    "category": "dairy",
-    "search": "feta cheese",
-    "status": "ok"
-  },
-  {
-    "name": "Пармезан",
-    "fileName": "parmezan.jpg",
-    "category": "dairy",
-    "search": "parmesan cheese",
     "status": "ok"
   },
   {
@@ -728,31 +231,10 @@
     "status": "ok"
   },
   {
-    "name": "Бри",
-    "fileName": "bri.jpg",
-    "category": "dairy",
-    "search": "brie cheese",
-    "status": "ok"
-  },
-  {
     "name": "Крем сирене",
     "fileName": "krem-sirene.jpg",
     "category": "dairy",
     "search": "cream cheese",
-    "status": "ok"
-  },
-  {
-    "name": "Кефир",
-    "fileName": "kefir.jpg",
-    "category": "dairy",
-    "search": "kefir milk",
-    "status": "ok"
-  },
-  {
-    "name": "Айран",
-    "fileName": "ayran.jpg",
-    "category": "dairy",
-    "search": "ayran yogurt drink",
     "status": "ok"
   },
   {
@@ -819,13 +301,6 @@
     "status": "ok"
   },
   {
-    "name": "Мляко бадемово",
-    "fileName": "mlyako-bademovo.jpg",
-    "category": "dairy",
-    "search": "almond milk",
-    "status": "ok"
-  },
-  {
     "name": "Мляко овесено",
     "fileName": "mlyako-oveseno.jpg",
     "category": "dairy",
@@ -875,13 +350,6 @@
     "status": "ok"
   },
   {
-    "name": "Паста",
-    "fileName": "pasta.jpg",
-    "category": "grains",
-    "search": "pasta food",
-    "status": "ok"
-  },
-  {
     "name": "Пълнозърнеста паста",
     "fileName": "palnozarnesta-pasta.jpg",
     "category": "grains",
@@ -893,20 +361,6 @@
     "fileName": "bulgur.jpg",
     "category": "grains",
     "search": "bulgur wheat",
-    "status": "ok"
-  },
-  {
-    "name": "Ечемик",
-    "fileName": "echemik.jpg",
-    "category": "grains",
-    "search": "barley grain",
-    "status": "ok"
-  },
-  {
-    "name": "Ръж",
-    "fileName": "razh.jpg",
-    "category": "grains",
-    "search": "rye grain",
     "status": "ok"
   },
   {
@@ -924,13 +378,6 @@
     "status": "ok"
   },
   {
-    "name": "Спагети",
-    "fileName": "spageti.jpg",
-    "category": "grains",
-    "search": "spaghetti pasta",
-    "status": "ok"
-  },
-  {
     "name": "Ориз кафяв",
     "fileName": "oriz-kafyav.jpg",
     "category": "grains",
@@ -938,52 +385,10 @@
     "status": "ok"
   },
   {
-    "name": "Пълнозърнести мюсли",
-    "fileName": "palnozarnesti-myusli.jpg",
-    "category": "grains",
-    "search": "muesli cereal",
-    "status": "ok"
-  },
-  {
-    "name": "Тортила",
-    "fileName": "tortila.jpg",
-    "category": "grains",
-    "search": "tortilla bread",
-    "status": "ok"
-  },
-  {
-    "name": "Гриз",
-    "fileName": "griz.jpg",
-    "category": "grains",
-    "search": "semolina grain",
-    "status": "ok"
-  },
-  {
     "name": "Амарант",
     "fileName": "amarant.jpg",
     "category": "grains",
     "search": "amaranth grain",
-    "status": "ok"
-  },
-  {
-    "name": "Теф",
-    "fileName": "tef.jpg",
-    "category": "grains",
-    "search": "teff grain",
-    "status": "ok"
-  },
-  {
-    "name": "Хляб ръжен",
-    "fileName": "hlyab-razhen.jpg",
-    "category": "grains",
-    "search": "rye bread",
-    "status": "ok"
-  },
-  {
-    "name": "Пита",
-    "fileName": "pita.jpg",
-    "category": "grains",
-    "search": "pita bread",
     "status": "ok"
   },
   {
@@ -998,20 +403,6 @@
     "fileName": "nahuteno-brashno.jpg",
     "category": "grains",
     "search": "chickpea flour",
-    "status": "ok"
-  },
-  {
-    "name": "Царевичен гриз",
-    "fileName": "tsarevichen-griz.jpg",
-    "category": "grains",
-    "search": "cornmeal",
-    "status": "ok"
-  },
-  {
-    "name": "Сушени фиде",
-    "fileName": "susheni-fide.jpg",
-    "category": "grains",
-    "search": "vermicelli pasta",
     "status": "ok"
   },
   {
@@ -1050,52 +441,10 @@
     "status": "ok"
   },
   {
-    "name": "Бадеми",
-    "fileName": "bademi.jpg",
-    "category": "nuts",
-    "search": "almonds nuts",
-    "status": "ok"
-  },
-  {
-    "name": "Орехи",
-    "fileName": "orehi.jpg",
-    "category": "nuts",
-    "search": "walnuts nuts",
-    "status": "ok"
-  },
-  {
     "name": "Чиа",
     "fileName": "chia.jpg",
     "category": "nuts",
     "search": "chia seeds",
-    "status": "ok"
-  },
-  {
-    "name": "Кашу",
-    "fileName": "kashu.jpg",
-    "category": "nuts",
-    "search": "cashew nuts",
-    "status": "ok"
-  },
-  {
-    "name": "Пистачи",
-    "fileName": "pistachi.jpg",
-    "category": "nuts",
-    "search": "pistachio nuts",
-    "status": "ok"
-  },
-  {
-    "name": "Лешник",
-    "fileName": "leshnik.jpg",
-    "category": "nuts",
-    "search": "hazelnuts",
-    "status": "ok"
-  },
-  {
-    "name": "Макадамия",
-    "fileName": "makadamiya.jpg",
-    "category": "nuts",
-    "search": "macadamia nuts",
     "status": "ok"
   },
   {
@@ -1110,20 +459,6 @@
     "fileName": "susam.jpg",
     "category": "nuts",
     "search": "sesame seeds",
-    "status": "ok"
-  },
-  {
-    "name": "Слънчогледови семки",
-    "fileName": "slanchogledovi-semki.jpg",
-    "category": "nuts",
-    "search": "sunflower seeds",
-    "status": "ok"
-  },
-  {
-    "name": "Тиквено семе",
-    "fileName": "tikveno-seme.jpg",
-    "category": "nuts",
-    "search": "pumpkin seeds",
     "status": "ok"
   },
   {
@@ -1148,13 +483,6 @@
     "status": "ok"
   },
   {
-    "name": "Кокосови стърготини",
-    "fileName": "kokosovi-stargotini.jpg",
-    "category": "nuts",
-    "search": "coconut flakes",
-    "status": "ok"
-  },
-  {
     "name": "Фъстъци",
     "fileName": "fastatsi.jpg",
     "category": "nuts",
@@ -1169,45 +497,10 @@
     "status": "ok"
   },
   {
-    "name": "Конопени семки",
-    "fileName": "konopeni-semki.jpg",
-    "category": "nuts",
-    "search": "hemp seeds",
-    "status": "ok"
-  },
-  {
-    "name": "Маково семе",
-    "fileName": "makovo-seme.jpg",
-    "category": "nuts",
-    "search": "poppy seeds",
-    "status": "ok"
-  },
-  {
-    "name": "Кестени",
-    "fileName": "kesteni.jpg",
-    "category": "nuts",
-    "search": "chestnuts",
-    "status": "ok"
-  },
-  {
     "name": "Кедрови ядки сурови",
     "fileName": "kedrovi-yadki-surovi.jpg",
     "category": "nuts",
     "search": "pine nuts raw",
-    "status": "ok"
-  },
-  {
-    "name": "Миндали бланширани",
-    "fileName": "mindali-blanshirani.jpg",
-    "category": "nuts",
-    "search": "blanched almonds",
-    "status": "ok"
-  },
-  {
-    "name": "Орехи микс",
-    "fileName": "orehi-miks.jpg",
-    "category": "nuts",
-    "search": "mixed nuts",
     "status": "ok"
   },
   {
@@ -1246,34 +539,6 @@
     "status": "ok"
   },
   {
-    "name": "Слънчогледово семе",
-    "fileName": "slanchogledovo-seme.jpg",
-    "category": "nuts",
-    "search": "sunflower seeds food",
-    "status": "ok"
-  },
-  {
-    "name": "Конопено протеиново",
-    "fileName": "konopeno-proteinovo.jpg",
-    "category": "nuts",
-    "search": "hemp protein powder",
-    "status": "ok"
-  },
-  {
-    "name": "Леща",
-    "fileName": "leshta.jpg",
-    "category": "legumes",
-    "search": "lentils legumes",
-    "status": "ok"
-  },
-  {
-    "name": "Нахут",
-    "fileName": "nahut.jpg",
-    "category": "legumes",
-    "search": "chickpeas",
-    "status": "ok"
-  },
-  {
     "name": "Боб бял",
     "fileName": "bob-byal.jpg",
     "category": "legumes",
@@ -1309,27 +574,6 @@
     "status": "ok"
   },
   {
-    "name": "Тофу",
-    "fileName": "tofu.jpg",
-    "category": "legumes",
-    "search": "tofu food",
-    "status": "ok"
-  },
-  {
-    "name": "Темпе",
-    "fileName": "tempe.jpg",
-    "category": "legumes",
-    "search": "tempeh food",
-    "status": "ok"
-  },
-  {
-    "name": "Фасул консерва",
-    "fileName": "fasul-konserva.jpg",
-    "category": "legumes",
-    "search": "canned beans",
-    "status": "ok"
-  },
-  {
     "name": "Грах консерва",
     "fileName": "grah-konserva.jpg",
     "category": "legumes",
@@ -1337,80 +581,10 @@
     "status": "ok"
   },
   {
-    "name": "Боб адзуки",
-    "fileName": "bob-adzuki.jpg",
-    "category": "legumes",
-    "search": "adzuki beans",
-    "status": "ok"
-  },
-  {
-    "name": "Боб мунг",
-    "fileName": "bob-mung.jpg",
-    "category": "legumes",
-    "search": "mung beans",
-    "status": "ok"
-  },
-  {
     "name": "Боб лима",
     "fileName": "bob-lima.jpg",
     "category": "legumes",
     "search": "lima beans",
-    "status": "ok"
-  },
-  {
-    "name": "Боб канелини",
-    "fileName": "bob-kanelini.jpg",
-    "category": "legumes",
-    "search": "cannellini beans",
-    "status": "ok"
-  },
-  {
-    "name": "Боб пинто",
-    "fileName": "bob-pinto.jpg",
-    "category": "legumes",
-    "search": "pinto beans",
-    "status": "ok"
-  },
-  {
-    "name": "Боб борлоти",
-    "fileName": "bob-borloti.jpg",
-    "category": "legumes",
-    "search": "borlotti beans",
-    "status": "ok"
-  },
-  {
-    "name": "Соя зърна",
-    "fileName": "soya-zarna.jpg",
-    "category": "legumes",
-    "search": "soy beans",
-    "status": "ok"
-  },
-  {
-    "name": "Едамаме",
-    "fileName": "edamame.jpg",
-    "category": "legumes",
-    "search": "edamame soybeans",
-    "status": "ok"
-  },
-  {
-    "name": "Хумус",
-    "fileName": "humus.jpg",
-    "category": "legumes",
-    "search": "hummus chickpea",
-    "status": "ok"
-  },
-  {
-    "name": "Фалафел",
-    "fileName": "falafel.jpg",
-    "category": "legumes",
-    "search": "falafel food",
-    "status": "ok"
-  },
-  {
-    "name": "Бобови кълнове",
-    "fileName": "bobovi-kalnove.jpg",
-    "category": "legumes",
-    "search": "bean sprouts",
     "status": "ok"
   },
   {
@@ -1435,143 +609,10 @@
     "status": "ok"
   },
   {
-    "name": "Грах замразен",
-    "fileName": "grah-zamrazen.jpg",
-    "category": "legumes",
-    "search": "frozen peas",
-    "status": "ok"
-  },
-  {
-    "name": "Соя текстурирана",
-    "fileName": "soya-teksturirana.jpg",
-    "category": "legumes",
-    "search": "textured vegetable protein",
-    "status": "ok"
-  },
-  {
-    "name": "Боб кисело",
-    "fileName": "bob-kiselo.jpg",
-    "category": "legumes",
-    "search": "pickled beans",
-    "status": "ok"
-  },
-  {
     "name": "Леща кафява",
     "fileName": "leshta-kafyava.jpg",
     "category": "legumes",
     "search": "brown lentils",
-    "status": "ok"
-  },
-  {
-    "name": "Нахут брашно",
-    "fileName": "nahut-brashno.jpg",
-    "category": "legumes",
-    "search": "chickpea flour food",
-    "status": "ok"
-  },
-  {
-    "name": "Сьомга",
-    "fileName": "somga.jpg",
-    "category": "fish",
-    "search": "salmon fish",
-    "status": "ok"
-  },
-  {
-    "name": "Тон",
-    "fileName": "ton.jpg",
-    "category": "fish",
-    "search": "tuna fish",
-    "status": "ok"
-  },
-  {
-    "name": "Скариди",
-    "fileName": "skaridi.jpg",
-    "category": "fish",
-    "search": "shrimp seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Пъстърва",
-    "fileName": "pastarva.jpg",
-    "category": "fish",
-    "search": "trout fish",
-    "status": "ok"
-  },
-  {
-    "name": "Скумрия",
-    "fileName": "skumriya.jpg",
-    "category": "fish",
-    "search": "mackerel fish",
-    "status": "ok"
-  },
-  {
-    "name": "Херинга",
-    "fileName": "heringa.jpg",
-    "category": "fish",
-    "search": "herring fish",
-    "status": "ok"
-  },
-  {
-    "name": "Сардини",
-    "fileName": "sardini.jpg",
-    "category": "fish",
-    "search": "sardines fish",
-    "status": "ok"
-  },
-  {
-    "name": "Калмар",
-    "fileName": "kalmar.jpg",
-    "category": "fish",
-    "search": "squid seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Октопод",
-    "fileName": "oktopod.jpg",
-    "category": "fish",
-    "search": "octopus seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Миди",
-    "fileName": "midi.jpg",
-    "category": "fish",
-    "search": "mussels seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Стриди",
-    "fileName": "stridi.jpg",
-    "category": "fish",
-    "search": "oysters seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Рачешко месо",
-    "fileName": "racheshko-meso.jpg",
-    "category": "fish",
-    "search": "crab meat seafood",
-    "status": "ok"
-  },
-  {
-    "name": "Треска",
-    "fileName": "treska.jpg",
-    "category": "fish",
-    "search": "cod fish",
-    "status": "ok"
-  },
-  {
-    "name": "Пангасиус",
-    "fileName": "pangasius.jpg",
-    "category": "fish",
-    "search": "pangasius fish",
-    "status": "ok"
-  },
-  {
-    "name": "Сом",
-    "fileName": "som.jpg",
-    "category": "fish",
-    "search": "catfish",
     "status": "ok"
   },
   {
@@ -1582,73 +623,10 @@
     "status": "ok"
   },
   {
-    "name": "Аншоа",
-    "fileName": "anshoa.jpg",
-    "category": "fish",
-    "search": "anchovies fish",
-    "status": "ok"
-  },
-  {
-    "name": "Кефал",
-    "fileName": "kefal.jpg",
-    "category": "fish",
-    "search": "mullet fish",
-    "status": "ok"
-  },
-  {
-    "name": "Риба тон консерва",
-    "fileName": "riba-ton-konserva.jpg",
-    "category": "fish",
-    "search": "canned tuna",
-    "status": "ok"
-  },
-  {
-    "name": "Сьомга пушена",
-    "fileName": "somga-pushena.jpg",
-    "category": "fish",
-    "search": "smoked salmon",
-    "status": "ok"
-  },
-  {
-    "name": "Скумрия пушена",
-    "fileName": "skumriya-pushena.jpg",
-    "category": "fish",
-    "search": "smoked mackerel",
-    "status": "ok"
-  },
-  {
-    "name": "Рибни кюфтета",
-    "fileName": "ribni-kyufteta.jpg",
-    "category": "fish",
-    "search": "fish cakes",
-    "status": "ok"
-  },
-  {
-    "name": "Суши сьомга",
-    "fileName": "sushi-somga.jpg",
-    "category": "fish",
-    "search": "salmon sushi",
-    "status": "ok"
-  },
-  {
-    "name": "Треска панирана",
-    "fileName": "treska-panirana.jpg",
-    "category": "fish",
-    "search": "fried cod fish",
-    "status": "ok"
-  },
-  {
     "name": "Сьомга на фурна",
     "fileName": "somga-na-furna.jpg",
     "category": "fish",
     "search": "baked salmon",
-    "status": "ok"
-  },
-  {
-    "name": "Тон стек",
-    "fileName": "ton-stek.jpg",
-    "category": "fish",
-    "search": "tuna steak",
     "status": "ok"
   },
   {
@@ -1663,20 +641,6 @@
     "fileName": "riba-na-skara.jpg",
     "category": "fish",
     "search": "grilled fish",
-    "status": "ok"
-  },
-  {
-    "name": "Пъстърва на пара",
-    "fileName": "pastarva-na-para.jpg",
-    "category": "fish",
-    "search": "steamed trout",
-    "status": "ok"
-  },
-  {
-    "name": "Морски дарове микс",
-    "fileName": "morski-darove-miks.jpg",
-    "category": "fish",
-    "search": "seafood mix",
     "status": "ok"
   }
 ]
