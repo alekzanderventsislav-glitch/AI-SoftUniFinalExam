@@ -56,13 +56,73 @@ export function getTodayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function loadDailyTracker() {
-  const key = `zl_tracker_${getTodayKey()}`;
+export function loadDailyTracker(dateKey = getTodayKey()) {
+  const key = `zl_tracker_${dateKey}`;
   const raw = localStorage.getItem(key);
   return raw ? JSON.parse(raw) : { calories: 0, water: 0 };
 }
 
-export function saveDailyTracker(data) {
-  const key = `zl_tracker_${getTodayKey()}`;
+export function saveDailyTracker(data, dateKey = getTodayKey()) {
+  const key = `zl_tracker_${dateKey}`;
   localStorage.setItem(key, JSON.stringify(data));
+}
+
+export function formatTrackerDateLabel(dateKey) {
+  const [year, month, day] = dateKey.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString('bg-BG', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+export function isTrackerToday(dateKey) {
+  return dateKey === getTodayKey();
+}
+
+function toDateKeyFromDate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+export function addDaysToDateKey(dateKey, days) {
+  const [year, month, day] = dateKey.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  date.setDate(date.getDate() + days);
+  return toDateKeyFromDate(date);
+}
+
+export function getDateKeysInRange(fromKey, toKey) {
+  const [fy, fm, fd] = fromKey.split('-').map(Number);
+  const [ty, tm, td] = toKey.split('-').map(Number);
+  const from = new Date(fy, fm - 1, fd);
+  const to = new Date(ty, tm - 1, td);
+  if (from > to) return [];
+
+  const keys = [];
+  const cur = new Date(from);
+  while (cur <= to) {
+    keys.push(toDateKeyFromDate(cur));
+    cur.setDate(cur.getDate() + 1);
+  }
+  return keys;
+}
+
+export function loadTrackerRange(fromKey, toKey) {
+  return getDateKeysInRange(fromKey, toKey).map((dateKey) => ({
+    dateKey,
+    ...loadDailyTracker(dateKey),
+  }));
+}
+
+export function formatShortDate(dateKey) {
+  const [year, month, day] = dateKey.split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString('bg-BG', {
+    day: 'numeric',
+    month: 'short',
+  });
 }

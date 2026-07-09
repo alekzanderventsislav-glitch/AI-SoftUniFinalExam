@@ -24,12 +24,25 @@
 
       <div class="row g-4 mb-4">
         <div class="col-lg-8">
-          <div class="card h-100">
-            <div class="card-body d-flex gap-3">
-              <i class="bi bi-lightbulb fs-3 text-warning"></i>
-              <div>
-                <h5 class="card-title">Съвет за деня</h5>
-                <p class="card-text text-muted mb-0" id="dailyTip">Зареждане...</p>
+          <div class="card daily-card h-100">
+            <div class="card-body">
+              <div class="daily-block">
+                <div class="daily-block__icon daily-block__icon--tip" aria-hidden="true">
+                  <i class="bi bi-lightbulb-fill"></i>
+                </div>
+                <div class="daily-block__content">
+                  <span class="daily-block__label">Полезен съвет</span>
+                  <p class="daily-block__text" id="dailyTip">Зареждане...</p>
+                </div>
+              </div>
+              <div class="daily-block daily-block--quote">
+                <div class="daily-block__icon daily-block__icon--quote" aria-hidden="true">
+                  <i class="bi bi-chat-quote-fill"></i>
+                </div>
+                <div class="daily-block__content">
+                  <span class="daily-block__label">Дневна мотивация</span>
+                  <p class="daily-block__quote" id="dailyMotivation">Зареждане...</p>
+                </div>
               </div>
             </div>
           </div>
@@ -83,33 +96,70 @@
 
       <div class="row g-4 mb-4">
         <div class="col-lg-8">
-          <div class="card h-100">
-            <div class="card-body d-flex gap-3">
-              <i class="bi bi-lightbulb fs-3 text-warning"></i>
-              <div>
-                <h5 class="card-title">Съвет за деня</h5>
-                <p class="card-text text-muted mb-0" id="memberDailyTip">Зареждане...</p>
+          <div class="card daily-card h-100">
+            <div class="card-body">
+              <div class="daily-block">
+                <div class="daily-block__icon daily-block__icon--tip" aria-hidden="true">
+                  <i class="bi bi-lightbulb-fill"></i>
+                </div>
+                <div class="daily-block__content">
+                  <span class="daily-block__label">Полезен съвет</span>
+                  <p class="daily-block__text" id="memberDailyTip">Зареждане...</p>
+                </div>
+              </div>
+              <div class="daily-block daily-block--quote">
+                <div class="daily-block__icon daily-block__icon--quote" aria-hidden="true">
+                  <i class="bi bi-chat-quote-fill"></i>
+                </div>
+                <div class="daily-block__content">
+                  <span class="daily-block__label">Дневна мотивация</span>
+                  <p class="daily-block__quote" id="memberDailyMotivation">Зареждане...</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card h-100 text-center">
+          <div class="card h-100 border-success border-opacity-25">
             <div class="card-body">
-              <i class="bi bi-graph-up text-success fs-3"></i>
-              <h5 class="mt-2">Бърза статистика</h5>
-              <p class="text-muted small mb-0">30 храни · 8 тренировки</p>
+              <h5 class="card-title text-success"><i class="bi bi-collection"></i> Налично в портала</h5>
+              <ul class="list-unstyled small mb-0" id="availabilityList">
+                <li class="text-muted">Зареждане...</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
       <div class="row g-4 mb-4">
+        <div class="col-12">
+          <div class="tracker-day-bar">
+            <div class="tracker-day-picker" id="trackerDayPicker">
+              <button type="button" class="tracker-date-chip" id="trackerDateChip" aria-haspopup="dialog" aria-expanded="false">
+                <span class="tracker-date-chip__icon"><i class="bi bi-calendar-event"></i></span>
+                <span class="tracker-date-chip__text">
+                  <span class="tracker-date-chip__primary" id="trackerDatePrimary">Днес</span>
+                  <span class="tracker-date-chip__secondary" id="trackerDateSecondary"></span>
+                </span>
+                <i class="bi bi-chevron-down tracker-date-chip__chevron"></i>
+              </button>
+              <div class="md-calendar-popup" id="trackerCalendar" hidden></div>
+            </div>
+            <div class="tracker-day-actions">
+              <button type="button" class="tracker-today-btn" id="trackerTodayBtn">Днес</button>
+              <button type="button" class="tracker-stats-btn" id="openStatsBtn">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Статистика</span>
+              </button>
+            </div>
+          </div>
+          <input type="hidden" id="trackerDate" />
+        </div>
         <div class="col-md-6">
-          <div class="card">
+          <div class="card tracker-card">
             <div class="card-body">
               <div class="d-flex justify-content-between mb-2">
-                <span><i class="bi bi-fire text-warning"></i> Калории днес</span>
+                <span><i class="bi bi-fire text-warning"></i> Калории</span>
                 <small class="text-muted" id="caloriesText">0 / 2000 kcal</small>
               </div>
               <div class="progress progress-calories" style="height:10px">
@@ -127,10 +177,10 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card">
+          <div class="card tracker-card">
             <div class="card-body">
               <div class="d-flex justify-content-between mb-2">
-                <span><i class="bi bi-droplet text-primary"></i> Вода днес</span>
+                <span><i class="bi bi-droplet text-primary"></i> Вода</span>
                 <small class="text-muted" id="waterText">0 / 8 чаши</small>
               </div>
               <div class="progress progress-water" style="height:10px">
@@ -153,6 +203,24 @@
     </div>
   </main>
   <div id="footer"></div>
+
+  <div class="modal fade" id="statsModal" tabindex="-1" aria-labelledby="statsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="statsModalTitle"><i class="bi bi-graph-up text-success"></i> Моя статистика</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <div class="modal-body" id="statsModalBody">
+          <p class="text-muted mb-0">Зареждане...</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Затвори</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/src/js/pages/home.js"></script>
 </body>
 </html>
