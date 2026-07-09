@@ -5,6 +5,7 @@ import { workouts, DIFFICULTY_LEVELS, WORKOUT_GOALS, getDifficultyLabel, getGoal
 import { getCurrentUser } from '../auth.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
+import { resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let difficulty = 'all';
@@ -27,7 +28,7 @@ function renderWorkouts() {
     <div class="col-md-6 col-lg-4">
       <div class="card card-hover workout-card h-100">
         <div class="position-relative">
-          <a href="/trenirovka.html?id=${w.id}"><img src="${w.image}" class="card-img-top" alt="${w.title}"></a>
+          <a href="/trenirovka.html?id=${w.id}"><img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" class="card-img-top" alt="${w.title}" loading="lazy"></a>
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 favorite-btn ${fav ? 'active' : ''}" data-fav="${w.id}" ${!user ? 'disabled title="Влезте за любими"' : ''}>
             <i class="bi bi-heart${fav ? '-fill' : ''}"></i>
           </button>

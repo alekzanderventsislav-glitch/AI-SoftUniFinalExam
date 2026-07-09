@@ -1,7 +1,7 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
-import { foods, FOOD_CATEGORIES, getCategoryLabel } from '../data/foods.js';
+import { foods, FOOD_CATEGORIES, getCategoryLabel, getFoodImage } from '../data/foods.js';
 import { escapeHtml } from '../utils/helpers.js';
 
 let currentCategory = 'all';
@@ -16,31 +16,27 @@ function renderFoods() {
 
   document.getElementById('foodCount').textContent = `Показани ${filtered.length} от ${foods.length} храни`;
 
-  document.getElementById('foodsTableBody').innerHTML = filtered.map((f) => `
-    <tr>
-      <td><i class="bi bi-apple text-success"></i> ${escapeHtml(f.name)}</td>
-      <td><span class="badge bg-success-subtle text-success">${getCategoryLabel(f.category)}</span></td>
-      <td class="text-warning fw-semibold">${f.calories}</td>
-      <td>${f.protein}</td>
-      <td>${f.carbs}</td>
-      <td>${f.fat}</td>
-    </tr>`).join('') || '<tr><td colspan="6" class="text-center text-muted py-4">Няма намерени храни.</td></tr>';
-
-  document.getElementById('foodsCards').innerHTML = filtered.map((f) => `
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-1">${escapeHtml(f.name)}</h6>
-            <span class="badge bg-success-subtle text-success">${getCategoryLabel(f.category)}</span>
-          </div>
-          <div class="text-end small">
-            <div class="text-warning fw-bold">${f.calories} kcal</div>
-            <div class="text-muted">П${f.protein} В${f.carbs} М${f.fat}</div>
+  document.getElementById('foodsGrid').innerHTML = filtered.map((f) => `
+    <div class="col-sm-6 col-lg-4 col-xl-3">
+      <div class="card card-hover food-card h-100">
+        <img src="${getFoodImage(f)}" class="card-img-top" alt="${escapeHtml(f.name)}" loading="lazy">
+        <div class="card-body">
+          <h6 class="card-title mb-1">${escapeHtml(f.name)}</h6>
+          <span class="badge bg-success-subtle text-success">${getCategoryLabel(f.category)}</span>
+          <div class="mt-3 small">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Калории</span>
+              <span class="text-warning fw-semibold">${f.calories} kcal</span>
+            </div>
+            <div class="d-flex justify-content-between text-muted">
+              <span>П: ${f.protein}г</span>
+              <span>В: ${f.carbs}г</span>
+              <span>М: ${f.fat}г</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>`).join('');
+    </div>`).join('') || '<div class="col-12 text-center text-muted py-5">Няма намерени храни.</div>';
 }
 
 async function initHrani() {

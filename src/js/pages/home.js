@@ -7,8 +7,11 @@ import { fetchRecipes } from '../services/recipes.js';
 import { fetchProfile } from '../services/profiles.js';
 import { getCurrentUser } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { loadDailyTracker, saveDailyTracker, resolveImage } from '../utils/helpers.js';
+import { loadDailyTracker, saveDailyTracker, resolveImage, resolveRecipeImage, recipeImgOnError, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
+
+let memberProfile = null;
+let memberDashboardReady = false;
 
 function setDailyTips() {
   const tip = getRandomTip();
@@ -27,11 +30,8 @@ function showMemberHome() {
   document.getElementById('memberHome')?.classList.remove('d-none');
 }
 
-async function initMemberDashboard(user) {
-  let profile = { target_calories: 2000, water_goal: 8 };
-  try {
-    profile = await fetchProfile(user.id);
-  } catch { /* use defaults */ }
+function updateTrackerUI(profile = memberProfile) {
+  if (!profile) return;
 
   const tracker = loadDailyTracker();
   const calPct = Math.min(Math.round((tracker.calories / profile.target_calories) * 100), 100);
@@ -41,13 +41,24 @@ async function initMemberDashboard(user) {
   document.getElementById('waterBar').style.width = `${waterPct}%`;
   document.getElementById('caloriesText').textContent = `${tracker.calories} / ${profile.target_calories} kcal`;
   document.getElementById('waterText').textContent = `${tracker.water} / ${profile.water_goal} чаши`;
+}
 
+function bindTrackerControls() {
   document.querySelectorAll('[data-add-cal]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const t = loadDailyTracker();
       t.calories = Math.min(t.calories + Number(btn.dataset.addCal), 5000);
       saveDailyTracker(t);
-      initHome();
+      updateTrackerUI();
+    });
+  });
+
+  document.querySelectorAll('[data-sub-cal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const t = loadDailyTracker();
+      t.calories = Math.max(0, t.calories - Number(btn.dataset.subCal));
+      saveDailyTracker(t);
+      updateTrackerUI();
     });
   });
 
@@ -56,9 +67,19 @@ async function initMemberDashboard(user) {
     t.water = Math.min(t.water + 1, 20);
     saveDailyTracker(t);
     showToast('Чаша вода добавена!', 'info');
-    initHome();
+    updateTrackerUI();
   });
 
+  document.getElementById('removeWaterBtn')?.addEventListener('click', () => {
+    const t = loadDailyTracker();
+    t.water = Math.max(0, t.water - 1);
+    saveDailyTracker(t);
+    showToast('Чаша вода премахната.', 'info');
+    updateTrackerUI();
+  });
+}
+
+async function renderFeaturedContent() {
   const recipesGrid = document.getElementById('featuredRecipes');
   const workoutsGrid = document.getElementById('featuredWorkouts');
 
@@ -73,7 +94,7 @@ async function initMemberDashboard(user) {
     ? recipes.map((r) => `
       <div class="col-md-4">
         <a href="/recept.html?id=${r.id}" class="card card-hover recipe-card text-decoration-none text-dark h-100">
-          <img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}">
+          <img src="${resolveRecipeImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}">
           <div class="card-body">
             <h5 class="card-title">${r.title}</h5>
             <p class="card-text text-muted small">${r.description}</p>
@@ -86,13 +107,31 @@ async function initMemberDashboard(user) {
   workoutsGrid.innerHTML = workouts.slice(0, 3).map((w) => `
     <div class="col-md-4">
       <a href="/trenirovka.html?id=${w.id}" class="card card-hover workout-card text-decoration-none text-dark h-100">
-        <img src="${w.image}" class="card-img-top" alt="${w.title}">
+        <img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" class="card-img-top" alt="${w.title}" loading="lazy">
         <div class="card-body">
           <h5 class="card-title">${w.title}</h5>
           <p class="text-muted small mb-0">${w.duration} мин · ${w.calories} kcal</p>
         </div>
       </a>
     </div>`).join('');
+}
+
+async function initMemberDashboard(user) {
+  if (!memberProfile) {
+    try {
+      memberProfile = await fetchProfile(user.id);
+    } catch {
+      memberProfile = { target_calories: 2000, water_goal: 8 };
+    }
+  }
+
+  updateTrackerUI(memberProfile);
+
+  if (memberDashboardReady) return;
+  memberDashboardReady = true;
+
+  bindTrackerControls();
+  await renderFeaturedContent();
 }
 
 async function initHome() {

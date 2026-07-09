@@ -3,22 +3,23 @@ import { getSupabaseOrThrow } from '../supabaseClient.js';
 export async function fetchRecipes() {
   const { data, error } = await getSupabaseOrThrow()
     .from('recipes')
-    .select('*, profiles(full_name)')
+    .select('*')
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return data.map(mapRecipe);
+  return attachAuthorNames(data);
 }
 
 export async function fetchRecipeById(id) {
   const { data, error } = await getSupabaseOrThrow()
     .from('recipes')
-    .select('*, profiles(full_name)')
+    .select('*')
     .eq('id', id)
     .single();
 
   if (error) throw error;
-  return mapRecipe(data);
+  const [recipe] = await attachAuthorNames([data]);
+  return recipe;
 }
 
 export async function createRecipe(recipe, authorId) {
@@ -75,13 +76,50 @@ export async function deleteRecipe(id) {
 }
 
 export async function fetchAllRecipesAdmin() {
-  const { data, error } = await getSupabaseOrThrow()
+  const client = getSupabaseOrThrow();
+  const { data: recipes, error } = await client
     .from('recipes')
-    .select('*, profiles(full_name, id)')
+    .select('*')
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return data;
+
+  const authorIds = [...new Set(recipes.map((r) => r.author_id))];
+  const { data: profiles, error: profilesError } = await client
+    .from('profiles')
+    .select('id, full_name')
+    .in('id', authorIds);
+
+  if (profilesError) throw profilesError;
+
+  const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
+
+  return recipes.map((r) => ({
+    ...r,
+    profiles: profileMap[r.author_id]
+      ? { full_name: profileMap[r.author_id].full_name, id: r.author_id }
+      : null,
+  }));
+}
+
+async function attachAuthorNames(rows) {
+  if (!rows.length) return [];
+
+  const client = getSupabaseOrThrow();
+  const authorIds = [...new Set(rows.map((r) => r.author_id))];
+  const { data: profiles, error } = await client
+    .from('profiles')
+    .select('id, full_name')
+    .in('id', authorIds);
+
+  if (error) throw error;
+
+  const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
+
+  return rows.map((row) => mapRecipe({
+    ...row,
+    profiles: profileMap[row.author_id] || null,
+  }));
 }
 
 function mapRecipe(row) {

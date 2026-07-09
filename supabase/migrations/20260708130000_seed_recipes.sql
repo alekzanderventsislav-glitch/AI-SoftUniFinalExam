@@ -39,7 +39,7 @@ BEGIN
     '["80 г овесени ядки","250 мл вода или мляко","1 банан","100 г гръцко кисело мляко","1 ч.л. мед","Щипка канела"]'::jsonb,
     '["Сварете овесените ядки с течността 5–7 минути.","Нарежете банана на кръгчета.","Сервирайте кашата с мляко, банан и мед.","Поръсете с канела."]'::jsonb,
     420, 18, 62, 12, 'breakfast', ARRAY['high-protein','gluten-free'],
-    'https://images.unsplash.com/photo-1517673400267-025144f4420a?w=800&h=500&fit=crop'
+    'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=800&h=500&fit=crop'
   ),
   (
     seed_author_id,
@@ -102,7 +102,7 @@ BEGIN
     '["3 яйца","80 г извара","100 г спанак","1 с.л. зехтин","Сол и пипер"]'::jsonb,
     '["Задушете спанака 2 минути.","Разбийте яйцата с извара.","Изсипете в загрят тиган и гответе на среден огън.","Сгънете омлета и сервирайте топъл."]'::jsonb,
     320, 28, 4, 20, 'breakfast', ARRAY['high-protein','gluten-free','keto'],
-    'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=500&fit=crop'
+    'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=800&h=500&fit=crop'
   );
 
   RAISE NOTICE 'Seed complete: 8 sample recipes inserted for %.', author_email;

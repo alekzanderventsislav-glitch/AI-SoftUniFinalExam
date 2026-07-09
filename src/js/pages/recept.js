@@ -5,7 +5,7 @@ import { fetchRecipeById } from '../services/recipes.js';
 import { getCurrentUser } from '../auth.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { getQueryParam, resolveImage } from '../utils/helpers.js';
+import { getQueryParam, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
 import { getCategoryLabel, getDietaryLabel } from '../data/tips.js';
 import { showToast } from '../components/toast.js';
 
@@ -20,7 +20,7 @@ async function initRecept() {
     document.getElementById('recipeContent').innerHTML = `
       <div class="row g-4">
         <div class="col-lg-6">
-          <img src="${resolveImage(recipe.image_url)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}">
+          <img src="${resolveRecipeImage(recipe.image_url)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}" loading="lazy" onerror="${recipeImgOnError()}">
         </div>
         <div class="col-lg-6">
           <div class="d-flex justify-content-between">

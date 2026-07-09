@@ -5,7 +5,7 @@ import { getWorkoutById, getDifficultyLabel, getGoalLabel } from '../data/workou
 import { getCurrentUser } from '../auth.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { getQueryParam } from '../utils/helpers.js';
+import { getQueryParam, resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function initTrenirovka() {
@@ -19,7 +19,7 @@ async function initTrenirovka() {
   document.getElementById('workoutContent').innerHTML = `
     <div class="row g-4">
       <div class="col-lg-6">
-        <img src="${workout.image}" class="img-fluid rounded-3 w-100" alt="${workout.title}">
+        <img src="${resolveImage(workout.image, IMAGE_FALLBACKS.workout)}" class="img-fluid rounded-3 w-100" alt="${workout.title}" loading="lazy">
       </div>
       <div class="col-lg-6">
         <div class="d-flex justify-content-between align-items-start">

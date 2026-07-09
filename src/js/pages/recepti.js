@@ -7,7 +7,7 @@ import { uploadRecipeImage, validateImageFile } from '../services/storage.js';
 import { getCurrentUser } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { RECIPE_CATEGORIES, DIETARY_TAGS, getCategoryLabel, getDietaryLabel } from '../data/tips.js';
-import { linesToArray, resolveImage } from '../utils/helpers.js';
+import { linesToArray, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let recipes = [];
@@ -37,7 +37,7 @@ function renderRecipes() {
     <div class="col-md-6 col-lg-4">
       <div class="card card-hover recipe-card h-100">
         <div class="position-relative">
-          <a href="/recept.html?id=${r.id}"><img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}"></a>
+          <a href="/recept.html?id=${r.id}"><img src="${resolveRecipeImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy" onerror="${recipeImgOnError()}"></a>
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 favorite-btn ${fav ? 'active' : ''}" data-fav="${r.id}" ${!user ? 'disabled' : ''}>
             <i class="bi bi-heart${fav ? '-fill' : ''}"></i>
           </button>
