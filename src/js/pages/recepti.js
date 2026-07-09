@@ -37,7 +37,7 @@ function renderRecipes() {
     <div class="col-md-6 col-lg-4">
       <div class="card card-hover recipe-card h-100">
         <div class="position-relative">
-          <a href="/recept.html?id=${r.id}"><img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}"></a>
+          <a href="/recept.html?id=${r.id}"><img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy"></a>
           <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 favorite-btn ${fav ? 'active' : ''}" data-fav="${r.id}" ${!user ? 'disabled' : ''}>
             <i class="bi bi-heart${fav ? '-fill' : ''}"></i>
           </button>
@@ -219,4 +219,4 @@ async function initRecepti() {
   await loadData();
 }
 
-initPage(initRecepti);
+initPage(initRecepti, { requireAuth: true });

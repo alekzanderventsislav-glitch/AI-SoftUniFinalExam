@@ -8,8 +8,15 @@ export function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+export const IMAGE_FALLBACKS = {
+  recipe: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop',
+  workout: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop',
+  food: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=400&fit=crop',
+};
+
 export function resolveImage(url, fallback) {
-  return url || fallback || 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop';
+  const trimmed = typeof url === 'string' ? url.trim() : '';
+  return trimmed || fallback || IMAGE_FALLBACKS.recipe;
 }
 
 export function linesToArray(text) {

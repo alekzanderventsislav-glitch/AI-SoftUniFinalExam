@@ -20,7 +20,7 @@ async function initRecept() {
     document.getElementById('recipeContent').innerHTML = `
       <div class="row g-4">
         <div class="col-lg-6">
-          <img src="${resolveImage(recipe.image_url)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}">
+          <img src="${resolveImage(recipe.image_url)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}" loading="lazy">
         </div>
         <div class="col-lg-6">
           <div class="d-flex justify-content-between">
@@ -71,4 +71,4 @@ async function initRecept() {
   }
 }
 
-initPage(initRecept);
+initPage(initRecept, { requireAuth: true });

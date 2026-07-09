@@ -7,19 +7,31 @@ import { fetchRecipes } from '../services/recipes.js';
 import { fetchProfile } from '../services/profiles.js';
 import { getCurrentUser } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { loadDailyTracker, saveDailyTracker, resolveImage } from '../utils/helpers.js';
+import { loadDailyTracker, saveDailyTracker, resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
-async function initHome() {
-  document.getElementById('dailyTip').textContent = getRandomTip();
+function setDailyTips() {
+  const tip = getRandomTip();
+  document.getElementById('dailyTip').textContent = tip;
+  const memberTip = document.getElementById('memberDailyTip');
+  if (memberTip) memberTip.textContent = tip;
+}
 
+function showGuestHome() {
+  document.getElementById('guestHome')?.classList.remove('d-none');
+  document.getElementById('memberHome')?.classList.add('d-none');
+}
+
+function showMemberHome() {
+  document.getElementById('guestHome')?.classList.add('d-none');
+  document.getElementById('memberHome')?.classList.remove('d-none');
+}
+
+async function initMemberDashboard(user) {
   let profile = { target_calories: 2000, water_goal: 8 };
-  const user = isSupabaseConfigured ? await getCurrentUser() : null;
-  if (user) {
-    try {
-      profile = await fetchProfile(user.id);
-    } catch { /* use defaults */ }
-  }
+  try {
+    profile = await fetchProfile(user.id);
+  } catch { /* use defaults */ }
 
   const tracker = loadDailyTracker();
   const calPct = Math.min(Math.round((tracker.calories / profile.target_calories) * 100), 100);
@@ -61,7 +73,7 @@ async function initHome() {
     ? recipes.map((r) => `
       <div class="col-md-4">
         <a href="/recept.html?id=${r.id}" class="card card-hover recipe-card text-decoration-none text-dark h-100">
-          <img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}">
+          <img src="${resolveImage(r.image_url)}" class="card-img-top" alt="${r.title}" loading="lazy">
           <div class="card-body">
             <h5 class="card-title">${r.title}</h5>
             <p class="card-text text-muted small">${r.description}</p>
@@ -69,18 +81,32 @@ async function initHome() {
           </div>
         </a>
       </div>`).join('')
-    : '<div class="col-12"><p class="text-muted">Свържете Supabase за да видите рецепти от общността.</p></div>';
+    : '<div class="col-12"><p class="text-muted">Все още няма рецепти от общността.</p></div>';
 
   workoutsGrid.innerHTML = workouts.slice(0, 3).map((w) => `
     <div class="col-md-4">
       <a href="/trenirovka.html?id=${w.id}" class="card card-hover workout-card text-decoration-none text-dark h-100">
-        <img src="${w.image}" class="card-img-top" alt="${w.title}">
+        <img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" class="card-img-top" alt="${w.title}" loading="lazy">
         <div class="card-body">
           <h5 class="card-title">${w.title}</h5>
           <p class="text-muted small mb-0">${w.duration} мин · ${w.calories} kcal</p>
         </div>
       </a>
     </div>`).join('');
+}
+
+async function initHome() {
+  setDailyTips();
+
+  const user = isSupabaseConfigured ? await getCurrentUser() : null;
+
+  if (!user) {
+    showGuestHome();
+    return;
+  }
+
+  showMemberHome();
+  await initMemberDashboard(user);
 }
 
 initPage(initHome);

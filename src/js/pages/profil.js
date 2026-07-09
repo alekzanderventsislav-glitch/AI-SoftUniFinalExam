@@ -7,7 +7,7 @@ import { fetchFavorites } from '../services/favorites.js';
 import { fetchRecipeById } from '../services/recipes.js';
 import { getWorkoutById } from '../data/workouts.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveImage } from '../utils/helpers.js';
+import { resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function initProfil() {
@@ -19,17 +19,7 @@ async function initProfil() {
   }
 
   const user = await getCurrentUser();
-  if (!user) {
-    content.innerHTML = `
-      <div class="text-center py-5">
-        <i class="bi bi-person-circle display-1 text-success"></i>
-        <h2 class="mt-3">Профил</h2>
-        <p class="text-muted">Влезте, за да управлявате целите и любимите си.</p>
-        <a href="/login.html" class="btn btn-success me-2">Вход</a>
-        <a href="/register.html" class="btn btn-outline-success">Регистрация</a>
-      </div>`;
-    return;
-  }
+  if (!user) return;
 
   const profile = await fetchProfile(user.id);
   const favorites = await fetchFavorites(user.id);
@@ -86,7 +76,7 @@ async function initProfil() {
         <h5><i class="bi bi-heart text-danger"></i> Любими тренировки</h5>
         ${favWorkouts.length ? favWorkouts.map((w) => `
           <a href="/trenirovka.html?id=${w.id}" class="d-flex align-items-center gap-3 text-decoration-none text-dark card mb-2 p-2">
-            <img src="${w.image}" width="56" height="56" class="rounded object-fit-cover" alt="">
+            <img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" width="56" height="56" class="rounded object-fit-cover" alt="${w.title}">
             <div><div class="fw-semibold">${w.title}</div><small class="text-muted">${w.duration} мин</small></div>
           </a>`).join('') : '<p class="text-muted">Няма любими тренировки.</p>'}
       </div>
@@ -106,4 +96,4 @@ async function initProfil() {
   });
 }
 
-initPage(initProfil);
+initPage(initProfil, { requireAuth: true });

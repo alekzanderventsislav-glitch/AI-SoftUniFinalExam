@@ -20,7 +20,9 @@ main {
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+  background:
+    linear-gradient(135deg, rgba(25, 135, 84, 0.92) 0%, rgba(32, 201, 151, 0.88) 100%),
+    url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1400&h=600&fit=crop') center/cover no-repeat;
   border-radius: 1rem;
   color: #fff;
 }
@@ -35,8 +37,15 @@ main {
 }
 
 .recipe-card img,
-.workout-card img {
+.workout-card img,
+.food-card img {
   height: 200px;
+  object-fit: cover;
+}
+
+.auth-side-image {
+  height: 100%;
+  min-height: 420px;
   object-fit: cover;
 }
 
