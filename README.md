@@ -69,21 +69,36 @@ npm install
    VITE_SUPABASE_ANON_KEY=your-anon-key
    ```
 
-### 3. Admin акаунт
+### 3. Admin акаунт и seed данни
 
 1. Създайте потребител в Supabase **Authentication → Users** (с **Auto Confirm User**)
    или регистрирайте се на `/register.html`
-2. Направете го админ (заменете имейла):
+2. Попълнете `SUPABASE_DB_PASSWORD` в `.env` (от Supabase → Project Settings → Database)
+3. Пуснете seed за рецепти:
 
-```sql
-UPDATE public.user_roles
-SET role = 'admin'
-WHERE user_id = (
-  SELECT id FROM auth.users WHERE email = 'admin@zdravosloven.bg'
-);
+```bash
+npm run db:seed
 ```
 
-3. За изпитния жури – добавете тестови данни в README (имейл/парола на admin акаунта).
+Скриптът:
+- използва `admin@zdravosloven.bg` (или `SEED_AUTHOR_EMAIL` от `.env`)
+- прави потребителя **admin**
+- добавя **8 примерни рецепти** в Supabase
+
+Алтернатива без npm: изпълнете в Supabase SQL Editor файла
+`supabase/migrations/20260708130000_seed_recipes.sql`
+
+#### Какво е къде
+
+| Данни | Източник |
+|-------|----------|
+| Храни (30) | `src/js/data/foods.js` – статични във frontend |
+| Тренировки (8) | `src/js/data/workouts.js` – статични във frontend |
+| Съвети за деня | `src/js/data/tips.js` – статични във frontend |
+| Рецепти от общността | Supabase таблица `recipes` – seed с `npm run db:seed` |
+| Потребители, профили, любими | Supabase – при регистрация/вход |
+
+4. За изпитния жури – добавете тестови данни в README (имейл/парола на admin акаунта).
 
 ### 4. Стартиране
 

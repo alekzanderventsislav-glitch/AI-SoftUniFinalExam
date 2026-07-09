@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predev": "node scripts/generate-supabase-env.mjs",
+    "prebuild": "node scripts/generate-supabase-env.mjs",
     "build": "vite build",
     "preview": "vite preview",
-    "db:migrate": "node scripts/run-migration.mjs"
+    "db:migrate": "node scripts/run-migration.mjs",
+    "db:seed": "node scripts/run-seed.mjs"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

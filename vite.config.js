@@ -1,7 +1,21 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
+function injectSupabaseEnv() {
+  return {
+    name: 'inject-supabase-env',
+    transformIndexHtml(html) {
+      if (html.includes('supabase-env.js')) return html;
+      return html.replace(
+        '</head>',
+        '  <script src="/supabase-env.js"></script>\n</head>'
+      );
+    },
+  };
+}
+
 export default defineConfig({
+  plugins: [injectSupabaseEnv()],
   server: {
     port: 5173,
     open: true,
