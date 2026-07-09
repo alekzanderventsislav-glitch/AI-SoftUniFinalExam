@@ -74,10 +74,16 @@ function getFilteredFoods() {
 function updateFilterButtons() {
   const filtersEl = document.getElementById('categoryFilters');
   filtersEl.querySelectorAll('[data-cat]').forEach((btn) => {
+    const isFavoritesBtn = btn.dataset.cat === 'favorites';
     const active = btn.dataset.cat === currentCategory;
     btn.classList.toggle('active', active);
     btn.classList.toggle('btn-success', active);
     btn.classList.toggle('btn-outline-secondary', !active);
+    if (isFavoritesBtn) {
+      btn.innerHTML = currentCategory === 'favorites'
+        ? '<i class="bi bi-grid"></i> Всички'
+        : '<i class="bi bi-heart"></i> Любими';
+    }
   });
 }
 
@@ -93,6 +99,8 @@ function renderFoods() {
   }
 
   document.getElementById('foodCount').textContent = countText;
+
+  updateFilterButtons();
 
   document.getElementById('foodsGrid').innerHTML = filtered.length
     ? filtered.map(renderFoodCard).join('')

@@ -34,6 +34,20 @@ export function recipeImgOnError(fallback = IMAGE_FALLBACKS.recipe) {
   return `this.onerror=null;this.src='${fallback}'`;
 }
 
+const BROKEN_WORKOUT_IMAGE_IDS = ['photo-1476480862128'];
+
+export function resolveWorkoutImage(url) {
+  const trimmed = typeof url === 'string' ? url.trim() : '';
+  if (BROKEN_WORKOUT_IMAGE_IDS.some((id) => trimmed.includes(id))) {
+    return IMAGE_FALLBACKS.workout;
+  }
+  return resolveImage(url, IMAGE_FALLBACKS.workout);
+}
+
+export function workoutImgOnError(fallback = IMAGE_FALLBACKS.workout) {
+  return `this.onerror=null;this.src='${fallback}'`;
+}
+
 export function linesToArray(text) {
   return text.split('\n').map((s) => s.trim()).filter(Boolean);
 }

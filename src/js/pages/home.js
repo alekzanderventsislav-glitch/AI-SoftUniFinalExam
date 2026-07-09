@@ -7,7 +7,7 @@ import { fetchRecipes } from '../services/recipes.js';
 import { fetchProfile } from '../services/profiles.js';
 import { getCurrentUser } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { loadDailyTracker, saveDailyTracker, resolveImage, resolveRecipeImage, recipeImgOnError, IMAGE_FALLBACKS } from '../utils/helpers.js';
+import { loadDailyTracker, saveDailyTracker, resolveWorkoutImage, workoutImgOnError, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let memberProfile = null;
@@ -107,7 +107,7 @@ async function renderFeaturedContent() {
   workoutsGrid.innerHTML = workouts.slice(0, 3).map((w) => `
     <div class="col-md-4">
       <a href="/trenirovka.html?id=${w.id}" class="card card-hover workout-card text-decoration-none text-dark h-100">
-        <img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" class="card-img-top" alt="${w.title}" loading="lazy">
+        <img src="${resolveWorkoutImage(w.image)}" class="card-img-top" alt="${w.title}" loading="lazy" onerror="${workoutImgOnError()}">
         <div class="card-body">
           <h5 class="card-title">${w.title}</h5>
           <p class="text-muted small mb-0">${w.duration} мин · ${w.calories} kcal</p>

@@ -5,9 +5,10 @@ import { getCurrentUser } from '../auth.js';
 import { fetchProfile, updateProfile } from '../services/profiles.js';
 import { fetchFavorites } from '../services/favorites.js';
 import { fetchRecipeById } from '../services/recipes.js';
+import { fetchUserWorkoutById } from '../services/workouts.js';
 import { getWorkoutById } from '../data/workouts.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveRecipeImage, recipeImgOnError, resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
+import { resolveRecipeImage, recipeImgOnError, resolveWorkoutImage, workoutImgOnError } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function initProfil() {
@@ -28,7 +29,17 @@ async function initProfil() {
   for (const f of favorites.filter((x) => x.item_type === 'recipe')) {
     try { favRecipes.push(await fetchRecipeById(f.item_id)); } catch { /* skip */ }
   }
-  const favWorkouts = favorites.filter((x) => x.item_type === 'workout').map((f) => getWorkoutById(f.item_id)).filter(Boolean);
+  const favWorkouts = [];
+  for (const f of favorites.filter((x) => x.item_type === 'workout')) {
+    const staticW = getWorkoutById(f.item_id);
+    if (staticW) {
+      favWorkouts.push(staticW);
+      continue;
+    }
+    try {
+      favWorkouts.push(await fetchUserWorkoutById(f.item_id));
+    } catch { /* skip */ }
+  }
 
   content.innerHTML = `
     <div class="row g-4">
@@ -76,7 +87,7 @@ async function initProfil() {
         <h5><i class="bi bi-heart text-danger"></i> Любими тренировки</h5>
         ${favWorkouts.length ? favWorkouts.map((w) => `
           <a href="/trenirovka.html?id=${w.id}" class="d-flex align-items-center gap-3 text-decoration-none text-dark card mb-2 p-2">
-            <img src="${resolveImage(w.image, IMAGE_FALLBACKS.workout)}" width="56" height="56" class="rounded object-fit-cover" alt="${w.title}">
+            <img src="${resolveWorkoutImage(w.image || w.image_url)}" width="56" height="56" class="rounded object-fit-cover" alt="${w.title}" onerror="${workoutImgOnError()}">
             <div><div class="fw-semibold">${w.title}</div><small class="text-muted">${w.duration} мин</small></div>
           </a>`).join('') : '<p class="text-muted">Няма любими тренировки.</p>'}
       </div>

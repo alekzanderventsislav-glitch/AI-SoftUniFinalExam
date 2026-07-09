@@ -1,4 +1,5 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Modal } from 'bootstrap';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { fetchRecipes, createRecipe, updateRecipe, deleteRecipe } from '../services/recipes.js';
@@ -7,7 +8,7 @@ import { uploadRecipeImage, validateImageFile } from '../services/storage.js';
 import { getCurrentUser } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { RECIPE_CATEGORIES, DIETARY_TAGS, getCategoryLabel, getDietaryLabel } from '../data/tips.js';
-import { linesToArray, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
+import { linesToArray, resolveRecipeImage, recipeImgOnError, getQueryParam } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let recipes = [];
@@ -16,10 +17,61 @@ let user = null;
 let category = 'all';
 let dietary = 'all';
 let searchTerm = '';
+let showFavoritesOnly = false;
 let editingId = null;
+let pendingDeleteId = null;
+let recipeModal = null;
+let deleteModal = null;
 
-function getSelectedDietary() {
-  return [...document.querySelectorAll('[name="dietary"]:checked')].map((el) => el.value);
+function getRecipeModal() {
+  if (!recipeModal) {
+    recipeModal = new Modal(document.getElementById('recipeFormModal'));
+    document.getElementById('recipeFormModal').addEventListener('hidden.bs.modal', () => {
+      editingId = null;
+    });
+  }
+  return recipeModal;
+}
+
+function getDeleteModal() {
+  if (!deleteModal) {
+    deleteModal = new Modal(document.getElementById('deleteRecipeModal'));
+    document.getElementById('deleteRecipeModal').addEventListener('hidden.bs.modal', () => {
+      pendingDeleteId = null;
+    });
+  }
+  return deleteModal;
+}
+
+function closeFormModal() {
+  getRecipeModal().hide();
+  editingId = null;
+}
+
+function formField(form, name) {
+  return form.elements.namedItem(name);
+}
+
+function findRecipe(id) {
+  return recipes.find((r) => String(r.id) === String(id));
+}
+
+function getSelectedDietary(form) {
+  return [...form.querySelectorAll('[name="dietary"]:checked')].map((el) => el.value);
+}
+
+function openDeleteModal(id) {
+  pendingDeleteId = id;
+  getDeleteModal().show();
+}
+
+function updateFavoritesToggleBtn() {
+  const btn = document.getElementById('favoritesToggleBtn');
+  if (!btn) return;
+  btn.className = `btn btn-sm ${showFavoritesOnly ? 'btn-success' : 'btn-outline-secondary'}`;
+  btn.innerHTML = showFavoritesOnly
+    ? '<i class="bi bi-grid"></i> Всички'
+    : '<i class="bi bi-heart"></i> Любими';
 }
 
 function renderRecipes() {
@@ -27,8 +79,11 @@ function renderRecipes() {
     const matchSearch = r.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchCat = category === 'all' || r.category === category;
     const matchDiet = dietary === 'all' || (r.dietary || []).includes(dietary);
-    return matchSearch && matchCat && matchDiet;
+    const matchFav = !showFavoritesOnly || (user && isFavorited(favorites, 'recipe', r.id));
+    return matchSearch && matchCat && matchDiet && matchFav;
   });
+
+  updateFavoritesToggleBtn();
 
   document.getElementById('recipeGrid').innerHTML = filtered.map((r) => {
     const fav = user && isFavorited(favorites, 'recipe', r.id);
@@ -54,12 +109,12 @@ function renderRecipes() {
         </div>
         ${isOwner ? `
         <div class="card-footer bg-white d-flex gap-2">
-          <button class="btn btn-sm btn-outline-success flex-fill" data-edit="${r.id}"><i class="bi bi-pencil"></i> Редактирай</button>
-          <button class="btn btn-sm btn-outline-danger flex-fill" data-delete="${r.id}"><i class="bi bi-trash"></i> Изтрий</button>
+          <button type="button" class="btn btn-sm btn-outline-success flex-fill" data-edit="${r.id}"><i class="bi bi-pencil"></i> Редактирай</button>
+          <button type="button" class="btn btn-sm btn-outline-danger flex-fill" data-delete="${r.id}"><i class="bi bi-trash"></i> Изтрий</button>
         </div>` : ''}
       </div>
     </div>`;
-  }).join('') || '<div class="col-12 text-center text-muted py-5">Няма рецепти. Качете първата!</div>';
+  }).join('') || `<div class="col-12 text-center text-muted py-5">${showFavoritesOnly ? 'Нямате любими рецепти.' : 'Няма рецепти. Качете първата!'}</div>`;
 
   document.querySelectorAll('[data-fav]').forEach((btn) => {
     btn.addEventListener('click', async () => {
@@ -71,44 +126,55 @@ function renderRecipes() {
   });
 
   document.querySelectorAll('[data-edit]').forEach((btn) => {
-    btn.addEventListener('click', () => openForm(btn.dataset.edit));
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openForm(btn.dataset.edit);
+    });
   });
 
   document.querySelectorAll('[data-delete]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      if (!confirm('Сигурни ли сте, че искате да изтриете тази рецепта?')) return;
-      await deleteRecipe(btn.dataset.delete);
-      showToast('Рецептата е изтрита.', 'info');
-      await loadData();
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openDeleteModal(btn.dataset.delete);
     });
   });
 }
 
 function openForm(id = null) {
   editingId = id;
-  const formSection = document.getElementById('recipeFormSection');
   const form = document.getElementById('recipeForm');
-  formSection.classList.remove('d-none');
 
   if (id) {
-    const recipe = recipes.find((r) => r.id === id);
-    form.title.value = recipe.title;
-    form.description.value = recipe.description;
-    form.ingredients.value = (recipe.ingredients || []).join('\n');
-    form.steps.value = (recipe.steps || []).join('\n');
-    form.calories.value = recipe.calories;
-    form.protein.value = recipe.protein;
-    form.carbs.value = recipe.carbs;
-    form.fat.value = recipe.fat;
-    form.category.value = recipe.category;
+    const recipe = findRecipe(id);
+    if (!recipe) {
+      showToast('Рецептата не беше намерена.', 'error');
+      editingId = null;
+      return;
+    }
+
+    formField(form, 'recipeTitle').value = recipe.title;
+    formField(form, 'description').value = recipe.description;
+    formField(form, 'ingredients').value = (recipe.ingredients || []).join('\n');
+    formField(form, 'steps').value = (recipe.steps || []).join('\n');
+    formField(form, 'calories').value = recipe.calories;
+    formField(form, 'protein').value = recipe.protein;
+    formField(form, 'carbs').value = recipe.carbs;
+    formField(form, 'fat').value = recipe.fat;
+    formField(form, 'category').value = recipe.category;
     form.querySelectorAll('[name="dietary"]').forEach((cb) => {
       cb.checked = (recipe.dietary || []).includes(cb.value);
     });
     document.getElementById('formTitle').textContent = 'Редактирай рецепта';
   } else {
     form.reset();
+    formField(form, 'category').value = 'lunch';
+    form.querySelectorAll('[name="dietary"]').forEach((cb) => { cb.checked = false; });
     document.getElementById('formTitle').textContent = 'Качи нова рецепта';
   }
+
+  getRecipeModal().show();
 }
 
 async function loadData() {
@@ -130,11 +196,19 @@ async function initRecepti() {
     uploadBtn.outerHTML = '<a href="/login.html" class="btn btn-success">Влезте за да качите рецепта</a>';
   } else {
     uploadBtn.addEventListener('click', () => openForm());
-    document.getElementById('cancelFormBtn').addEventListener('click', () => {
-      document.getElementById('recipeFormSection').classList.add('d-none');
-      editingId = null;
-    });
   }
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!pendingDeleteId) return;
+    try {
+      await deleteRecipe(pendingDeleteId);
+      getDeleteModal().hide();
+      showToast('Рецептата е изтрита.', 'info');
+      await loadData();
+    } catch (err) {
+      showToast(err.message, 'error');
+    }
+  });
 
   const catFilters = document.getElementById('categoryFilters');
   catFilters.innerHTML = RECIPE_CATEGORIES.map((c) => `
@@ -171,13 +245,19 @@ async function initRecepti() {
     renderRecipes();
   });
 
+  document.getElementById('favoritesToggleBtn').addEventListener('click', () => {
+    showFavoritesOnly = !showFavoritesOnly;
+    renderRecipes();
+  });
+
   document.getElementById('recipeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!user) return;
 
     const form = e.target;
     const file = form.image.files[0];
-    let imageUrl = editingId ? recipes.find((r) => r.id === editingId)?.image_url : null;
+    const existingRecipe = editingId ? findRecipe(editingId) : null;
+    let imageUrl = existingRecipe?.image_url || null;
 
     if (file) {
       const err = validateImageFile(file);
@@ -186,16 +266,16 @@ async function initRecepti() {
     }
 
     const payload = {
-      title: form.title.value.trim(),
-      description: form.description.value.trim(),
-      ingredients: linesToArray(form.ingredients.value),
-      steps: linesToArray(form.steps.value),
-      calories: Number(form.calories.value) || 0,
-      protein: Number(form.protein.value) || 0,
-      carbs: Number(form.carbs.value) || 0,
-      fat: Number(form.fat.value) || 0,
-      category: form.category.value,
-      dietary: getSelectedDietary(),
+      title: formField(form, 'recipeTitle').value.trim(),
+      description: formField(form, 'description').value.trim(),
+      ingredients: linesToArray(formField(form, 'ingredients').value),
+      steps: linesToArray(formField(form, 'steps').value),
+      calories: Number(formField(form, 'calories').value) || 0,
+      protein: Number(formField(form, 'protein').value) || 0,
+      carbs: Number(formField(form, 'carbs').value) || 0,
+      fat: Number(formField(form, 'fat').value) || 0,
+      category: formField(form, 'category').value,
+      dietary: getSelectedDietary(form),
       image_url: imageUrl,
     };
 
@@ -207,8 +287,7 @@ async function initRecepti() {
         await createRecipe(payload, user.id);
         showToast('Рецептата е добавена успешно!');
       }
-      document.getElementById('recipeFormSection').classList.add('d-none');
-      editingId = null;
+      closeFormModal();
       form.reset();
       await loadData();
     } catch (err) {
@@ -217,6 +296,12 @@ async function initRecepti() {
   });
 
   await loadData();
+
+  const editId = getQueryParam('edit');
+  if (editId && user) {
+    openForm(editId);
+    window.history.replaceState({}, '', '/recepti.html');
+  }
 }
 
 initPage(initRecepti, { requireAuth: true });

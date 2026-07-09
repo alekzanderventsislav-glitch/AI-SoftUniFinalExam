@@ -14,53 +14,15 @@
         <h1>Споделени Рецепти</h1>
         <p class="text-muted mb-0">Общност от здравословни рецепти</p>
       </div>
-      <button id="showFormBtn" class="btn btn-success"><i class="bi bi-plus-lg"></i> Качи рецепта</button>
-    </div>
-
-    <div id="recipeFormSection" class="card mb-4 d-none">
-      <div class="card-body">
-        <h4 id="formTitle">Качи нова рецепта</h4>
-        <form id="recipeForm" class="row g-3 mt-2">
-          <div class="col-12"><label class="form-label">Заглавие</label><input name="title" class="form-control" required /></div>
-          <div class="col-12"><label class="form-label">Описание</label><textarea name="description" class="form-control" rows="2" required></textarea></div>
-          <div class="col-md-6"><label class="form-label">Съставки (по един на ред)</label><textarea name="ingredients" class="form-control" rows="4" required></textarea></div>
-          <div class="col-md-6"><label class="form-label">Стъпки (по една на ред)</label><textarea name="steps" class="form-control" rows="4" required></textarea></div>
-          <div class="col-md-3"><label class="form-label">Калории</label><input type="number" name="calories" class="form-control" min="0" /></div>
-          <div class="col-md-3"><label class="form-label">Протеини</label><input type="number" name="protein" class="form-control" min="0" step="0.1" /></div>
-          <div class="col-md-3"><label class="form-label">Въглехидрати</label><input type="number" name="carbs" class="form-control" min="0" step="0.1" /></div>
-          <div class="col-md-3"><label class="form-label">Мазнини</label><input type="number" name="fat" class="form-control" min="0" step="0.1" /></div>
-          <div class="col-md-6">
-            <label class="form-label">Категория</label>
-            <select name="category" class="form-select">
-              <option value="breakfast">Закуска</option>
-              <option value="lunch" selected>Обяд</option>
-              <option value="dinner">Вечеря</option>
-              <option value="dessert">Десерт</option>
-              <option value="snack">Междинно хранене</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Диета</label>
-            <div class="d-flex flex-wrap gap-2">
-              <label class="form-check"><input type="checkbox" name="dietary" value="vegan" class="form-check-input" /> Веган</label>
-              <label class="form-check"><input type="checkbox" name="dietary" value="keto" class="form-check-input" /> Кето</label>
-              <label class="form-check"><input type="checkbox" name="dietary" value="gluten-free" class="form-check-input" /> Без глутен</label>
-              <label class="form-check"><input type="checkbox" name="dietary" value="high-protein" class="form-check-input" /> Висок протеин</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Изображение (качи в Supabase Storage)</label>
-            <input type="file" name="image" class="form-control" accept="image/*" />
-          </div>
-          <div class="col-12 d-flex gap-2">
-            <button type="submit" class="btn btn-success"><i class="bi bi-upload"></i> Публикувай</button>
-            <button type="button" id="cancelFormBtn" class="btn btn-outline-secondary">Отказ</button>
-          </div>
-        </form>
-      </div>
+      <button id="showFormBtn" class="btn btn-success" type="button"><i class="bi bi-plus-lg"></i> Качи рецепта</button>
     </div>
 
     <input type="search" id="searchInput" class="form-control mb-3" placeholder="Търсене..." />
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <button type="button" id="favoritesToggleBtn" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-heart"></i> Любими
+      </button>
+    </div>
     <div class="mb-2"><small class="text-muted text-uppercase">Категория</small></div>
     <div class="d-flex flex-wrap gap-2 mb-3" id="categoryFilters"></div>
     <div class="mb-2"><small class="text-muted text-uppercase">Диета</small></div>
@@ -68,6 +30,99 @@
     <div class="row g-4" id="recipeGrid"></div>
   </main>
   <div id="footer"></div>
+
+  <div class="modal fade" id="recipeFormModal" tabindex="-1" aria-labelledby="formTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formTitle">Качи нова рецепта</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <div class="modal-body">
+          <form id="recipeForm" class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Заглавие</label>
+              <input name="recipeTitle" class="form-control" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Описание</label>
+              <textarea name="description" class="form-control" rows="2" required></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Съставки (по един на ред)</label>
+              <textarea name="ingredients" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Стъпки (по една на ред)</label>
+              <textarea name="steps" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Калории</label>
+              <input type="number" name="calories" class="form-control" min="0" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Протеини</label>
+              <input type="number" name="protein" class="form-control" min="0" step="0.1" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Въглехидрати</label>
+              <input type="number" name="carbs" class="form-control" min="0" step="0.1" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Мазнини</label>
+              <input type="number" name="fat" class="form-control" min="0" step="0.1" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Категория</label>
+              <select name="category" class="form-select">
+                <option value="breakfast">Закуска</option>
+                <option value="lunch" selected>Обяд</option>
+                <option value="dinner">Вечеря</option>
+                <option value="dessert">Десерт</option>
+                <option value="snack">Междинно хранене</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Диета</label>
+              <div class="d-flex flex-wrap gap-2">
+                <label class="form-check"><input type="checkbox" name="dietary" value="vegan" class="form-check-input" /> Веган</label>
+                <label class="form-check"><input type="checkbox" name="dietary" value="keto" class="form-check-input" /> Кето</label>
+                <label class="form-check"><input type="checkbox" name="dietary" value="gluten-free" class="form-check-input" /> Без глутен</label>
+                <label class="form-check"><input type="checkbox" name="dietary" value="high-protein" class="form-check-input" /> Висок протеин</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Изображение (качи в Supabase Storage)</label>
+              <input type="file" name="image" class="form-control" accept="image/*" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+          <button type="submit" form="recipeForm" class="btn btn-success"><i class="bi bi-upload"></i> Публикувай</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteRecipeModal" tabindex="-1" aria-labelledby="deleteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalTitle">Изтриване на рецепта</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0">Сигурни ли сте, че искате да изтриете тази рецепта? Действието не може да бъде отменено.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+          <button type="button" id="confirmDeleteBtn" class="btn btn-danger"><i class="bi bi-trash"></i> Изтрий</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/src/js/pages/recepti.js"></script>
 </body>
 </html>

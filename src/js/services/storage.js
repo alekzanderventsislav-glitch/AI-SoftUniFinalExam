@@ -1,19 +1,25 @@
 import { getSupabaseOrThrow } from '../supabaseClient.js';
 
-const BUCKET = 'recipe-images';
-
 export async function uploadRecipeImage(file, userId) {
+  return uploadImage(file, userId, 'recipe-images');
+}
+
+export async function uploadWorkoutImage(file, userId) {
+  return uploadImage(file, userId, 'workout-images');
+}
+
+async function uploadImage(file, userId, bucket) {
   const ext = file.name.split('.').pop();
   const fileName = `${userId}/${Date.now()}.${ext}`;
 
   const { error: uploadError } = await getSupabaseOrThrow()
     .storage
-    .from(BUCKET)
+    .from(bucket)
     .upload(fileName, file, { upsert: false });
 
   if (uploadError) throw uploadError;
 
-  const { data } = getSupabaseOrThrow().storage.from(BUCKET).getPublicUrl(fileName);
+  const { data } = getSupabaseOrThrow().storage.from(bucket).getPublicUrl(fileName);
   return data.publicUrl;
 }
 

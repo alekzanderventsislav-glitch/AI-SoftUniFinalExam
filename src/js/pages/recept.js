@@ -47,10 +47,18 @@ async function initRecept() {
           <ol class="list-group list-group-numbered">
             ${(recipe.steps || []).map((s) => `<li class="list-group-item">${s}</li>`).join('')}
           </ol>
+          <div id="ownerActions" class="mt-4 d-flex gap-2"></div>
         </div>
       </div>`;
 
     const user = await getCurrentUser();
+    if (user && recipe.author_id === user.id) {
+      document.getElementById('ownerActions').innerHTML = `
+        <a href="/recepti.html?edit=${recipe.id}" class="btn btn-outline-success">
+          <i class="bi bi-pencil"></i> Редактирай
+        </a>`;
+    }
+
     const favBtn = document.getElementById('favBtn');
     if (user) {
       let favorites = await fetchFavorites(user.id);
