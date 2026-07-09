@@ -45,7 +45,7 @@ export const foods = [
   { id: 'f19', name: 'Гръцко кисело мляко', category: 'dairy', calories: 59, protein: 10, carbs: 3.6, fat: 0.4, image: IMG('photo-1571212515410-9d1a0b703929') },
   { id: 'f20', name: 'Сирене', category: 'dairy', calories: 402, protein: 25, carbs: 1.3, fat: 33, image: IMG('photo-1486297678162-ebfa3be50184') },
   { id: 'f21', name: 'Извара', category: 'dairy', calories: 98, protein: 11, carbs: 3.4, fat: 4.3, image: IMG('photo-1628088062856-d10cdbfd35d4') },
-  { id: 'f22', name: 'Овесени ядки', category: 'grains', calories: 389, protein: 17, carbs: 66, fat: 7, image: IMG('photo-1517673400267-025144f4420a') },
+  { id: 'f22', name: 'Овесени ядки', category: 'grains', calories: 389, protein: 17, carbs: 66, fat: 7, image: IMG('photo-1528207776546-365bb710ee93') },
   { id: 'f23', name: 'Киноа', category: 'grains', calories: 120, protein: 4.4, carbs: 21, fat: 1.9, image: IMG('photo-1586201375767-2b74c778ed90') },
   { id: 'f24', name: 'Ориз', category: 'grains', calories: 130, protein: 2.7, carbs: 28, fat: 0.3, image: IMG('photo-1516683286713-cb654259f1da') },
   { id: 'f25', name: 'Пълнозърнест хляб', category: 'grains', calories: 247, protein: 13, carbs: 41, fat: 3.4, image: IMG('photo-1509440159596-0249088772ff') },

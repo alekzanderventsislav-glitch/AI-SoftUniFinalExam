@@ -10,7 +10,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "db:migrate": "node scripts/run-migration.mjs",
-    "db:seed": "node scripts/run-seed.mjs"
+    "db:seed": "node scripts/run-seed.mjs",
+    "db:fix-images": "node scripts/run-fix-images.mjs"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

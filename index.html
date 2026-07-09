@@ -117,8 +117,11 @@
               </div>
               <div class="mt-3 d-flex gap-2 flex-wrap">
                 <button class="btn btn-sm btn-outline-warning" data-add-cal="100">+100</button>
+                <button class="btn btn-sm btn-outline-warning" data-sub-cal="100">−100</button>
                 <button class="btn btn-sm btn-outline-warning" data-add-cal="250">+250</button>
+                <button class="btn btn-sm btn-outline-warning" data-sub-cal="250">−250</button>
                 <button class="btn btn-sm btn-outline-warning" data-add-cal="500">+500</button>
+                <button class="btn btn-sm btn-outline-warning" data-sub-cal="500">−500</button>
               </div>
             </div>
           </div>
@@ -133,7 +136,10 @@
               <div class="progress progress-water" style="height:10px">
                 <div class="progress-bar" id="waterBar" style="width:0%"></div>
               </div>
-              <button class="btn btn-sm btn-outline-primary mt-3" id="addWaterBtn"><i class="bi bi-plus"></i> Добави чаша</button>
+              <div class="mt-3 d-flex gap-2 flex-wrap">
+                <button class="btn btn-sm btn-outline-primary" id="addWaterBtn"><i class="bi bi-plus"></i> Добави чаша</button>
+                <button class="btn btn-sm btn-outline-secondary" id="removeWaterBtn"><i class="bi bi-dash"></i> Премахни чаша</button>
+              </div>
             </div>
           </div>
         </div>

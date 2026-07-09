@@ -7,7 +7,7 @@ import { fetchFavorites } from '../services/favorites.js';
 import { fetchRecipeById } from '../services/recipes.js';
 import { getWorkoutById } from '../data/workouts.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
+import { resolveRecipeImage, recipeImgOnError, resolveImage, IMAGE_FALLBACKS } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function initProfil() {
@@ -68,7 +68,7 @@ async function initProfil() {
         <h5><i class="bi bi-heart text-danger"></i> Любими рецепти</h5>
         ${favRecipes.length ? favRecipes.map((r) => `
           <a href="/recept.html?id=${r.id}" class="d-flex align-items-center gap-3 text-decoration-none text-dark card mb-2 p-2">
-            <img src="${resolveImage(r.image_url)}" width="56" height="56" class="rounded object-fit-cover" alt="">
+            <img src="${resolveRecipeImage(r.image_url)}" width="56" height="56" class="rounded object-fit-cover" alt="" onerror="${recipeImgOnError()}">
             <div><div class="fw-semibold">${r.title}</div><small class="text-success">${r.calories} kcal</small></div>
           </a>`).join('') : '<p class="text-muted">Няма любими рецепти.</p>'}
       </div>

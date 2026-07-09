@@ -19,6 +19,21 @@ export function resolveImage(url, fallback) {
   return trimmed || fallback || IMAGE_FALLBACKS.recipe;
 }
 
+const BROKEN_RECIPE_IMAGE_IDS = ['photo-1517673400267'];
+const OATMEAL_RECIPE_IMAGE = 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=800&h=500&fit=crop';
+
+export function resolveRecipeImage(url) {
+  const trimmed = typeof url === 'string' ? url.trim() : '';
+  if (BROKEN_RECIPE_IMAGE_IDS.some((id) => trimmed.includes(id))) {
+    return OATMEAL_RECIPE_IMAGE;
+  }
+  return resolveImage(url, IMAGE_FALLBACKS.recipe);
+}
+
+export function recipeImgOnError(fallback = IMAGE_FALLBACKS.recipe) {
+  return `this.onerror=null;this.src='${fallback}'`;
+}
+
 export function linesToArray(text) {
   return text.split('\n').map((s) => s.trim()).filter(Boolean);
 }
