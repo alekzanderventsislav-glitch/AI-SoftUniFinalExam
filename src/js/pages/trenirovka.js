@@ -50,7 +50,7 @@ async function initTrenirovka() {
             <p class="text-muted">${workout.description}</p>
             ${workout.authorName ? `<p class="small text-muted mb-0"><i class="bi bi-person"></i> ${workout.authorName}</p>` : ''}
           </div>
-          <button id="favBtn" class="btn btn-outline-danger"><i class="bi bi-heart"></i></button>
+          <button id="favBtn" type="button" class="btn btn-outline-danger flex-shrink-0"><i class="bi bi-heart"></i></button>
         </div>
         <div class="d-flex gap-3 my-4 flex-wrap">
           <div class="bg-success-subtle rounded-3 p-3"><small class="text-muted">Продължителност</small><div class="fw-bold">${workout.duration} мин</div></div>
@@ -101,6 +101,7 @@ async function initTrenirovka() {
         favorites = await fetchFavorites(user.id);
         const isFav = isFavorited(favorites, 'workout', workout.id);
         favBtn.innerHTML = `<i class="bi bi-heart${isFav ? '-fill' : ''}"></i>`;
+        favBtn.classList.toggle('active', isFav);
       });
     } else {
       favBtn.disabled = true;

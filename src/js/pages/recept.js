@@ -25,7 +25,7 @@ async function initRecept() {
           <img src="${resolveRecipeImage(recipe.image_url, recipe.title)}" class="img-fluid rounded-3 w-100" alt="${recipe.title}" loading="lazy" onerror="${recipeImgOnError()}">
         </div>
         <div class="col-lg-6">
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between align-items-start">
             <div>
               <span class="badge bg-success-subtle text-success">${getCategoryLabel(recipe.category)}</span>
               ${(recipe.dietary || []).map((d) => `<span class="badge bg-primary-subtle text-primary">${getDietaryLabel(d)}</span>`).join('')}
@@ -33,13 +33,13 @@ async function initRecept() {
               <p class="text-muted">${recipe.description}</p>
               <p class="small text-muted"><i class="bi bi-person"></i> ${recipe.authorName}</p>
             </div>
-            <button id="favBtn" class="btn btn-outline-danger"><i class="bi bi-heart"></i></button>
+            <button id="favBtn" type="button" class="btn btn-outline-danger flex-shrink-0"><i class="bi bi-heart"></i></button>
           </div>
           <div class="row g-2 my-3">
-            <div class="col-3"><div class="bg-warning-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.calories}</div><small>kcal</small></div></div>
-            <div class="col-3"><div class="bg-primary-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.protein}г</div><small>П</small></div></div>
-            <div class="col-3"><div class="bg-warning-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.carbs}г</div><small>В</small></div></div>
-            <div class="col-3"><div class="bg-secondary-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.fat}г</div><small>М</small></div></div>
+            <div class="col-6 col-md-3"><div class="bg-warning-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.calories}</div><small>kcal</small></div></div>
+            <div class="col-6 col-md-3"><div class="bg-primary-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.protein}г</div><small>Протеин</small></div></div>
+            <div class="col-6 col-md-3"><div class="bg-warning-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.carbs}г</div><small>Въглехидрати</small></div></div>
+            <div class="col-6 col-md-3"><div class="bg-secondary-subtle rounded p-2 text-center"><div class="fw-bold">${recipe.fat}г</div><small>Мазнини</small></div></div>
           </div>
           <h4>Съставки</h4>
           <ul class="list-group mb-4">
@@ -77,12 +77,14 @@ async function initRecept() {
       let favorites = await fetchFavorites(user.id);
       const fav = isFavorited(favorites, 'recipe', recipe.id);
       favBtn.innerHTML = `<i class="bi bi-heart${fav ? '-fill' : ''}"></i>`;
+      if (fav) favBtn.classList.add('active');
       favBtn.addEventListener('click', async () => {
         const added = await toggleFavorite(user.id, 'recipe', recipe.id);
         showToast(added ? 'Добавено в любими!' : 'Премахнато от любими.', added ? 'success' : 'info');
         favorites = await fetchFavorites(user.id);
         const isFav = isFavorited(favorites, 'recipe', recipe.id);
         favBtn.innerHTML = `<i class="bi bi-heart${isFav ? '-fill' : ''}"></i>`;
+        favBtn.classList.toggle('active', isFav);
       });
     } else {
       favBtn.disabled = true;
