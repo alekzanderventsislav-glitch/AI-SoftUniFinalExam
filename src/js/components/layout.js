@@ -5,24 +5,47 @@ import { isSupabaseConfigured, supabaseKeyError } from '../supabaseClient.js';
 import { escapeHtml, getAuthorDisplayName } from '../utils/helpers.js';
 
 const NAV_LINKS = [
-  { href: '/index.html', label: 'Начало' },
-  { href: '/hrani.html', label: 'Каталог на храните' },
-  { href: '/trenirovki.html', label: 'Тренировки' },
-  { href: '/recepti.html', label: 'Споделени Рецепти' },
-  { href: '/obshnost.html', label: 'Общност' },
-  { href: '/profil.html', label: 'Профил' },
+  { href: '/index.html', label: 'Начало', icon: 'bi-house-door' },
+  { href: '/hrani.html', label: 'Каталог на храните', icon: 'bi-egg-fried' },
+  { href: '/trenirovki.html', label: 'Тренировки', icon: 'nav-icon-dumbbell', iconCustom: true },
+  { href: '/recepti.html', label: 'Споделени Рецепти', icon: 'bi-journal-richtext' },
+  { href: '/obshnost.html', label: 'Общност', icon: 'bi-people' },
+  { href: '/profil.html', label: 'Профил', icon: 'bi-person-circle' },
 ];
 
 function isActive(href) {
   const path = window.location.pathname;
   if (href === '/index.html') return path === '/' || path.endsWith('index.html');
-  return path.endsWith(href.replace('/', ''));
+  const file = href.replace('/', '');
+  if (file === 'trenirovki.html') return path.endsWith('trenirovki.html') || path.endsWith('trenirovka.html');
+  if (file === 'recepti.html') return path.endsWith('recepti.html') || path.endsWith('recept.html');
+  return path.endsWith(file);
+}
+
+function renderNavIcon(link) {
+  if (link.iconCustom) {
+    return `<span class="nav-custom-icon ${link.icon}" aria-hidden="true"></span>`;
+  }
+  return `<i class="bi ${link.icon}"></i>`;
+}
+
+function ensurePageBackground() {
+  if (document.querySelector('.page-bg')) return;
+  document.body.insertAdjacentHTML('afterbegin', `
+    <div class="page-bg" aria-hidden="true">
+      <div class="page-bg__mesh"></div>
+      <div class="page-bg__orb page-bg__orb--1"></div>
+      <div class="page-bg__orb page-bg__orb--2"></div>
+    </div>
+  `);
 }
 
 export async function renderLayout() {
   const navbarEl = document.getElementById('navbar');
   const footerEl = document.getElementById('footer');
   if (!navbarEl || !footerEl) return;
+
+  ensurePageBackground();
 
   let user = null;
   let role = null;
@@ -45,29 +68,39 @@ export async function renderLayout() {
   const visibleNavLinks = user ? NAV_LINKS : [{ href: '/index.html', label: 'Начало' }];
 
   navbarEl.innerHTML = `
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold text-success d-flex align-items-center gap-2" href="/index.html">
-          <i class="bi bi-leaf"></i> Здравословен Живот
+    <nav class="navbar navbar-expand-lg navbar-refined sticky-top">
+      <div class="container-fluid container-xxl px-3 px-lg-4">
+        <a class="navbar-brand navbar-brand-refined fw-bold d-flex align-items-center gap-2" href="/index.html">
+          <i class="bi bi-leaf"></i>
+          <span>Здравословен Живот</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Меню">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav nav-main flex-lg-row flex-nowrap me-lg-auto mb-2 mb-lg-0">
             ${visibleNavLinks.map((link) => `
               <li class="nav-item">
-                <a class="nav-link ${isActive(link.href) ? 'active fw-semibold text-success' : ''}" href="${link.href}">${link.label}</a>
+                <a class="nav-link ${isActive(link.href) ? 'active' : ''}" href="${link.href}">
+                  ${renderNavIcon(link)}
+                  <span>${link.label}</span>
+                </a>
               </li>
             `).join('')}
-            ${user && canAccessStaffPanel(role) ? `<li class="nav-item"><a class="nav-link text-danger fw-semibold" href="/admin.html"><i class="bi bi-shield-lock"></i> ${role === 'admin' ? 'Админ панел' : 'Управление'}</a></li>` : ''}
+            ${user && canAccessStaffPanel(role) ? `
+              <li class="nav-item">
+                <a class="nav-link nav-link-admin ${window.location.pathname.endsWith('admin.html') ? 'active' : ''}" href="/admin.html">
+                  <i class="bi bi-shield-lock"></i>
+                  <span>${role === 'admin' ? 'Админ Панел' : 'Управление'}</span>
+                </a>
+              </li>` : ''}
           </ul>
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2 ms-lg-2 nav-auth-actions">
             ${user
-              ? `<span class="text-muted small d-none d-md-inline"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}${canAccessStaffPanel(role) ? ` <span class="badge ${getRoleBadgeClass(role)}">${getRoleLabel(role)}</span>` : ''}</span>
-                 <button class="btn btn-outline-success btn-sm" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Изход</button>`
-              : `<a href="/login.html" class="btn btn-success btn-sm"><i class="bi bi-box-arrow-in-right"></i> Вход</a>
-                 <a href="/register.html" class="btn btn-outline-success btn-sm d-none d-sm-inline-block"><i class="bi bi-person-plus"></i> Регистрация</a>`
+              ? `<span class="text-muted small d-none d-xl-inline nav-user-chip"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}${canAccessStaffPanel(role) ? ` <span class="badge ${getRoleBadgeClass(role)}">${getRoleLabel(role)}</span>` : ''}</span>
+                 <button class="btn btn-outline-success btn-sm nav-action-btn" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Изход</button>`
+              : `<a href="/login.html" class="btn btn-success btn-sm nav-action-btn"><i class="bi bi-box-arrow-in-right"></i> Вход</a>
+                 <a href="/register.html" class="btn btn-outline-success btn-sm d-none d-sm-inline-block nav-action-btn"><i class="bi bi-person-plus"></i> Регистрация</a>`
             }
           </div>
         </div>
@@ -92,7 +125,7 @@ export async function renderLayout() {
   `;
 
   footerEl.innerHTML = `
-    <footer class="bg-white border-top mt-5 py-4">
+    <footer class="footer-modern mt-5 py-4">
       <div class="container">
         <div class="row g-4">
           <div class="col-md-4">

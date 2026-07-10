@@ -3,18 +3,276 @@
 :root {
   --zl-primary: #198754;
   --zl-primary-dark: #146c43;
-  --zl-bg: #f8fdf9;
+  --zl-bg: #f7faf8;
+  --zl-surface: rgba(255, 255, 255, 0.88);
 }
 
 body {
-  background-color: var(--zl-bg);
+  background-color: transparent;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  position: relative;
+  color: #3d4f56;
 }
+
+#navbar,
+main,
+#footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft unified background */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    165deg,
+    #fbfcfb 0%,
+    #f6faf8 28%,
+    #eff6f2 52%,
+    #f4f8f6 78%,
+    #fafcfb 100%
+  );
+}
+
+.page-bg__mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-image:
+    radial-gradient(ellipse 75% 55% at 12% 0%, rgba(209, 231, 221, 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 65% 50% at 88% 8%, rgba(232, 245, 238, 0.5) 0%, transparent 52%),
+    radial-gradient(ellipse 80% 45% at 50% 100%, rgba(220, 237, 228, 0.35) 0%, transparent 55%);
+}
+
+.page-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(88px);
+  opacity: 0.28;
+  animation: orbDrift 28s ease-in-out infinite;
+}
+
+.page-bg__orb--1 {
+  width: min(38vw, 380px);
+  height: min(38vw, 380px);
+  top: -10%;
+  right: -4%;
+  background: #d8ebe2;
+}
+
+.page-bg__orb--2 {
+  width: min(32vw, 320px);
+  height: min(32vw, 320px);
+  bottom: 5%;
+  left: -6%;
+  background: #e5f0ea;
+  animation-delay: -12s;
+}
+
+@keyframes orbDrift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(12px, -10px); }
+}
+
+/* Refined navbar – single row on desktop */
+.navbar-refined {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(25, 135, 84, 0.07);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.navbar-brand-refined {
+  color: var(--zl-primary) !important;
+  font-size: 1.02rem;
+  white-space: nowrap;
+}
+
+.navbar-brand-refined .bi-leaf {
+  font-size: 1.25rem;
+}
+
+.nav-main {
+  gap: 0.1rem;
+}
+
+.nav-main .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.72rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #5f6b73;
+  white-space: nowrap;
+  border-radius: 0.5rem;
+  position: relative;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-main .nav-link .bi {
+  font-size: 0.92rem;
+  opacity: 0.8;
+}
+
+.nav-custom-icon {
+  display: inline-block;
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.nav-icon-dumbbell {
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='5' width='3' height='6' rx='1' fill='black'/%3E%3Crect x='12' y='5' width='3' height='6' rx='1' fill='black'/%3E%3Crect x='4' y='7' width='8' height='2' rx='0.5' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='5' width='3' height='6' rx='1' fill='black'/%3E%3Crect x='12' y='5' width='3' height='6' rx='1' fill='black'/%3E%3Crect x='4' y='7' width='8' height='2' rx='0.5' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.nav-main .nav-link:hover .nav-custom-icon,
+.nav-main .nav-link.active .nav-custom-icon {
+  opacity: 1;
+}
+
+.nav-main .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0.72rem;
+  right: 0.72rem;
+  bottom: 0.18rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--zl-primary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+}
+
+.nav-main .nav-link:hover,
+.nav-main .nav-link:focus-visible {
+  color: var(--zl-primary);
+  background: rgba(25, 135, 84, 0.06);
+}
+
+.nav-main .nav-link:hover::after,
+.nav-main .nav-link:focus-visible::after {
+  transform: scaleX(0.55);
+}
+
+.nav-main .nav-link.active {
+  color: var(--zl-primary);
+  font-weight: 600;
+  background: rgba(25, 135, 84, 0.09);
+}
+
+.nav-main .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.nav-main .nav-link-admin {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.nav-main .nav-link-admin .bi {
+  color: #dc3545;
+  opacity: 1;
+}
+
+.nav-main .nav-link-admin.active,
+.nav-main .nav-link-admin:hover {
+  color: #b02a37;
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.nav-main .nav-link-admin.active::after,
+.nav-main .nav-link-admin:hover::after {
+  background: #dc3545;
+}
+
+.nav-user-chip {
+  padding: 0.3rem 0.6rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.nav-action-btn {
+  border-radius: 2rem !important;
+}
+
+.footer-modern {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(25, 135, 84, 0.06);
+}
+
+@media (max-width: 991.98px) {
+  .nav-main .nav-link {
+    padding: 0.55rem 0.75rem;
+    width: 100%;
+  }
+
+  .nav-main .nav-link::after {
+    display: none;
+  }
+
+  .nav-auth-actions {
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .nav-main .nav-link {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.8rem;
+  }
+
+  .navbar-brand-refined span {
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg__orb {
+    animation: none;
+  }
+
+  .nav-main .nav-link::after {
+    transition: none;
+  }
+}
+
 
 main {
   flex: 1;
+}
+
+.card {
+  background: var(--zl-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.04);
 }
 
 .navbar-brand .bi-leaf {
