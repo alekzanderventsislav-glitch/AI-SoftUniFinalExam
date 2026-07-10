@@ -161,3 +161,38 @@ export function formatShortDate(dateKey) {
     month: 'short',
   });
 }
+
+export function formatRelativeTime(isoDate) {
+  if (!isoDate) return '';
+  const date = new Date(isoDate);
+  const diffMs = Date.now() - date.getTime();
+  const minutes = Math.floor(diffMs / 60000);
+  if (minutes < 1) return 'току-що';
+  if (minutes < 60) return `${minutes} мин`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} ч`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} д`;
+  return date.toLocaleDateString('bg-BG', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+export function formatMessageTime(isoDate) {
+  if (!isoDate) return '';
+  return new Date(isoDate).toLocaleTimeString('bg-BG', { hour: '2-digit', minute: '2-digit' });
+}
+
+const AVATAR_COLORS = ['#198754', '#0d6efd', '#6f42c1', '#fd7e14', '#d63384', '#20c997'];
+
+export function getAvatarInitials(name) {
+  const parts = String(name || '?').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return '?';
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return `${parts[0].charAt(0)}${parts[1].charAt(0)}`.toUpperCase();
+}
+
+export function getAvatarColor(name) {
+  const str = String(name || '');
+  let hash = 0;
+  for (let i = 0; i < str.length; i += 1) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}

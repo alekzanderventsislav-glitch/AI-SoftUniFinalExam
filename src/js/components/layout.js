@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/hrani.html', label: 'Каталог на храните' },
   { href: '/trenirovki.html', label: 'Тренировки' },
   { href: '/recepti.html', label: 'Споделени Рецепти' },
+  { href: '/obshnost.html', label: 'Общност' },
   { href: '/profil.html', label: 'Профил' },
 ];
 

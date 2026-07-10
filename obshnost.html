@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Общност – Здравословен Живот</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <div id="navbar"></div>
+  <main class="container py-4">
+    <div class="page-header mb-3">
+      <h1><i class="bi bi-people text-success"></i> Общност</h1>
+      <p class="text-muted mb-0">Свържете се, споделете новини и задавайте въпроси</p>
+    </div>
+
+    <ul class="nav nav-pills community-tabs mb-4" id="communityTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="chat-tab" data-bs-toggle="pill" data-bs-target="#chatPanel" type="button" role="tab">
+          <i class="bi bi-chat-dots"></i> Чат
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="news-tab" data-bs-toggle="pill" data-bs-target="#newsPanel" type="button" role="tab">
+          <i class="bi bi-newspaper"></i> Сподели новина
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="questions-tab" data-bs-toggle="pill" data-bs-target="#questionsPanel" type="button" role="tab">
+          <i class="bi bi-question-circle"></i> Въпроси
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="chatPanel" role="tabpanel">
+        <div class="community-chat-layout card border-0 shadow-sm">
+          <div class="row g-0">
+            <div class="col-lg-8 community-chat-main">
+              <div class="community-chat-header">
+                <h2 class="h5 mb-0"><i class="bi bi-chat-left-text"></i> Чат</h2>
+                <span class="text-muted small" id="chatOnlineCount"></span>
+              </div>
+              <div class="community-chat-messages" id="chatMessages"></div>
+              <form id="chatForm" class="community-chat-form">
+                <input type="text" name="message" class="form-control" placeholder="Напишете съобщение..." maxlength="1000" required autocomplete="off" />
+                <button type="submit" class="btn btn-success"><i class="bi bi-send"></i></button>
+              </form>
+            </div>
+            <div class="col-lg-4 community-chat-sidebar border-start">
+              <div class="p-3 border-bottom">
+                <h3 class="h6 mb-2">Детайли</h3>
+                <p class="text-muted small mb-0">Запознайте се с други хора в общността. Моля, спазвайте правилата!</p>
+              </div>
+              <div class="p-3">
+                <div class="small text-uppercase text-muted mb-2">Членове</div>
+                <div id="chatMembersList" class="community-members-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="newsPanel" role="tabpanel">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div class="text-muted small" id="newsCountLabel"></div>
+          <button type="button" class="btn btn-success btn-sm" id="newNewsBtn"><i class="bi bi-plus-lg"></i> Нова новина</button>
+        </div>
+        <div id="newsFeed" class="community-feed"></div>
+      </div>
+
+      <div class="tab-pane fade" id="questionsPanel" role="tabpanel">
+        <div class="community-hero-banner mb-4">
+          <h2 class="h4 mb-1">Попитай и сподели!</h2>
+          <p class="mb-0 opacity-75">Задавай въпроси | Споделяй опит за здравословен живот</p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div class="d-flex flex-wrap gap-2" id="questionCategoryFilters"></div>
+          <button type="button" class="btn btn-success btn-sm" id="newQuestionBtn"><i class="bi bi-plus-lg"></i> Нов въпрос</button>
+        </div>
+        <div id="questionsList" class="community-questions-list"></div>
+      </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+
+  <!-- Post detail modal -->
+  <div class="modal fade" id="postDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="postDetailTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <div class="modal-body" id="postDetailBody"></div>
+        <div class="modal-footer flex-column align-items-stretch">
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <button type="button" class="btn btn-sm btn-outline-danger" id="postLikeBtn"><i class="bi bi-heart"></i> <span id="postLikeCount">0</span></button>
+            <span class="text-muted small"><i class="bi bi-chat"></i> <span id="postCommentCount">0</span> коментара</span>
+          </div>
+          <div id="postCommentsList" class="community-comments-list mb-3"></div>
+          <form id="postCommentForm" class="d-flex gap-2">
+            <input type="text" name="comment" class="form-control" placeholder="Напишете коментар..." required maxlength="1000" />
+            <button type="submit" class="btn btn-success">Изпрати</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New news modal -->
+  <div class="modal fade" id="newNewsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Сподели новина</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <form id="newNewsForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Заглавие</label>
+              <input type="text" name="title" class="form-control" required maxlength="200" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Съдържание</label>
+              <textarea name="content" class="form-control" rows="5" required maxlength="5000"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Снимка (по избор)</label>
+              <input type="file" name="image" class="form-control" accept="image/*" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+            <button type="submit" class="btn btn-success">Публикувай</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- New question modal -->
+  <div class="modal fade" id="newQuestionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Нов въпрос</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Затвори"></button>
+        </div>
+        <form id="newQuestionForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Заглавие</label>
+              <input type="text" name="title" class="form-control" required maxlength="200" placeholder="Какъв е въпросът ви?" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Категория</label>
+              <select name="question_category" class="form-select" id="newQuestionCategory"></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Описание</label>
+              <textarea name="content" class="form-control" rows="5" required maxlength="5000" placeholder="Добавете детайли..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отказ</button>
+            <button type="submit" class="btn btn-success">Публикувай</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/js/pages/obshnost.js"></script>
+</body>
+</html>

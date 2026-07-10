@@ -33,6 +33,7 @@ export default defineConfig({
         recept: resolve(__dirname, 'recept.html'),
         profil: resolve(__dirname, 'profil.html'),
         admin: resolve(__dirname, 'admin.html'),
+        obshnost: resolve(__dirname, 'obshnost.html'),
         mfaSetup: resolve(__dirname, 'mfa-setup.html'),
         mfaVerify: resolve(__dirname, 'mfa-verify.html'),
       },

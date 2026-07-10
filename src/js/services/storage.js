@@ -8,6 +8,10 @@ export async function uploadWorkoutImage(file, userId) {
   return uploadImage(file, userId, 'workout-images');
 }
 
+export async function uploadCommunityImage(file, userId) {
+  return uploadImage(file, userId, 'community-images');
+}
+
 export async function uploadFoodImage(file) {
   const ext = file.name.split('.').pop();
   const fileName = `admin/${Date.now()}.${ext}`;
