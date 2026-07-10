@@ -238,8 +238,8 @@ npm run preview  # preview на build
 
 | Поле | Стойност |
 |------|----------|
-| Имейл | `admin@zdravosloven.bg` |
-| Парола | `Admin123` |
+| Имейл | `superadmin@zdravosloven.bg` |
+| Парола | `admin1234` |
 | Роля | `admin` |
 
 > За жури акаунтът трябва да е създаден в Supabase Auth и да има роля `admin` в `user_roles`.  
@@ -263,7 +263,7 @@ npm run preview  # preview на build
 | Admin panel + RBAC | ✅ |
 | RLS policies | ✅ |
 | Минимум 4 DB таблици | ✅ 12 таблици |
-| DB migrations в Git | ✅ |
+| DB migrations в Git | ✅ | 
 | File upload (Storage) | ✅ |
 | File download | ✅ `.txt` export на рецепта/тренировка |
 | GitHub repo + 15+ commits | ✅ |
