@@ -1,4 +1,6 @@
 import { getSupabaseOrThrow, isSupabaseConfigured } from './supabaseClient.js';
+import { fetchProfile } from './services/profiles.js';
+import { getMfaRedirectPath } from './services/mfa.js';
 
 export async function getSession() {
   if (!isSupabaseConfigured) return null;
@@ -45,6 +47,40 @@ export async function loginUser({ email, password }) {
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   if (error) throw error;
   return data;
+}
+
+export async function resolvePostLoginRedirect(returnUrl = '/index.html') {
+  const user = await getCurrentUser();
+  if (!user) return returnUrl;
+
+  const profile = await fetchProfile(user.id).catch(() => null);
+  if (!profile) return returnUrl;
+
+  const mfaPath = await getMfaRedirectPath(profile);
+  if (!mfaPath) return returnUrl;
+
+  const encodedReturn = encodeURIComponent(returnUrl);
+  return `${mfaPath}?return=${encodedReturn}`;
+}
+
+export async function ensureMfaCompliance(returnUrl) {
+  const user = await getCurrentUser();
+  if (!user) return true;
+
+  const profile = await fetchProfile(user.id).catch(() => null);
+  if (!profile) return true;
+
+  const mfaPath = await getMfaRedirectPath(profile);
+  if (!mfaPath) return true;
+
+  const currentPath = window.location.pathname;
+  if (currentPath.endsWith('mfa-setup.html') || currentPath.endsWith('mfa-verify.html')) {
+    return true;
+  }
+
+  const encodedReturn = encodeURIComponent(returnUrl || window.location.pathname + window.location.search);
+  window.location.href = `${mfaPath}?return=${encodedReturn}`;
+  return false;
 }
 
 export async function logoutUser() {

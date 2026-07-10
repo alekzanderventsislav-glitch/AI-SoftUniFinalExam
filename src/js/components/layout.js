@@ -1,4 +1,4 @@
-import { getCurrentUser, getUserRole, logoutUser, requireAuth, requireAdmin } from '../auth.js';
+import { ensureMfaCompliance, getCurrentUser, getUserRole, logoutUser, requireAuth, requireAdmin } from '../auth.js';
 import { fetchProfile } from '../services/profiles.js';
 import { isSupabaseConfigured, supabaseKeyError } from '../supabaseClient.js';
 import { escapeHtml, getAuthorDisplayName } from '../utils/helpers.js';
@@ -127,9 +127,17 @@ export async function initPage(pageInit, options = {}) {
   if (options.requireAdmin) {
     const session = await requireAdmin();
     if (!session) return;
+    if (!options.skipMfaCheck) {
+      const ok = await ensureMfaCompliance();
+      if (!ok) return;
+    }
   } else if (options.requireAuth) {
     const session = await requireAuth();
     if (!session) return;
+    if (!options.skipMfaCheck) {
+      const ok = await ensureMfaCompliance();
+      if (!ok) return;
+    }
   }
 
   if (pageInit) await pageInit();

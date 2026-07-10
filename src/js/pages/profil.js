@@ -59,6 +59,17 @@ async function initProfil() {
         </div>
       </div>
       <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-person-lines-fill text-success"></i> Контактна информация</h5>
+            <form id="contactForm" class="row g-3 mt-2">
+              <div class="col-md-6"><label class="form-label">Телефон</label><input type="tel" name="phone" class="form-control" value="${profile.phone || ''}" placeholder="+359..."></div>
+              <div class="col-md-6"><label class="form-label">Професия</label><input type="text" name="profession" class="form-control" value="${profile.profession || ''}"></div>
+              <div class="col-12"><label class="form-label">Адрес</label><textarea name="address" class="form-control" rows="2">${profile.address || ''}</textarea></div>
+              <div class="col-12"><button type="submit" class="btn btn-outline-success btn-sm"><i class="bi bi-save"></i> Запази контакти</button></div>
+            </form>
+          </div>
+        </div>
         <div class="card">
           <div class="card-body">
             <h5><i class="bi bi-bullseye text-success"></i> Дневни цели</h5>
@@ -92,6 +103,17 @@ async function initProfil() {
           </a>`).join('') : '<p class="text-muted">Няма любими тренировки.</p>'}
       </div>
     </div>`;
+
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    await updateProfile(user.id, {
+      phone: String(fd.get('phone') || '').trim(),
+      profession: String(fd.get('profession') || '').trim(),
+      address: String(fd.get('address') || '').trim(),
+    });
+    showToast('Контактната информация е запазена!');
+  });
 
   document.getElementById('profileForm').addEventListener('submit', async (e) => {
     e.preventDefault();

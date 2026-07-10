@@ -1,7 +1,7 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
-import { loginUser } from '../auth.js';
+import { loginUser, resolvePostLoginRedirect } from '../auth.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { getQueryParam } from '../utils/helpers.js';
 
@@ -20,7 +20,8 @@ async function initLogin() {
 
     try {
       await loginUser({ email, password });
-      window.location.href = decodeURIComponent(returnUrl);
+      const redirectTo = await resolvePostLoginRedirect(returnUrl);
+      window.location.href = redirectTo;
     } catch (err) {
       const msg = err.message || '';
       if (msg === 'Invalid login credentials') {

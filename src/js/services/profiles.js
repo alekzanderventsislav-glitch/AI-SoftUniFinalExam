@@ -52,10 +52,9 @@ export async function fetchAllProfilesAdmin() {
 }
 
 export async function setUserRole(userId, role) {
-  const client = getSupabaseOrThrow();
-
-  await client.from('user_roles').delete().eq('user_id', userId);
-
-  const { error } = await client.from('user_roles').insert({ user_id: userId, role });
+  const { error } = await getSupabaseOrThrow().rpc('admin_set_user_role', {
+    p_user_id: userId,
+    p_role: role,
+  });
   if (error) throw error;
 }
