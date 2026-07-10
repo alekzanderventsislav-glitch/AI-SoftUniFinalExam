@@ -8,6 +8,7 @@ import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorit
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { getQueryParam, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
 import { getCategoryLabel, getDietaryLabel } from '../data/tips.js';
+import { downloadRecipe } from '../utils/download.js';
 import { showToast } from '../components/toast.js';
 
 async function initRecept() {
@@ -48,9 +49,19 @@ async function initRecept() {
           <ol class="list-group list-group-numbered">
             ${(recipe.steps || []).map((s) => `<li class="list-group-item">${s}</li>`).join('')}
           </ol>
-          <div id="ownerActions" class="mt-4 d-flex gap-2"></div>
+          <div id="detailActions" class="mt-4 d-flex flex-wrap gap-2"></div>
+          <div id="ownerActions" class="mt-2 d-flex flex-wrap gap-2"></div>
         </div>
       </div>`;
+
+    document.getElementById('detailActions').innerHTML = `
+      <button type="button" class="btn btn-outline-primary" id="downloadRecipeBtn">
+        <i class="bi bi-download"></i> Изтегли
+      </button>`;
+    document.getElementById('downloadRecipeBtn').addEventListener('click', () => {
+      downloadRecipe(recipe);
+      showToast('Рецептата е изтеглена.');
+    });
 
     const user = await getCurrentUser();
     const userRole = user ? await getUserRole(user.id) : 'user';

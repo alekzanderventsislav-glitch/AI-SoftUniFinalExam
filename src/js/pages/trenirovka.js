@@ -8,6 +8,7 @@ import { canManageWorkouts } from '../data/roles.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { getQueryParam, resolveWorkoutImage, workoutImgOnError } from '../utils/helpers.js';
+import { downloadWorkout } from '../utils/download.js';
 import { showToast } from '../components/toast.js';
 
 async function resolveWorkout(id) {
@@ -64,9 +65,19 @@ async function initTrenirovka() {
               <span class="badge bg-success rounded-pill">${ex.duration}</span>
             </li>`).join('')}
         </ol>
-        <div id="ownerActions" class="mt-4 d-flex gap-2"></div>
+        <div id="detailActions" class="mt-4 d-flex flex-wrap gap-2"></div>
+        <div id="ownerActions" class="mt-2 d-flex flex-wrap gap-2"></div>
       </div>
     </div>`;
+
+  document.getElementById('detailActions').innerHTML = `
+    <button type="button" class="btn btn-outline-primary" id="downloadWorkoutBtn">
+      <i class="bi bi-download"></i> Изтегли
+    </button>`;
+  document.getElementById('downloadWorkoutBtn').addEventListener('click', () => {
+    downloadWorkout(workout);
+    showToast('Тренировката е изтеглена.');
+  });
 
   const favBtn = document.getElementById('favBtn');
   if (isSupabaseConfigured) {
