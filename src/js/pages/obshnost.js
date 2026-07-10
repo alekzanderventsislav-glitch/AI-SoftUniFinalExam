@@ -65,7 +65,10 @@ function renderAvatar(name, size = 'md') {
 }
 
 function renderAdminBadge(role) {
-  return role === 'admin' ? '<span class="badge bg-primary ms-1">ADMIN</span>' : '';
+  if (role === 'admin') return '<span class="badge bg-primary ms-1">ADMIN</span>';
+  if (role === 'trainer') return '<span class="badge bg-warning text-dark ms-1">ТРЕНЬОР</span>';
+  if (role === 'dietitian') return '<span class="badge bg-info text-dark ms-1">ДИЕТОЛОГ</span>';
+  return '';
 }
 
 function truncateText(text, max = 180) {

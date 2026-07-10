@@ -1,5 +1,6 @@
 import { getSupabaseOrThrow } from '../supabaseClient.js';
 import { getAuthorDisplayName } from '../utils/helpers.js';
+import { buildRoleMap } from '../data/roles.js';
 
 export async function fetchUserWorkouts() {
   const { data, error } = await getSupabaseOrThrow()
@@ -99,11 +100,7 @@ export async function fetchAllUserWorkoutsAdmin() {
   if (rolesError) throw rolesError;
 
   const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
-  const roleMap = {};
-  (roles || []).forEach((row) => {
-    if (row.role === 'admin') roleMap[row.user_id] = 'admin';
-    else if (!roleMap[row.user_id]) roleMap[row.user_id] = row.role;
-  });
+  const roleMap = buildRoleMap(roles);
 
   return workouts.map((row) => ({
     ...row,
@@ -141,11 +138,7 @@ async function attachAuthorNames(rows) {
   if (rolesError) throw rolesError;
 
   const profileMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
-  const roleMap = {};
-  (roles || []).forEach((row) => {
-    if (row.role === 'admin') roleMap[row.user_id] = 'admin';
-    else if (!roleMap[row.user_id]) roleMap[row.user_id] = row.role;
-  });
+  const roleMap = buildRoleMap(roles);
 
   return rows.map((row) => mapUserWorkout({
     ...row,

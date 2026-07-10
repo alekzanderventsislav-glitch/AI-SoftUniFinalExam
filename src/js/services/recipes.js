@@ -1,5 +1,6 @@
 import { getSupabaseOrThrow } from '../supabaseClient.js';
 import { getAuthorDisplayName } from '../utils/helpers.js';
+import { buildRoleMap } from '../data/roles.js';
 
 export async function fetchRecipes() {
   const { data, error } = await getSupabaseOrThrow()
@@ -145,15 +146,6 @@ async function attachAuthorNames(rows) {
     profiles: profileMap[row.author_id] || null,
     authorRole: roleMap[row.author_id] || 'user',
   }));
-}
-
-function buildRoleMap(rows) {
-  const roleMap = {};
-  (rows || []).forEach((row) => {
-    if (row.role === 'admin') roleMap[row.user_id] = 'admin';
-    else if (!roleMap[row.user_id]) roleMap[row.user_id] = row.role;
-  });
-  return roleMap;
 }
 
 function mapRecipe(row) {

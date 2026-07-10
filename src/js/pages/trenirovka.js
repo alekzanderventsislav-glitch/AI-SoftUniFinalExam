@@ -3,10 +3,11 @@ import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { getWorkoutById, getDifficultyLabel, getGoalLabel } from '../data/workouts.js';
 import { fetchUserWorkoutById } from '../services/workouts.js';
-import { getCurrentUser, isAdmin } from '../auth.js';
+import { getCurrentUser, getUserRole } from '../auth.js';
+import { canManageWorkouts } from '../data/roles.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { getQueryParam, resolveWorkoutImage, workoutImgOnError, canManageContent } from '../utils/helpers.js';
+import { getQueryParam, resolveWorkoutImage, workoutImgOnError } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 async function resolveWorkout(id) {
@@ -70,9 +71,9 @@ async function initTrenirovka() {
   const favBtn = document.getElementById('favBtn');
   if (isSupabaseConfigured) {
     const user = await getCurrentUser();
-    const userIsAdmin = user ? await isAdmin() : false;
+    const userRole = user ? await getUserRole(user.id) : 'user';
     if (user) {
-      if (workout.isUserCreated && canManageContent(user, workout.author_id, userIsAdmin)) {
+      if (workout.isUserCreated && canManageWorkouts(userRole, user, workout.author_id)) {
         document.getElementById('ownerActions').innerHTML = `
           <a href="/trenirovki.html?edit=${workout.id}" class="btn btn-outline-success">
             <i class="bi bi-pencil"></i> Редактирай

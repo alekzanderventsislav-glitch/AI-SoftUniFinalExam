@@ -1,6 +1,7 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
+import { getRoleBadgeClass, getRoleLabel } from '../data/roles.js';
 import { getCurrentUser, getUserRole } from '../auth.js';
 import { fetchProfile, updateProfile } from '../services/profiles.js';
 import { fetchFavorites } from '../services/favorites.js';
@@ -49,7 +50,7 @@ async function initProfil() {
             <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width:64px;height:64px;font-size:1.5rem;font-weight:bold;">
               ${displayName.charAt(0).toUpperCase()}
             </div>
-            <h4 class="mt-3">${displayName}${role === 'admin' ? ' <span class="badge admin-badge">Админ</span>' : ''}</h4>
+            <h4 class="mt-3">${displayName}${role !== 'user' ? ` <span class="badge ${getRoleBadgeClass(role)}">${getRoleLabel(role)}</span>` : ''}</h4>
             <p class="text-muted small">${user.email}</p>
             <div class="d-flex justify-content-around mt-3 small">
               <div><strong>${favRecipes.length}</strong><br>рецепти</div>

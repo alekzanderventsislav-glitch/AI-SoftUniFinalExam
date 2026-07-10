@@ -41,8 +41,8 @@ export async function fetchAllProfilesAdmin() {
 
   const rolesByUser = {};
   (roles || []).forEach((row) => {
-    if (row.role === 'admin') rolesByUser[row.user_id] = [{ role: 'admin' }];
-    else if (!rolesByUser[row.user_id]) rolesByUser[row.user_id] = [{ role: row.role }];
+    if (!rolesByUser[row.user_id]) rolesByUser[row.user_id] = [];
+    rolesByUser[row.user_id].push({ role: row.role });
   });
 
   return (profiles || []).map((profile) => ({

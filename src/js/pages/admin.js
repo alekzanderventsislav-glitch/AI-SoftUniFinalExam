@@ -8,6 +8,13 @@ import { fetchAllUserWorkoutsAdmin, deleteUserWorkout } from '../services/workou
 import { fetchAllFoodsAdmin, createFood, updateFood, deleteFood } from '../services/foods.js';
 import { uploadFoodImage, validateImageFile } from '../services/storage.js';
 import { FOOD_CATEGORIES, getCategoryLabel } from '../data/foods.js';
+import { getCurrentUser, getUserRole as getAuthUserRole } from '../auth.js';
+import {
+  getRoleBadgeClass,
+  getRoleLabel,
+  getStaffTabs,
+  pickPrimaryRole,
+} from '../data/roles.js';
 import { getAuthorDisplayName } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
@@ -20,6 +27,7 @@ let editingUserRole = null;
 let editingFoodId = null;
 let allFoods = [];
 let foodSearchTerm = '';
+let staffRole = 'user';
 
 function getEditUserModal() {
   if (!editUserModal) {
@@ -42,17 +50,48 @@ function getEditFoodModal() {
   return editFoodModal;
 }
 
-function getUserRole(profile) {
-  return profile.user_roles?.some((r) => r.role === 'admin') ? 'admin' : (profile.user_roles?.[0]?.role || 'user');
+function getProfileRole(profile) {
+  return pickPrimaryRole(profile.user_roles || []);
+}
+
+function renderRoleBadge(role) {
+  return `<span class="badge ${getRoleBadgeClass(role)}">${getRoleLabel(role)}</span>`;
+}
+
+function configureStaffTabs() {
+  const allowed = getStaffTabs(staffRole);
+  const tabMap = {
+    users: 'users-tab',
+    recipes: 'recipes-tab',
+    workouts: 'workouts-tab',
+    foods: 'foods-tab',
+  };
+
+  Object.entries(tabMap).forEach(([key, id]) => {
+    const tabBtn = document.getElementById(id);
+    const panel = document.getElementById(`${key}Panel`);
+    const visible = allowed.includes(key);
+    tabBtn?.closest('li')?.classList.toggle('d-none', !visible);
+    if (!visible) {
+      tabBtn?.classList.remove('active');
+      panel?.classList.remove('show', 'active');
+    }
+  });
+
+  const firstTab = allowed[0];
+  if (firstTab) {
+    document.getElementById(tabMap[firstTab])?.classList.add('active');
+    document.getElementById(`${firstTab}Panel`)?.classList.add('show', 'active');
+  }
 }
 
 function openEditUserModal(profile) {
   editingUserId = profile.id;
-  editingUserRole = getUserRole(profile);
+  editingUserRole = getProfileRole(profile);
   const form = document.getElementById('editUserForm');
   form.elements.userId.value = profile.id;
-  form.elements.full_name.value = getAuthorDisplayName(profile.full_name, getUserRole(profile));
-  form.elements.role.value = getUserRole(profile);
+  form.elements.full_name.value = getAuthorDisplayName(profile.full_name, editingUserRole);
+  form.elements.role.value = editingUserRole;
   form.elements.phone.value = profile.phone || '';
   form.elements.address.value = profile.address || '';
   form.elements.profession.value = profile.profession || '';
@@ -135,22 +174,24 @@ async function initAdmin() {
   let profiles = [];
   let workouts = [];
   let loadError = '';
+  const tabs = getStaffTabs(staffRole);
 
   try {
-    [recipes, profiles, workouts, allFoods] = await Promise.all([
-      fetchAllRecipesAdmin(),
-      fetchAllProfilesAdmin(),
-      fetchAllUserWorkoutsAdmin(),
-      fetchAllFoodsAdmin(),
-    ]);
+    const tasks = [];
+    if (tabs.includes('recipes')) tasks.push(fetchAllRecipesAdmin().then((r) => { recipes = r; }));
+    if (tabs.includes('users')) tasks.push(fetchAllProfilesAdmin().then((r) => { profiles = r; }));
+    if (tabs.includes('workouts')) tasks.push(fetchAllUserWorkoutsAdmin().then((r) => { workouts = r; }));
+    if (tabs.includes('foods')) tasks.push(fetchAllFoodsAdmin().then((r) => { allFoods = r; }));
+    await Promise.all(tasks);
   } catch (err) {
     loadError = err.message || 'Грешка при зареждане на данните.';
-    try { profiles = await fetchAllProfilesAdmin(); } catch { /* ignore */ }
-    try { recipes = await fetchAllRecipesAdmin(); } catch { /* ignore */ }
-    try { workouts = await fetchAllUserWorkoutsAdmin(); } catch { /* ignore */ }
-    try { allFoods = await fetchAllFoodsAdmin(); } catch { /* ignore */ }
+    if (tabs.includes('users')) try { profiles = await fetchAllProfilesAdmin(); } catch { /* ignore */ }
+    if (tabs.includes('recipes')) try { recipes = await fetchAllRecipesAdmin(); } catch { /* ignore */ }
+    if (tabs.includes('workouts')) try { workouts = await fetchAllUserWorkoutsAdmin(); } catch { /* ignore */ }
+    if (tabs.includes('foods')) try { allFoods = await fetchAllFoodsAdmin(); } catch { /* ignore */ }
   }
 
+  document.querySelectorAll('main .alert.alert-warning').forEach((el) => el.remove());
   if (loadError) {
     document.querySelector('main .page-header')?.insertAdjacentHTML(
       'afterend',
@@ -158,49 +199,55 @@ async function initAdmin() {
     );
   }
 
-  const adminCount = profiles.filter((p) => getUserRole(p) === 'admin').length;
+  const adminCount = profiles.filter((p) => getProfileRole(p) === 'admin').length;
+  const trainerCount = profiles.filter((p) => getProfileRole(p) === 'trainer').length;
+  const dietitianCount = profiles.filter((p) => getProfileRole(p) === 'dietitian').length;
 
-  document.getElementById('adminStats').innerHTML = `
-    <div class="col-6 col-md-4 col-lg">
-      <div class="card text-center"><div class="card-body"><h3>${profiles.length}</h3><p class="text-muted mb-0">Потребители</p></div></div>
-    </div>
-    <div class="col-6 col-md-4 col-lg">
-      <div class="card text-center"><div class="card-body"><h3>${recipes.length}</h3><p class="text-muted mb-0">Рецепти</p></div></div>
-    </div>
-    <div class="col-6 col-md-4 col-lg">
-      <div class="card text-center"><div class="card-body"><h3>${workouts.length}</h3><p class="text-muted mb-0">Тренировки</p></div></div>
-    </div>
-    <div class="col-6 col-md-4 col-lg">
-      <div class="card text-center"><div class="card-body"><h3>${allFoods.length}</h3><p class="text-muted mb-0">Храни</p></div></div>
-    </div>
-    <div class="col-6 col-md-4 col-lg">
-      <div class="card text-center"><div class="card-body"><h3>${adminCount}</h3><p class="text-muted mb-0">Админи</p></div></div>
-    </div>`;
+  const stats = [];
+  if (tabs.includes('users')) {
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${profiles.length}</h3><p class="text-muted mb-0">Потребители</p></div></div></div>`);
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${adminCount}</h3><p class="text-muted mb-0">Админи</p></div></div></div>`);
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${trainerCount}</h3><p class="text-muted mb-0">Треньори</p></div></div></div>`);
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${dietitianCount}</h3><p class="text-muted mb-0">Диетолози</p></div></div></div>`);
+  }
+  if (tabs.includes('recipes')) {
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${recipes.length}</h3><p class="text-muted mb-0">Рецепти</p></div></div></div>`);
+  }
+  if (tabs.includes('workouts')) {
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${workouts.length}</h3><p class="text-muted mb-0">Тренировки</p></div></div></div>`);
+  }
+  if (tabs.includes('foods')) {
+    stats.push(`<div class="col-6 col-md-4 col-lg"><div class="card text-center"><div class="card-body"><h3>${allFoods.length}</h3><p class="text-muted mb-0">Храни</p></div></div></div>`);
+  }
+  document.getElementById('adminStats').innerHTML = stats.join('');
 
-  document.getElementById('usersTable').innerHTML = profiles.map((p) => {
-    const role = getUserRole(p);
-    const displayName = getAuthorDisplayName(p.full_name, role);
-    return `
-    <tr>
-      <td>${displayName}${role === 'admin' ? ' <span class="badge admin-badge">Админ</span>' : ''}</td>
-      <td>${p.phone || '<span class="text-muted">—</span>'}</td>
-      <td>${p.profession || '<span class="text-muted">—</span>'}</td>
-      <td><span class="badge ${role === 'admin' ? 'bg-danger' : 'bg-secondary'}">${role === 'admin' ? 'Админ' : 'Потребител'}</span></td>
-      <td>
-        <div class="form-check form-switch mb-0">
-          <input class="form-check-input" type="checkbox" role="switch" data-mfa-toggle="${p.id}" ${p.mfa_required ? 'checked' : ''} aria-label="2FA за ${displayName}" />
-        </div>
-      </td>
-      <td>${new Date(p.created_at).toLocaleDateString('bg-BG')}</td>
-      <td>
-        <button type="button" class="btn btn-sm btn-outline-success" data-edit-user="${p.id}">
-          <i class="bi bi-pencil"></i> Редактирай
-        </button>
-      </td>
-    </tr>`;
-  }).join('') || '<tr><td colspan="7" class="text-center text-muted">Няма потребители</td></tr>';
+  if (tabs.includes('users')) {
+    document.getElementById('usersTable').innerHTML = profiles.map((p) => {
+      const role = getProfileRole(p);
+      const displayName = getAuthorDisplayName(p.full_name, role);
+      return `
+      <tr>
+        <td>${displayName}${role !== 'user' ? ` ${renderRoleBadge(role)}` : ''}</td>
+        <td>${p.phone || '<span class="text-muted">—</span>'}</td>
+        <td>${p.profession || '<span class="text-muted">—</span>'}</td>
+        <td>${renderRoleBadge(role)}</td>
+        <td>
+          <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" role="switch" data-mfa-toggle="${p.id}" ${p.mfa_required ? 'checked' : ''} aria-label="2FA за ${displayName}" />
+          </div>
+        </td>
+        <td>${new Date(p.created_at).toLocaleDateString('bg-BG')}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-outline-success" data-edit-user="${p.id}">
+            <i class="bi bi-pencil"></i> Редактирай
+          </button>
+        </td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="7" class="text-center text-muted">Няма потребители</td></tr>';
+  }
 
-  document.getElementById('recipesTable').innerHTML = recipes.map((r) => `
+  if (tabs.includes('recipes')) {
+    document.getElementById('recipesTable').innerHTML = recipes.map((r) => `
     <tr>
       <td>${r.title}</td>
       <td>${r.authorName || getAuthorDisplayName(r.profiles?.full_name, r.authorRole)}</td>
@@ -212,8 +259,10 @@ async function initAdmin() {
         <button class="btn btn-sm btn-outline-danger" data-del-recipe="${r.id}"><i class="bi bi-trash"></i></button>
       </td>
     </tr>`).join('') || '<tr><td colspan="5" class="text-center text-muted">Няма рецепти</td></tr>';
+  }
 
-  document.getElementById('workoutsTable').innerHTML = workouts.map((w) => `
+  if (tabs.includes('workouts')) {
+    document.getElementById('workoutsTable').innerHTML = workouts.map((w) => `
     <tr>
       <td>${w.title}</td>
       <td>${w.authorName || '—'}</td>
@@ -225,8 +274,11 @@ async function initAdmin() {
         <button class="btn btn-sm btn-outline-danger" data-del-workout="${w.id}"><i class="bi bi-trash"></i></button>
       </td>
     </tr>`).join('') || '<tr><td colspan="5" class="text-center text-muted">Няма тренировки</td></tr>';
+  }
 
-  renderFoodsTable();
+  if (tabs.includes('foods')) {
+    renderFoodsTable();
+  }
 
   const profileMap = Object.fromEntries(profiles.map((p) => [p.id, p]));
   const foodMap = Object.fromEntries(allFoods.map((f) => [f.id, f]));
@@ -347,4 +399,21 @@ function bindAdminControls() {
 }
 
 bindAdminControls();
-initPage(initAdmin, { requireAdmin: true });
+
+async function bootAdmin() {
+  const user = await getCurrentUser();
+  if (!user) return;
+  staffRole = await getAuthUserRole(user.id);
+  configureStaffTabs();
+
+  const subtitle = document.querySelector('main .page-header p');
+  if (subtitle && staffRole === 'trainer') {
+    subtitle.textContent = 'Управление на тренировки';
+  } else if (subtitle && staffRole === 'dietitian') {
+    subtitle.textContent = 'Управление на рецепти и храни';
+  }
+
+  await initAdmin();
+}
+
+initPage(bootAdmin, { requireAdmin: true });

@@ -2,10 +2,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { fetchRecipeById } from '../services/recipes.js';
-import { getCurrentUser, isAdmin } from '../auth.js';
+import { getCurrentUser, getUserRole } from '../auth.js';
+import { canManageRecipes } from '../data/roles.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { getQueryParam, resolveRecipeImage, recipeImgOnError, canManageContent } from '../utils/helpers.js';
+import { getQueryParam, resolveRecipeImage, recipeImgOnError } from '../utils/helpers.js';
 import { getCategoryLabel, getDietaryLabel } from '../data/tips.js';
 import { showToast } from '../components/toast.js';
 
@@ -52,8 +53,8 @@ async function initRecept() {
       </div>`;
 
     const user = await getCurrentUser();
-    const userIsAdmin = user ? await isAdmin() : false;
-    if (canManageContent(user, recipe.author_id, userIsAdmin)) {
+    const userRole = user ? await getUserRole(user.id) : 'user';
+    if (canManageRecipes(userRole, user, recipe.author_id)) {
       document.getElementById('ownerActions').innerHTML = `
         <a href="/recepti.html?edit=${recipe.id}" class="btn btn-outline-success">
           <i class="bi bi-pencil"></i> Редактирай

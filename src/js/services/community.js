@@ -1,14 +1,6 @@
 import { getSupabaseOrThrow } from '../supabaseClient.js';
 import { getAuthorDisplayName } from '../utils/helpers.js';
-
-function buildRoleMap(roles) {
-  const map = {};
-  (roles || []).forEach((row) => {
-    if (row.role === 'admin') map[row.user_id] = 'admin';
-    else if (!map[row.user_id]) map[row.user_id] = row.role;
-  });
-  return map;
-}
+import { buildRoleMap } from '../data/roles.js';
 
 async function attachAuthors(rows) {
   if (!rows?.length) return [];

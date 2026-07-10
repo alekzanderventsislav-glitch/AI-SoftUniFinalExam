@@ -4,11 +4,12 @@ import '../../css/styles.js';
 import { initPage } from '../components/layout.js';
 import { workouts as staticWorkouts, DIFFICULTY_LEVELS, WORKOUT_GOALS, getDifficultyLabel, getGoalLabel } from '../data/workouts.js';
 import { fetchUserWorkouts, createUserWorkout, updateUserWorkout, deleteUserWorkout } from '../services/workouts.js';
-import { getCurrentUser, isAdmin } from '../auth.js';
+import { getCurrentUser, getUserRole } from '../auth.js';
+import { canManageRecipes, canManageWorkouts } from '../data/roles.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { uploadWorkoutImage, validateImageFile } from '../services/storage.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
-import { resolveWorkoutImage, workoutImgOnError, escapeHtml, getQueryParam, canManageContent } from '../utils/helpers.js';
+import { resolveWorkoutImage, workoutImgOnError, escapeHtml, getQueryParam } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let allWorkouts = [];
@@ -18,7 +19,7 @@ let searchTerm = '';
 let showFavoritesOnly = false;
 let favorites = [];
 let user = null;
-let userIsAdmin = false;
+let userRole = 'user';
 let editingId = null;
 let pendingDeleteId = null;
 let workoutModal = null;
@@ -111,7 +112,7 @@ function renderWorkouts() {
 
   document.getElementById('workoutGrid').innerHTML = filtered.map((w) => {
     const fav = user && isFavorited(favorites, 'workout', w.id);
-    const canManage = w.isUserCreated && canManageContent(user, w.author_id, userIsAdmin);
+    const canManage = w.isUserCreated && canManageWorkouts(userRole, user, w.author_id);
     const visibilityBadge = w.isUserCreated && !w.is_public
       ? '<span class="badge bg-secondary-subtle text-secondary">Лична</span>'
       : w.isUserCreated
@@ -196,7 +197,7 @@ function openForm(id = null) {
       editingId = null;
       return;
     }
-    if (!canManageContent(user, workout.author_id, userIsAdmin)) {
+    if (!canManageWorkouts(userRole, user, workout.author_id)) {
       showToast('Нямате права за редакция на тази тренировка.', 'error');
       editingId = null;
       return;
@@ -242,7 +243,7 @@ async function loadData() {
 async function initTrenirovki() {
   if (isSupabaseConfigured) {
     user = await getCurrentUser();
-    userIsAdmin = user ? await isAdmin() : false;
+    userRole = user ? await getUserRole(user.id) : 'user';
   }
 
   const uploadBtn = document.getElementById('showFormBtn');

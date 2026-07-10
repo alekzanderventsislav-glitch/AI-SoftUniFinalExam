@@ -5,10 +5,11 @@ import { initPage } from '../components/layout.js';
 import { fetchRecipes, createRecipe, updateRecipe, deleteRecipe } from '../services/recipes.js';
 import { fetchFavorites, toggleFavorite, isFavorited } from '../services/favorites.js';
 import { uploadRecipeImage, validateImageFile } from '../services/storage.js';
-import { getCurrentUser, isAdmin } from '../auth.js';
+import { getCurrentUser, getUserRole } from '../auth.js';
+import { canManageRecipes } from '../data/roles.js';
 import { isSupabaseConfigured } from '../supabaseClient.js';
 import { RECIPE_CATEGORIES, DIETARY_TAGS, getCategoryLabel, getDietaryLabel } from '../data/tips.js';
-import { linesToArray, resolveRecipeImage, recipeImgOnError, getQueryParam, canManageContent } from '../utils/helpers.js';
+import { linesToArray, resolveRecipeImage, recipeImgOnError, getQueryParam } from '../utils/helpers.js';
 import { showToast } from '../components/toast.js';
 
 let recipes = [];
@@ -18,7 +19,7 @@ let category = 'all';
 let dietary = 'all';
 let searchTerm = '';
 let showFavoritesOnly = false;
-let userIsAdmin = false;
+let userRole = 'user';
 let editingId = null;
 let pendingDeleteId = null;
 let recipeModal = null;
@@ -88,7 +89,7 @@ function renderRecipes() {
 
   document.getElementById('recipeGrid').innerHTML = filtered.map((r) => {
     const fav = user && isFavorited(favorites, 'recipe', r.id);
-    const canManage = canManageContent(user, r.author_id, userIsAdmin);
+    const canManage = canManageRecipes(userRole, user, r.author_id);
     return `
     <div class="col-md-6 col-lg-4">
       <div class="card card-hover recipe-card h-100">
@@ -197,7 +198,7 @@ async function initRecepti() {
   }
 
   user = await getCurrentUser();
-  userIsAdmin = user ? await isAdmin() : false;
+  userRole = user ? await getUserRole(user.id) : 'user';
   const uploadBtn = document.getElementById('showFormBtn');
   if (!user) {
     uploadBtn.outerHTML = '<a href="/login.html" class="btn btn-success">Влезте за да качите рецепта</a>';

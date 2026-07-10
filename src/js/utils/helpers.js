@@ -1,3 +1,5 @@
+import { getRoleLabel } from '../data/roles.js';
+
 export function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text ?? '';
@@ -11,10 +13,10 @@ export function getQueryParam(name) {
 export function getAuthorDisplayName(fullName, role) {
   const trimmed = typeof fullName === 'string' ? fullName.trim() : '';
   if (trimmed) return trimmed;
-  if (role === 'admin') return 'Админ';
-  return 'Потребител';
+  return getRoleLabel(role) || 'Потребител';
 }
 
+/** @deprecated Use canManageWorkouts / canManageRecipes from roles.js */
 export function canManageContent(user, authorId, isAdmin) {
   if (!user) return false;
   if (isAdmin) return true;

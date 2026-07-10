@@ -1,4 +1,5 @@
-import { ensureMfaCompliance, getCurrentUser, getUserRole, logoutUser, requireAuth, requireAdmin } from '../auth.js';
+import { ensureMfaCompliance, getCurrentUser, getUserRole, logoutUser, requireAuth, requireStaff } from '../auth.js';
+import { canAccessStaffPanel, getRoleBadgeClass, getRoleLabel } from '../data/roles.js';
 import { fetchProfile } from '../services/profiles.js';
 import { isSupabaseConfigured, supabaseKeyError } from '../supabaseClient.js';
 import { escapeHtml, getAuthorDisplayName } from '../utils/helpers.js';
@@ -59,11 +60,11 @@ export async function renderLayout() {
                 <a class="nav-link ${isActive(link.href) ? 'active fw-semibold text-success' : ''}" href="${link.href}">${link.label}</a>
               </li>
             `).join('')}
-            ${user && role === 'admin' ? '<li class="nav-item"><a class="nav-link text-danger fw-semibold" href="/admin.html"><i class="bi bi-shield-lock"></i> Админ панел</a></li>' : ''}
+            ${user && canAccessStaffPanel(role) ? `<li class="nav-item"><a class="nav-link text-danger fw-semibold" href="/admin.html"><i class="bi bi-shield-lock"></i> ${role === 'admin' ? 'Админ панел' : 'Управление'}</a></li>` : ''}
           </ul>
           <div class="d-flex align-items-center gap-2">
             ${user
-              ? `<span class="text-muted small d-none d-md-inline"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}${role === 'admin' ? ' <span class="badge admin-badge">Админ</span>' : ''}</span>
+              ? `<span class="text-muted small d-none d-md-inline"><i class="bi bi-person-circle"></i> ${escapeHtml(userName)}${canAccessStaffPanel(role) ? ` <span class="badge ${getRoleBadgeClass(role)}">${getRoleLabel(role)}</span>` : ''}</span>
                  <button class="btn btn-outline-success btn-sm" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Изход</button>`
               : `<a href="/login.html" class="btn btn-success btn-sm"><i class="bi bi-box-arrow-in-right"></i> Вход</a>
                  <a href="/register.html" class="btn btn-outline-success btn-sm d-none d-sm-inline-block"><i class="bi bi-person-plus"></i> Регистрация</a>`
@@ -126,7 +127,7 @@ export async function initPage(pageInit, options = {}) {
   await renderLayout();
 
   if (options.requireAdmin) {
-    const session = await requireAdmin();
+    const session = await requireStaff();
     if (!session) return;
     if (!options.skipMfaCheck) {
       const ok = await ensureMfaCompliance();
